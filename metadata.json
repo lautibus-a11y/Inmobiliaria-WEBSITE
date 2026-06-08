@@ -1,0 +1,6 @@
+{
+  "name": "Luxury Real Estate",
+  "description": "Una plataforma inmobiliaria cinematográfica y premium con animaciones avanzadas y Liquid Glass UI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
