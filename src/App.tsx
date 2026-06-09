@@ -29,29 +29,37 @@ export default function App() {
 
   // Monitor document offset layout changes to float header with glass backdrop and detect section theme
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollYPos = window.scrollY;
-      setIsScrolled(scrollYPos > 50);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollYPos = window.scrollY;
+          setIsScrolled(scrollYPos > 50);
 
-      // Detect if the navigation bar is overlapping any light section
-      const lightSectionIds = ['nosotros', 'testimonios', 'contacto'];
-      let overLight = false;
-      const testY = 50; // Reference height for the header
+          // Detect if the navigation bar is overlapping any light section
+          const lightSectionIds = ['propiedades-destacadas', 'mas-cotizadas', 'todas-propiedades', 'contacto'];
+          let overLight = false;
+          const testY = 50; // Reference height for the header
 
-      for (const id of lightSectionIds) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= testY && rect.bottom >= testY) {
-            overLight = true;
-            break;
+          for (const id of lightSectionIds) {
+            const el = document.getElementById(id);
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              if (rect.top <= testY && rect.bottom >= testY) {
+                overLight = true;
+                break;
+              }
+            }
           }
-        }
+          setIsOverLightSection(overLight);
+          ticking = false;
+        });
+        ticking = true;
       }
-      setIsOverLightSection(overLight);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial check
     
     return () => window.removeEventListener('scroll', handleScroll);

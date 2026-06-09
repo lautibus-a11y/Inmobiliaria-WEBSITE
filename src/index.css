@@ -78,12 +78,17 @@ body {
   background: rgba(185, 142, 235, 0.45);
 }
 
-/* Glassmorphism utility classes optimized for deep luxury dark canvas */
 .glass-panel {
-  background: rgba(10, 10, 10, 0.55);
-  backdrop-filter: blur(20px) saturate(120%);
-  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  background: rgba(10, 10, 10, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 768px) {
+  .glass-panel {
+    background: rgba(10, 10, 10, 0.55);
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+  }
 }
 
 
@@ -269,20 +274,22 @@ body {
     0 0 0 1px rgba(185, 142, 235, 0.08);
 }
 
-/* 2. Enhanced Glass Blur */
-.glass-blur-sm {
-  backdrop-filter: blur(8px) saturate(130%);
-  -webkit-backdrop-filter: blur(8px) saturate(130%);
-}
+/* 2. Enhanced Glass Blur - disabled on mobile to prevent performance issues */
+@media (min-width: 768px) {
+  .glass-blur-sm {
+    backdrop-filter: blur(8px) saturate(130%);
+    -webkit-backdrop-filter: blur(8px) saturate(130%);
+  }
 
-.glass-blur-md {
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-}
+  .glass-blur-md {
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+  }
 
-.glass-blur-lg {
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  .glass-blur-lg {
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+  }
 }
 
 /* 3. Liquid Glass Style (Ultra-modern glossy reflection) */
@@ -352,4 +359,25 @@ body {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Mobile performance overrides */
+@media (max-width: 767px) {
+  /* Disable background floats to reduce CPU cycles and redraws */
+  .aurora-glow-1,
+  .aurora-glow-2,
+  .aurora-glow-3 {
+    animation: none !important;
+  }
+  
+  /* Disable all backdrop filters to prevent scrolling lag */
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-\[2px\] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
 }
