@@ -1,91 +1,51 @@
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import { useEffect, useState } from 'react';
+import { motion } from 'motion/react';
 
 interface CinematicRevealProps {
   onComplete: () => void;
 }
 
 export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const barRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const footerRef = useRef<HTMLDivElement>(null);
-  const progressContainerRef = useRef<HTMLDivElement>(null);
   const [count, setCount] = useState(0);
+  const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
     // Prevent scroll while loading
     document.body.style.overflow = 'hidden';
 
-    const ctx = gsap.context(() => {
-      // Create charging animation timeline
-      const tl = gsap.timeline();
+    // Simulate loading progress
+    const duration = 2600; // 2.6s
+    const startTime = performance.now();
 
-      // Initial branding reveal stagger
-      tl.fromTo(
-        logoRef.current,
-        { scale: 0.88, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.3, ease: 'power3.out' }
-      );
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
 
-      tl.fromTo(
-        textRef.current,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 1, ease: 'power2.out' },
-        '-=0.7'
-      );
+      // Easing (power2.inOut approximation)
+      const easeProgress = progress < 0.5 
+        ? 2 * progress * progress 
+        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
-      tl.fromTo(
-        progressContainerRef.current,
-        { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 1, ease: 'power2.out' },
-        '-=0.8'
-      );
+      setCount(Math.floor(easeProgress * 100));
 
-      tl.fromTo(
-        footerRef.current,
-        { opacity: 0 },
-        { opacity: 0.6, duration: 1, ease: 'power1.out' },
-        '-=0.9'
-      );
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setIsExiting(true);
+        setTimeout(() => {
+          document.body.style.overflow = '';
+          onComplete();
+        }, 1100); // Wait for exit animation
+      }
+    };
 
-      // Loading progress animation from 0 to 100
-      const progressObj = { value: 0 };
-      tl.to(
-        progressObj,
-        {
-          value: 100,
-          duration: 2.6,
-          ease: 'power2.inOut',
-          onUpdate: () => {
-            setCount(Math.floor(progressObj.value));
-            if (barRef.current) {
-              barRef.current.style.width = `${progressObj.value}%`;
-            }
-          },
-          onComplete: () => {
-            // Smooth exit with blur, scale and fade out
-            gsap.to(containerRef.current, {
-              opacity: 0,
-              filter: 'blur(35px)',
-              scale: 1.05,
-              duration: 1.1,
-              ease: 'power3.inOut',
-              onComplete: () => {
-                // Restore normal scroll
-                document.body.style.overflow = '';
-                onComplete();
-              }
-            });
-          }
-        },
-        '-=0.4'
-      );
-    }, containerRef);
+    // Delay start slightly to allow initial stagger to appear
+    const delayTimer = setTimeout(() => {
+      requestAnimationFrame(animate);
+    }, 800);
 
     return () => {
-      ctx.revert();
+      clearTimeout(delayTimer);
       document.body.style.overflow = '';
     };
   }, [onComplete]);
@@ -94,8 +54,10 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
   const formattedCount = count < 10 ? `0${count}` : `${count}`;
 
   return (
-    <div
-      ref={containerRef}
+    <motion.div
+      initial={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+      animate={isExiting ? { opacity: 0, filter: 'blur(35px)', scale: 1.05 } : {}}
+      transition={{ duration: 1.1, ease: [0.32, 0, 0.67, 0] }}
       className="fixed top-0 left-0 w-full h-full bg-[#030303] z-50 flex flex-col items-center justify-center select-none overflow-hidden"
       style={{ willChange: 'opacity, filter, transform' }}
     >
@@ -108,8 +70,10 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
       <div className="relative z-10 flex flex-col items-center justify-center w-full px-6 text-center max-w-2xl mx-auto">
         
         {/* Large Logo Image */}
-        <div 
-          ref={logoRef} 
+        <motion.div 
+          initial={{ scale: 0.88, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.3, ease: 'easeOut' }}
           className="w-[72vw] sm:w-[60vw] md:w-[50vw] max-w-[380px] lg:max-w-[440px] h-auto mx-auto overflow-hidden"
         >
           <img 
@@ -117,26 +81,30 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
             alt="Aurelia Propiedades Logo" 
             className="w-full h-auto object-contain mx-auto filter drop-shadow-[0_0_25px_rgba(185,142,235,0.2)]"
           />
-        </div>
+        </motion.div>
 
         {/* Branding Title */}
-        <div 
-          ref={textRef} 
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: 'easeOut', delay: 0.6 }}
           className="text-white text-lg sm:text-2xl font-display font-light tracking-[0.2em] mt-6 sm:mt-8 mb-10 sm:mb-12 text-center mx-auto select-none"
         >
           Aurelia <strong className="font-semibold text-purple-300">Propiedades</strong>
-        </div>
+        </motion.div>
 
         {/* Slider & Progress bar container */}
-        <div 
-          ref={progressContainerRef} 
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: 'easeOut', delay: 0.7 }}
           className="w-full max-w-[280px] sm:max-w-[340px] space-y-4 mx-auto"
         >
           {/* Progress bar line */}
           <div className="w-full h-[2px] bg-white/5 rounded-full overflow-hidden relative">
             <div
-              ref={barRef}
-              className="absolute left-0 top-0 bottom-0 w-0 bg-gradient-to-r from-purple-400 via-violet-500 to-indigo-500 rounded-full"
+              className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-purple-400 via-violet-500 to-indigo-500 rounded-full"
+              style={{ width: `${count}%`, transition: 'width 0.1s linear' }}
             />
           </div>
 
@@ -145,16 +113,18 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
             <span>CARGANDO SISTEMA</span>
             <span className="text-purple-300 font-bold">{formattedCount}%</span>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Footer Branding credits - Responsive position and size */}
-      <div 
-        ref={footerRef}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ duration: 1, ease: 'easeOut', delay: 0.8 }}
         className="absolute bottom-6 sm:bottom-8 text-center text-[9px] sm:text-xs font-mono text-gray-600 tracking-wider px-4 z-10"
       >
         Desarrollado por <span className="text-purple-400 font-semibold">Broadcastweb</span> • Todos los derechos reservados
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
