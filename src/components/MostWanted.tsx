@@ -15,7 +15,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
   return (
     <div
       id="mas-cotizadas"
-      className="relative w-full py-16 lg:py-24 dynamic-light-lilac-gradient border-y border-neutral-200/50 overflow-hidden"
+      className="relative w-full py-16 lg:py-24 dynamic-light-lilac-gradient border-y border-neutral-200/50"
     >
       <div className="relative w-full flex flex-col justify-center">
         {/* Background neon soft blur */}
@@ -51,7 +51,10 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
         </div>
 
         {/* Horizontal track carrying items - native horizontal swipe everywhere */}
-        <div className="relative w-full overflow-x-auto snap-x snap-mandatory no-scrollbar px-6 md:px-12 pb-8 pt-4 flex gap-6">
+        <div 
+          className="relative w-full overflow-x-auto snap-x snap-mandatory no-scrollbar px-6 md:px-12 pb-8 pt-4 flex gap-6"
+          style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-x' }}
+        >
           {mostWantedList.map((property) => (
             <div
               key={property.id}

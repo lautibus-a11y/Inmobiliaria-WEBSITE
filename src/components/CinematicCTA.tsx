@@ -10,7 +10,7 @@ export default function CinematicCTA() {
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none filter brightness-[0.75] contrast-[0.95]"
+        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
       >
         <source src="/video-ctl/video-ctl.mp4" type="video/mp4" />
       </video>

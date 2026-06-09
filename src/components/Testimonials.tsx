@@ -9,9 +9,7 @@ export default function Testimonials() {
   return (
     <motion.section
       id="testimonios"
-      className="py-24 relative overflow-hidden text-white border-t border-white/5"
-      animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-      transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
+      className="py-24 relative overflow-hidden text-white border-t border-white/5 dynamic-lilac-gradient"
       style={{
         backgroundColor: "#030303",
         backgroundImage: "linear-gradient(135deg, #030303 0%, #030303 25%, #120921 50%, #030303 75%, #030303 100%)",

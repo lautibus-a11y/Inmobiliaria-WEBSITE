@@ -57,14 +57,9 @@ export default function Contact({ onSelectProperty }: ContactProps) {
     }, 1500);
   };
 
-  return (    <motion.section
+  return (    <section
       id="contacto"
       className="py-24 px-6 md:px-12 text-neutral-900 relative overflow-hidden border-t border-neutral-200/50 dynamic-light-lilac-gradient"
-      animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-      transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
-      style={{
-        backgroundSize: "400% 400%"
-      }}
     >
       <div className="max-w-7xl mx-auto relative z-10">
         
