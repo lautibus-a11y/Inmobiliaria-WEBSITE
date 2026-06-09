@@ -24,22 +24,34 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
   const [xTranslation, setXTranslation] = useState(0);
 
   useEffect(() => {
+    if (!trackRef.current) return;
+
     const calculateScroll = () => {
       if (trackRef.current) {
         const trackWidth = trackRef.current.scrollWidth;
         const viewportWidth = window.innerWidth;
-        // Calculate the translate value. We leave some padding at the end (e.g. 96px)
-        const translateVal = trackWidth - viewportWidth + 96;
+        // Adjust padding offset dynamically: 48px on mobile (<768px), 96px on desktop (>=768px)
+        const padding = viewportWidth < 768 ? 48 : 96;
+        const translateVal = trackWidth - viewportWidth + padding;
         setXTranslation(translateVal > 0 ? -translateVal : 0);
       }
     };
 
-    // Run after a short delay to ensure browser layout and images are loaded
-    const timer = setTimeout(calculateScroll, 100);
+    // Use ResizeObserver to automatically adjust to dynamic loads (like delayed images)
+    const observer = new ResizeObserver(() => {
+      calculateScroll();
+    });
+
+    observer.observe(trackRef.current);
     window.addEventListener('resize', calculateScroll);
+
+    // Initial delayed calculation trigger to let images mount
+    const timer = setTimeout(calculateScroll, 150);
+
     return () => {
-      clearTimeout(timer);
+      observer.disconnect();
       window.removeEventListener('resize', calculateScroll);
+      clearTimeout(timer);
     };
   }, [mostWantedList.length]);
 
@@ -52,7 +64,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
     <div
       ref={targetRef}
       id="mas-cotizadas"
-      className="relative h-[250vh] dynamic-light-lilac-gradient border-y border-neutral-200/50"
+      className="relative h-[300vh] dynamic-light-lilac-gradient border-y border-neutral-200/50"
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
         {/* Background neon soft blurs */}

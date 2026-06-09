@@ -98,83 +98,19 @@ export default function Contact({ onSelectProperty }: ContactProps) {
               </p>
             </div>
 
-            {/* Custom Interactive Vector Map Frame */}
-            <div className="relative w-full h-[400px] md:h-[450px] rounded-3xl bg-white/70 backdrop-blur-xl border border-neutral-200/80 overflow-hidden flex items-center justify-center select-none group/map mb-6 shadow-xl shadow-emerald-500/5">
-              
-              {/* Subtle tech background grids */}
-              <div
-                className="absolute inset-0 opacity-[0.15]"
-                style={{
-                  backgroundImage: 'radial-gradient(circle, rgba(185, 142, 235, 0.25) 1px, transparent 1px)',
-                  backgroundSize: '24px 24px',
-                }}
+            {/* Google Maps Embed Classic with lila border */}
+            <div className="relative w-full h-[400px] md:h-[450px] rounded-3xl overflow-hidden border border-[#b98eeb]/35 shadow-xl shadow-[#b98eeb]/5 mb-6">
+              <iframe
+                title="Google Maps Aurelia Propiedades"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0167132768468!2d-58.36472!3d-34.60472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a3352fd9cc8a05%3A0x6b8ec11598f822aa!2sPuerto%20Madero%2C%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1700000000000!5m2!1ses!2sar"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full filter saturate-[0.85] contrast-[0.95]"
               />
-              
-              {/* Styled digital compass overlay */}
-              <div className="absolute bottom-4 left-4 flex items-center gap-2 font-mono text-[9px] text-neutral-500 z-10">
-                <Navigation size={10} className="text-emerald-600 rotate-45" />
-                <span>PORTAFOLIO DE PROPIEDADES ACTIVO</span>
-              </div>
-
-              {/* Simple stylized world coordinate lines SVG background */}
-              <svg className="absolute inset-0 w-full h-full text-neutral-900/[0.04] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 0,200 L 800,200" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
-                <path d="M 400,0 L 400,600" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
-                <circle cx="400" cy="200" r="120" stroke="currentColor" strokeWidth="1" fill="none" strokeDasharray="2 2" />
-                <circle cx="400" cy="200" r="220" stroke="currentColor" strokeWidth="1" fill="none" strokeDasharray="3 3" />
-              </svg>
-
-              {/* Coordinate Nodes mapping */}
-              {properties.map((p) => {
-                return (
-                  <div
-                    key={p.id}
-                    className="absolute cursor-pointer"
-                    style={{ left: `${p.coordinates.x}%`, top: `${p.coordinates.y}%` }}
-                    onMouseEnter={() => !isMobile && setHoveredProperty(p)}
-                    onMouseLeave={() => !isMobile && setHoveredProperty(null)}
-                    onClick={() => onSelectProperty(p)}
-                  >
-                    {/* Glowing outer circle indicator */}
-                    <div className="relative flex items-center justify-center w-8 h-8">
-                      <motion.div
-                        animate={isMobile ? {} : { scale: [1, 2, 1], opacity: [0.3, 0.7, 0.3] }}
-                        transition={isMobile ? {} : { duration: 3, repeat: Infinity, ease: 'easeInOut', delay: Math.random() }}
-                        className={`absolute w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 ${isMobile ? 'animate-pulse' : ''}`}
-                      />
-                      <div className="relative w-2 h-2 rounded-full bg-emerald-500 group-hover/map:bg-emerald-600 border border-white shadow-lg shadow-emerald-500/30" />
-                    </div>
-                  </div>
-                );
-              })}
-
-              {/* Floating Glass dossiers tooltips */}
-              <AnimatePresence>
-                {hoveredProperty && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                    className="absolute bottom-6 mx-auto bg-white/95 backdrop-blur-xl p-4 rounded-2xl w-72 text-neutral-900 flex gap-3 shadow-2xl z-20 pointer-events-auto cursor-pointer border border-emerald-500/20"
-                    onClick={() => onSelectProperty(hoveredProperty)}
-                  >
-                    <img
-                      src={hoveredProperty.image}
-                      alt={hoveredProperty.title}
-                      referrerPolicy="no-referrer"
-                      className="w-16 h-16 rounded-xl object-cover"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <span className="text-[8px] font-mono tracking-widest text-emerald-700 block uppercase">
-                        {hoveredProperty.category}
-                      </span>
-                      <h4 className="text-xs font-display font-semibold truncate text-neutral-900">{hoveredProperty.title}</h4>
-                      <p className="text-[10px] text-neutral-500 truncate">📍 {hoveredProperty.location.split(',')[0]}</p>
-                      <span className="text-xs font-mono font-medium text-emerald-600 block mt-1">{hoveredProperty.price}</span>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
 
             {/* Direct contact points */}

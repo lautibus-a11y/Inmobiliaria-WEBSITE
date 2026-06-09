@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { MapPin, Bed, ShowerHead, Grid, ArrowUpRight } from 'lucide-react';
 import { Property } from '../types';
@@ -8,8 +9,19 @@ interface FeaturedPropertiesProps {
 }
 
 export default function FeaturedProperties({ onSelectProperty }: FeaturedPropertiesProps) {
-  // Filter core featured list properties
-  const featuredList = properties.filter((p) => p.isFeatured);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Show 3 properties on mobile, 6 properties on desktop
+  const displayList = isMobile ? properties.slice(0, 3) : properties.slice(0, 6);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -84,7 +96,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
         viewport={{ once: true, margin: '-80px' }}
         className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
-        {featuredList.map((property) => (
+        {displayList.map((property) => (
           <motion.div
             key={property.id}
             variants={cardVariants}
