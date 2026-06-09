@@ -24,9 +24,15 @@ export default function Testimonials() {
           <span className="text-xs font-mono tracking-[0.3em] uppercase text-emerald-400 font-medium">Opiniones de Clientes</span>
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
         </div>
-        <h2 className="text-3xl md:text-5xl font-display font-light text-white tracking-tight">
-          Clientes que <strong className="font-semibold">confían en nosotros</strong>
-        </h2>
+        <motion.h2
+          initial={{ opacity: 0, x: -15 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="text-3xl md:text-5xl font-display font-light text-white tracking-tight mb-4"
+        >
+          Clientes <strong className="font-semibold text-emerald-400">Satisfechos</strong>
+        </motion.h2>
       </div>
 
       {/* Infinite Autoplay Marquee row */}

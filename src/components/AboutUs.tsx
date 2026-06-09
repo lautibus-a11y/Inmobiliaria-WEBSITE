@@ -117,26 +117,25 @@ export default function AboutUs() {
         backgroundSize: "400% 400%"
       }}
     >
-      {/* 1. ANIMATED MASK SLIDE-UP TITLE */}
+      {/* 1. LIGHTWEIGHT FADE-IN TITLE */}
       <div ref={titleRef} className="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-center">
-        <div className="flex justify-center items-center gap-4 md:gap-6 overflow-hidden py-4">
+        <div className="flex justify-center items-center gap-4 md:gap-6 py-4 flex-wrap">
           {titleWords.map((word, idx) => {
             return (
-              <div key={idx} className="overflow-hidden py-2 px-1">
-                <motion.span
-                  initial={{ y: "105%", rotate: 2 }}
-                  whileInView={{ y: 0, rotate: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{
-                    duration: 1.2,
-                    delay: idx * 0.15,
-                    ease: [0.16, 1, 0.3, 1]
-                  }}
-                  className="inline-block text-4xl md:text-7xl font-display font-light text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-400 tracking-tight select-none"
-                >
-                  {word}
-                </motion.span>
-              </div>
+              <motion.span
+                key={idx}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{
+                  duration: 0.6,
+                  delay: idx * 0.15,
+                  ease: 'easeOut'
+                }}
+                className="inline-block text-4xl md:text-7xl font-display font-light text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-400 tracking-tight select-none"
+              >
+                {word}
+              </motion.span>
             );
           })}
         </div>
@@ -217,12 +216,12 @@ export default function AboutUs() {
               {descWords.map((word, wordIdx) => (
                 <motion.span
                   key={wordIdx}
-                  initial={{ opacity: 0, filter: 'blur(10px)', y: 15 }}
-                  whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{
-                    duration: 0.6,
-                    delay: wordIdx * 0.05,
+                    duration: 0.4,
+                    delay: wordIdx * 0.03,
                     ease: 'easeOut'
                   }}
                   className="text-sm md:text-base text-neutral-300 font-sans tracking-wide leading-relaxed font-light"

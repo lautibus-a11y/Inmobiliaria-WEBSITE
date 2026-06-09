@@ -69,7 +69,13 @@ export default function Contact({ onSelectProperty }: ContactProps) {
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Title */}
-        <div className="mb-16 text-center max-w-2xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, scale: 1.05 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="mb-16 text-center max-w-2xl mx-auto"
+        >
           <div className="flex items-center justify-center gap-2 mb-3">
             <span className="text-xs font-mono tracking-[0.25em] text-emerald-700 uppercase font-semibold">Contacto Directo</span>
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -80,7 +86,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
           <p className="text-neutral-600 text-sm mt-3 font-sans font-light">
             Nuestro equipo de asesores está a disposición para acompañarte y responder a tus consultas de manera inmediata.
           </p>
-        </div>
+        </motion.div>
 
         {/* Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">

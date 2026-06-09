@@ -2,8 +2,6 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Hexagon, Phone, Shield } from 'lucide-react';
 
-// Internal Premium Modules (Critical above-the-fold)
-import CustomCursor from './components/CustomCursor';
 import Hero from './components/Hero';
 import CinematicReveal from './components/CinematicReveal';
 
@@ -94,8 +92,6 @@ export default function App() {
         <CinematicReveal onComplete={() => setIsAppLoaded(true)} />
       )}
 
-      {/* 1. Custom Liquid Glass Custom Cursor for desktop viewports */}
-      <CustomCursor />
 
       {/* Global Shifting Aurora Mesh Backdrop */}
       <div className="aurora-bg-mesh">

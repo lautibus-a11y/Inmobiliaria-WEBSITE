@@ -16,26 +16,19 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2, // Delay staggered reveals by 200ms
+        staggerChildren: 0.15,
       },
     },
   };
 
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 35, 
-      scale: 0.97, 
-      filter: 'blur(4px)' 
-    },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
-      filter: 'blur(0px)',
       transition: {
-        duration: 0.85,
-        ease: [0.16, 1, 0.3, 1], // Custom cinematic bezier curve for smooth entrance
+        duration: 0.6,
+        ease: 'easeOut',
       },
     },
   };
@@ -55,18 +48,18 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5 }}
             className="flex items-center gap-2 mb-3"
           >
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             <span className="text-xs font-mono tracking-[0.3em] text-emerald-700 uppercase font-semibold">Colección Exclusiva</span>
           </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
             className="text-3xl md:text-5xl font-display font-light text-neutral-900 tracking-tight"
           >
             Propiedades <strong className="font-semibold">Destacadas</strong>
@@ -95,8 +88,8 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
           <motion.div
             key={property.id}
             variants={cardVariants}
-            style={{ willChange: 'opacity, transform, filter' }}
-            className="group rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow motion-blur-hover glass-card-reflection flex flex-col justify-between h-[520px] cursor-pointer transition-all hover:border-emerald-500/20"
+            style={{ willChange: 'opacity, transform' }}
+            className="group rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[520px] cursor-pointer transition-all hover:border-emerald-500/20 hover:-translate-y-1"
             onClick={() => onSelectProperty(property)}
           >
             {/* Top Image Section with Internal Parallax Effect */}

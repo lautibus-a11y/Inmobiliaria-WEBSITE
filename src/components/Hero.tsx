@@ -4,8 +4,6 @@ import { Sparkles } from 'lucide-react';
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -37,34 +35,6 @@ export default function Hero() {
   const bgScaleValue = isMobile ? 1 : bgScale;
   const opacityFadeValue = isMobile ? 1 : opacityFade;
 
-  // Handle subtle interactive mouse glowing position in the container viewport
-  useEffect(() => {
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      setMousePosition({ x, y });
-    };
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('mousemove', handleMouseMove);
-      container.addEventListener('mouseenter', () => setIsHovered(true));
-      container.addEventListener('mouseleave', () => setIsHovered(false));
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('mousemove', handleMouseMove);
-        container.removeEventListener('mouseenter', () => setIsHovered(true));
-        container.removeEventListener('mouseleave', () => setIsHovered(false));
-      }
-    };
-  }, []);
 
   // Split lines for majestic cinematic entry animation
   const subtitleLine = "PROPIEDADES EXCLUSIVAS";
@@ -82,17 +52,7 @@ export default function Hero() {
         <div className="absolute bottom-[-15%] right-[-10%] w-[55vw] h-[55vw] rounded-full bg-teal-500/5 blur-[120px] animate-aurora mix-blend-multiply [animation-delay:4s]" />
       </div>
 
-      {/* 2. Intelligent Mouse Reactive Glow Spot */}
-      {isHovered && (
-        <motion.div
-          className="absolute pointer-events-none w-[600px] h-[600px] rounded-full bg-emerald-500/5 blur-[120px] mix-blend-multiply z-10"
-          animate={{
-            x: mousePosition.x - 300,
-            y: mousePosition.y - 300,
-          }}
-          transition={{ type: 'tween', ease: 'backOut', duration: 0.8 }}
-        />
-      )}
+
       {/* 3. Parallax Background Canvas with Local Video */}
       <motion.div
         style={{ y: bgYValue, willChange: isMobile ? 'auto' : 'transform' }}
@@ -112,64 +72,70 @@ export default function Hero() {
         </motion.video>
       </motion.div>
 
-      {/* 5. Majestic Cinematic Text Reveal Content */}
+      {/* 5. Lightweight Animated Text Content */}
       <motion.div
         style={{ y: textYValue, opacity: opacityFadeValue }}
         className="relative z-20 text-center px-6 max-w-4xl"
       >
-        {/* Cinematic dynamic label */}
+        {/* Simple Label Fade */}
         <motion.div
-          initial={{ opacity: 0, letterSpacing: '0.2em', y: 15 }}
-          animate={{ opacity: 1, letterSpacing: '0.45em', y: 0 }}
-          transition={{ duration: 1.2, ease: 'easeOut' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
           className="flex items-center justify-center gap-2 mb-6"
         >
-          <Sparkles size={14} className="text-emerald-300 animate-spin" style={{ animationDuration: '4s' }} />
-          <span className="text-xs md:text-sm font-mono text-emerald-300 font-semibold pl-2 inline-block">
+          <Sparkles size={14} className="text-emerald-300" />
+          <span className="text-xs md:text-sm font-mono text-emerald-300 font-semibold pl-2 inline-block tracking-[0.45em]">
             {subtitleLine}
           </span>
         </motion.div>
 
-        {/* Dynamic headings reveal */}
+        {/* Lightweight Animated Title */}
         <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-bold tracking-tight text-white select-none whitespace-pre-line leading-tight">
-          <span className="block overflow-hidden relative pb-1">
-            <motion.span
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              className="inline-block"
-            >
-              {titleLine1}
-            </motion.span>
-          </span>
-          <span className="block overflow-hidden relative text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-emerald-300">
-            <motion.span
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-              className="inline-block"
-            >
-              {titleLine2}
-            </motion.span>
-          </span>
+          <div className="block pb-1">
+            {titleLine1.split(' ').map((word, idx) => (
+              <motion.span
+                key={`tl1-${idx}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 + idx * 0.1, ease: 'easeOut' }}
+                className="inline-block mr-3"
+              >
+                {word}
+              </motion.span>
+            ))}
+          </div>
+          <div className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-emerald-300">
+            {titleLine2.split(' ').map((word, idx) => (
+              <motion.span
+                key={`tl2-${idx}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 + idx * 0.1, ease: 'easeOut' }}
+                className="inline-block mr-3"
+              >
+                {word}
+              </motion.span>
+            ))}
+          </div>
         </h1>
 
-        {/* CTA scroll down indicators */}
+        {/* Actions */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
           className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 sm:px-0"
         >
           <a
             href="#propiedades-destacadas"
-            className="w-full sm:w-auto text-center px-8 py-4 rounded-xl border border-white bg-white text-neutral-950 font-semibold text-xs tracking-widest uppercase hover:bg-emerald-400 hover:border-emerald-400 transition-all cursor-pointer shadow-lg hover:shadow-emerald-500/10 interactive-hover"
+            className="w-full sm:w-auto text-center px-8 py-4 rounded-xl border border-emerald-500 bg-emerald-500 text-white font-semibold text-xs tracking-widest uppercase hover:bg-emerald-600 hover:border-emerald-600 transition-colors cursor-pointer shadow-lg interactive-hover"
           >
             Ver Catálogo
           </a>
           <a
             href="#contacto"
-            className="w-full sm:w-auto text-center px-8 py-4 border border-white/30 bg-white/10 backdrop-blur-md text-white font-semibold text-xs tracking-widest uppercase hover:bg-white hover:text-neutral-950 hover:border-white transition-all cursor-pointer interactive-hover"
+            className="w-full sm:w-auto text-center px-8 py-4 rounded-xl border border-white/30 bg-white/10 backdrop-blur-md text-white font-semibold text-xs tracking-widest uppercase hover:bg-white hover:text-neutral-950 hover:border-white transition-colors cursor-pointer interactive-hover"
           >
             Agendar Reunión
           </a>

@@ -68,9 +68,15 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
         </motion.div>
         
-        <h2 className="text-3xl md:text-5xl font-display font-light text-neutral-900 tracking-tight mb-4">
+        <motion.h2
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="text-3xl md:text-5xl font-display font-light text-neutral-900 tracking-tight mb-4"
+        >
           Propiedades <strong className="font-semibold">Disponibles</strong>
-        </h2>
+        </motion.h2>
         <p className="text-neutral-600 text-sm max-w-lg mx-auto font-sans font-light">
           Filtre la búsqueda por tipo de propiedad y encuentre su próximo destino de inversión.
         </p>
@@ -138,12 +144,12 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
             {sortedList.map((property) => (
               <motion.div
                 layout={!isMobile ? "position" : false}
-                initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 30 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
                 key={property.id}
-                className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 glass-blur-md premium-card-shadow motion-blur-hover glass-card-reflection flex flex-col justify-between h-[450px] cursor-pointer hover:border-emerald-500/30"
+                className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[450px] cursor-pointer transition-all hover:border-emerald-500/30 hover:-translate-y-1"
                 onClick={() => onSelectProperty(property)}
               >
                 {/* Photo frame */}
