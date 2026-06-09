@@ -57,7 +57,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
     }, 1500);
   };
 
-  return (    <section
+  return (    <motion.section
       id="contacto"
       className="py-24 px-6 md:px-12 text-neutral-900 relative overflow-hidden border-t border-neutral-200/50 dynamic-light-lilac-gradient"
     >

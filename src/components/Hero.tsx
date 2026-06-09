@@ -55,12 +55,20 @@ export default function Hero() {
 
       {/* 3. Parallax Background Canvas with Local Video */}
       <motion.div
-        style={{ y: bgYValue, willChange: isMobile ? 'auto' : 'transform' }}
+        style={{ 
+          y: bgYValue, 
+          willChange: isMobile ? 'auto' : 'transform',
+          transform: isMobile ? 'none' : 'translateZ(0)'
+        }}
         className={`absolute inset-0 w-full ${isMobile ? 'h-full' : 'h-[128%]'} pointer-events-none`}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/85 z-10" />
         <motion.video
-          style={{ scale: bgScaleValue, willChange: isMobile ? 'auto' : 'transform' }}
+          style={{ 
+            scale: bgScaleValue, 
+            willChange: isMobile ? 'auto' : 'transform',
+            transform: isMobile ? 'none' : 'translateZ(0)'
+          }}
           autoPlay
           muted
           loop
@@ -74,7 +82,12 @@ export default function Hero() {
 
       {/* 5. Lightweight Animated Text Content */}
       <motion.div
-        style={{ y: textYValue, opacity: opacityFadeValue }}
+        style={{ 
+          y: textYValue, 
+          opacity: opacityFadeValue,
+          willChange: isMobile ? 'auto' : 'transform, opacity',
+          transform: isMobile ? 'none' : 'translateZ(0)'
+        }}
         className="relative z-20 text-center px-6 max-w-4xl"
       >
         {/* Simple Label Fade */}

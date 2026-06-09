@@ -338,28 +338,13 @@ body {
 /* Dynamic Lilac Gradient Background for Cinematic Reveal */
 .dynamic-lilac-gradient {
   background: linear-gradient(-45deg, #030303, #120921, #4c1d95, #120921, #030303);
-  background-size: 400% 400%;
-  animation: dynamic-lilac-flow 7s ease infinite;
-}
-
-@keyframes dynamic-lilac-flow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 /* Dynamic Light Lilac Gradient Background for Light sections */
 .dynamic-light-lilac-gradient {
   background: linear-gradient(-45deg, #ffffff, #f7f2fe, #efe3fc, #f7f2fe, #ffffff);
-  background-size: 400% 400%;
-  animation: dynamic-light-lilac-flow 8s ease infinite;
 }
 
-@keyframes dynamic-light-lilac-flow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
 /* Mobile performance overrides */
 @media (max-width: 767px) {

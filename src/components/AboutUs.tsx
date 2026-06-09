@@ -109,12 +109,9 @@ export default function AboutUs() {
       ref={scrollRef}
       id="nosotros"
       className="py-24 relative overflow-hidden text-white border-y border-white/5"
-      animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-      transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
       style={{
         backgroundColor: "#030303",
-        backgroundImage: "linear-gradient(135deg, #030303 0%, #030303 25%, #120921 50%, #030303 75%, #030303 100%)",
-        backgroundSize: "400% 400%"
+        backgroundImage: "linear-gradient(135deg, #030303 0%, #030303 25%, #120921 50%, #030303 75%, #030303 100%)"
       }}
     >
       {/* 1. LIGHTWEIGHT FADE-IN TITLE */}
@@ -200,37 +197,16 @@ export default function AboutUs() {
             Buscamos la <strong className="font-semibold text-emerald-600">distinción</strong>, ofrecemos la <strong className="font-semibold">excelencia</strong>.
           </h3>
 
-          {/* Elegant Word split paragraph reveal */}
-          {isMobile ? (
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="text-sm md:text-base text-neutral-300 font-sans tracking-wide leading-relaxed font-light mb-8"
-            >
-              {descParagraph}
-            </motion.p>
-          ) : (
-            <div className="flex flex-wrap gap-x-1.5 gap-y-1 mb-8">
-              {descWords.map((word, wordIdx) => (
-                <motion.span
-                  key={wordIdx}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{
-                    duration: 0.4,
-                    delay: wordIdx * 0.03,
-                    ease: 'easeOut'
-                  }}
-                  className="text-sm md:text-base text-neutral-300 font-sans tracking-wide leading-relaxed font-light"
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </div>
-          )}
+          {/* Elegant paragraph reveal */}
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="text-sm md:text-base text-neutral-300 font-sans tracking-wide leading-relaxed font-light mb-8"
+          >
+            {descParagraph}
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 15 }}
