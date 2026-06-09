@@ -15,7 +15,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
+      setIsMobile(window.innerWidth < 768);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -218,7 +218,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
             {mostWantedList.map((property) => (
               <div
                 key={property.id}
-                className="shrink-0 w-[41vw] max-w-[600px] h-[480px] rounded-3xl overflow-hidden bg-white/70 backdrop-blur-md border border-neutral-200/80 premium-card-shadow relative group cursor-pointer hover:border-emerald-500/30 transition-all hover:-translate-y-1"
+                className="shrink-0 w-[75vw] md:w-[45vw] lg:w-[41vw] max-w-[600px] h-[480px] rounded-3xl overflow-hidden bg-white/70 backdrop-blur-md border border-neutral-200/80 premium-card-shadow relative group cursor-pointer hover:border-emerald-500/30 transition-all hover:-translate-y-1"
                 onClick={() => onSelectProperty(property)}
               >
                 {/* Background image */}
