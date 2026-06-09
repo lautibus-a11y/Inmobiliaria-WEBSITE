@@ -30,14 +30,14 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
       if (trackRef.current) {
         const trackWidth = trackRef.current.scrollWidth;
         const viewportWidth = window.innerWidth;
-        // Adjust padding offset dynamically: 48px on mobile (<768px), 96px on desktop (>=768px)
-        const padding = viewportWidth < 768 ? 48 : 96;
-        const translateVal = trackWidth - viewportWidth + padding;
+        // The total translation is simply the track width minus the viewport width.
+        // The padding-right inside the track provides the premium end spacing.
+        const translateVal = trackWidth - viewportWidth;
         setXTranslation(translateVal > 0 ? -translateVal : 0);
       }
     };
 
-    // Use ResizeObserver to automatically adjust to dynamic loads (like delayed images)
+    // Use ResizeObserver to dynamically adjust to image loads or resizing
     const observer = new ResizeObserver(() => {
       calculateScroll();
     });
@@ -45,7 +45,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
     observer.observe(trackRef.current);
     window.addEventListener('resize', calculateScroll);
 
-    // Initial delayed calculation trigger to let images mount
+    // Trigger initial calculation
     const timer = setTimeout(calculateScroll, 150);
 
     return () => {
@@ -55,7 +55,10 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
     };
   }, [mostWantedList.length]);
 
-  const xTransform = useTransform(scrollYProgress, [0, 1], [0, xTranslation]);
+  // Map translation to [0.12, 0.88] progress range.
+  // This creates "dead zones" at the start (0% to 12%) and end (88% to 100%)
+  // where the section is sticky but static, allowing the first and last cards to be fully appreciated.
+  const xTransform = useTransform(scrollYProgress, [0.12, 0.88], [0, xTranslation]);
   
   // Smooth out horizontal translation with a premium spring animation
   const x = useSpring(xTransform, { stiffness: 85, damping: 24, mass: 0.6 });
@@ -93,7 +96,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
           <motion.div
             ref={trackRef}
             style={{ x, willChange: 'transform' }}
-            className="flex gap-6 w-max"
+            className="flex gap-6 w-max pr-12 md:pr-24 lg:pr-32"
           >
             {mostWantedList.map((property) => (
               <div
