@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, Landmark, Send, CheckCircle, ShieldAlert, Navigation } from 'lucide-react';
-import { properties } from '../data';
-import { Property } from '../types';
+import { motion, useReducedMotion } from 'motion/react';
+import { Mail, Phone, Landmark, Send, CheckCircle, ShieldAlert } from 'lucide-react';
 
-interface ContactProps {
-  onSelectProperty: (property: Property) => void;
-}
-
-export default function Contact({ onSelectProperty }: ContactProps) {
+export default function Contact() {
+  const shouldReduceMotion = useReducedMotion();
   const [formData, setFormData] = useState({
     fullName: '',
     vipEmail: '',
@@ -30,9 +25,6 @@ export default function Contact({ onSelectProperty }: ContactProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
-  // Track hovered node on custom futuristic map to display tooltips
-  const [hoveredProperty, setHoveredProperty] = useState<Property | null>(null);
 
   const ranges = [
     { label: '$1,000,000 - $5,000,000 USD', value: '1-5m' },
@@ -57,7 +49,8 @@ export default function Contact({ onSelectProperty }: ContactProps) {
     }, 1500);
   };
 
-  return (    <motion.section
+  return (
+    <section
       id="contacto"
       className="py-24 px-6 md:px-12 text-neutral-900 relative overflow-hidden border-t border-neutral-200/50 dynamic-light-lilac-gradient"
     >
@@ -65,9 +58,9 @@ export default function Contact({ onSelectProperty }: ContactProps) {
         
         {/* Title */}
         <motion.div
-          initial={{ opacity: 0, scale: 1.05 }}
+          initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 1.05 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={{ once: true, amount: 0.2, margin: '0px 0px -50px 0px' }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="mb-16 text-center max-w-2xl mx-auto"
         >
@@ -150,7 +143,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
 
                 {isSuccess ? (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center py-16"
                   >
@@ -273,6 +266,6 @@ export default function Contact({ onSelectProperty }: ContactProps) {
 
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

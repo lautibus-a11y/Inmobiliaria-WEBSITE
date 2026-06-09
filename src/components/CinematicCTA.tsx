@@ -1,7 +1,9 @@
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 
 export default function CinematicCTA() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section className="relative w-full h-[65vh] sm:h-[80vh] overflow-hidden flex items-center justify-center bg-black">
       {/* Background Video */}
@@ -23,9 +25,9 @@ export default function CinematicCTA() {
         
         {/* Animated Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
           transition={{ duration: 0.8 }}
           className="mb-6 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
         >
@@ -37,9 +39,9 @@ export default function CinematicCTA() {
 
         {/* Animated Heading */}
         <motion.h2
-          initial={{ opacity: 0, filter: 'blur(4px)' }}
+          initial={{ opacity: 0, filter: shouldReduceMotion ? 'none' : 'blur(4px)' }}
           whileInView={{ opacity: 1, filter: 'blur(0px)' }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           className="text-3xl sm:text-5xl md:text-6xl font-display font-light text-white tracking-tight leading-tight mb-6 max-w-3xl"
         >
@@ -48,9 +50,9 @@ export default function CinematicCTA() {
 
         {/* Animated Description */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-neutral-300 text-sm sm:text-base max-w-xl mx-auto font-sans font-light leading-relaxed mb-10"
         >
@@ -59,9 +61,9 @@ export default function CinematicCTA() {
 
         {/* Action Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto px-4 sm:px-0"
         >

@@ -257,7 +257,7 @@ export default function App() {
           <CinematicCTA />
 
           {/* VIP Contact form & virtual coordinate interactive Map */}
-          <Contact onSelectProperty={handleOpenProperty} />
+          <Contact />
 
           {/* 5. Clean footer block */}
           <Footer />

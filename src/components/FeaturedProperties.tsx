@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { MapPin, Bed, ShowerHead, Grid, ArrowUpRight } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
@@ -10,6 +10,7 @@ interface FeaturedPropertiesProps {
 
 export default function FeaturedProperties({ onSelectProperty }: FeaturedPropertiesProps) {
   const [isMobile, setIsMobile] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -34,13 +35,13 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
@@ -58,9 +59,9 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
       <div className="max-w-7xl mx-auto mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
+            viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
             transition={{ duration: 0.5 }}
             className="flex items-center gap-2 mb-3"
           >
@@ -68,9 +69,9 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
             <span className="text-xs font-mono tracking-[0.3em] text-emerald-700 uppercase font-semibold">Colección Exclusiva</span>
           </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
+            viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
             transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
             className="text-3xl md:text-5xl font-display font-light text-neutral-900 tracking-tight"
           >
@@ -78,9 +79,9 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
           </motion.h2>
         </div>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-sm text-neutral-600 max-w-md font-sans leading-relaxed"
         >
@@ -88,12 +89,11 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
         </motion.p>
       </div>
 
-      {/* Properties Grid with animated container */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={{ once: true, amount: 0.15, margin: "0px 0px -50px 0px" }}
         className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
         {displayList.map((property) => (

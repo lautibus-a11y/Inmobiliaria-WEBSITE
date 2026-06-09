@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'motion/react';
+import { motion, useScroll, useTransform, useInView, useReducedMotion } from 'motion/react';
 import { stats, team } from '../data';
 
 // Helper component for counting numbers smoothly
@@ -51,6 +51,7 @@ function CountingNum({ value, suffix, prefix }: { value: number; suffix?: string
 export default function AboutUs() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
   
   // Custom scroll listener on title viewport to trigger cool letter reveals
   const { scrollYProgress } = useScroll({
@@ -72,8 +73,8 @@ export default function AboutUs() {
   const imgY1 = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const imgY2 = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
-  const imgY1Value = isMobile ? 0 : imgY1;
-  const imgY2Value = isMobile ? 0 : imgY2;
+  const imgY1Value = isMobile || shouldReduceMotion ? 0 : imgY1;
+  const imgY2Value = isMobile || shouldReduceMotion ? 0 : imgY2;
 
   // Let's create an Animated Title: "SOBRE NOSOTROS"
   const titleText = "SOBRE NOSOTROS";
@@ -121,14 +122,15 @@ export default function AboutUs() {
             return (
               <motion.span
                 key={idx}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
+                viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
                 transition={{
                   duration: 0.6,
                   delay: idx * 0.15,
                   ease: 'easeOut'
                 }}
+                style={{ willChange: 'transform, opacity' }}
                 className="inline-block text-4xl md:text-7xl font-display font-light text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-400 tracking-tight select-none"
               >
                 {word}
@@ -199,9 +201,9 @@ export default function AboutUs() {
 
           {/* Elegant paragraph reveal */}
           <motion.p
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
+            viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="text-sm md:text-base text-neutral-300 font-sans tracking-wide leading-relaxed font-light mb-8"
           >
@@ -209,10 +211,10 @@ export default function AboutUs() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.8 }}
+            viewport={{ once: true, amount: 0.2, margin: "0px 0px -40px 0px" }}
+            transition={{ delay: 0.4 }}
             className="flex flex-col gap-4 text-xs font-mono text-neutral-300 border-l border-emerald-500/60 pl-5"
           >
             <p>✦ Privacidad absoluta y confidencialidad en cada etapa.</p>
@@ -227,9 +229,9 @@ export default function AboutUs() {
           {stats.map((st) => (
             <motion.div
               key={st.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
               transition={{ duration: 0.7 }}
               className="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg text-center relative hover:bg-white/10 transition-colors"
             >

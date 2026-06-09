@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
@@ -14,6 +14,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
   const [activeCategory, setActiveCategory] = useState<CategoryType>('todas');
   const [priceSort, setPriceSort] = useState<'default' | 'asc' | 'desc'>('default');
   const [isMobile, setIsMobile] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -58,9 +59,9 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
       {/* Title block */}
       <div className="max-w-7xl mx-auto mb-16 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -40px 0px" }}
           className="flex items-center justify-center gap-2 mb-3"
         >
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -69,9 +70,9 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
         </motion.div>
         
         <motion.h2
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -40px 0px" }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-3xl md:text-5xl font-display font-light text-neutral-900 tracking-tight mb-4"
         >
@@ -144,10 +145,11 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
             {sortedList.map((property) => (
               <motion.div
                 layout={!isMobile ? "position" : false}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 30 }}
+                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
+                style={{ willChange: 'transform, opacity' }}
                 key={property.id}
                 className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[450px] cursor-pointer transition-all hover:border-emerald-500/30 hover:-translate-y-1"
                 onClick={() => onSelectProperty(property)}

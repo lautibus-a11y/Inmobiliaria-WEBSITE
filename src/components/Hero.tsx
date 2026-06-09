@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'motion/react';
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -30,10 +31,12 @@ export default function Hero() {
   const bgScale = useTransform(smoothScrollY, [0, 800], [1.02, 1.18]);
   const opacityFade = useTransform(smoothScrollY, [0, 450], [1, 0]);
 
-  const textYValue = isMobile ? 0 : textY;
-  const bgYValue = isMobile ? 0 : bgY;
-  const bgScaleValue = isMobile ? 1 : bgScale;
-  const opacityFadeValue = isMobile ? 1 : opacityFade;
+  const isParallaxDisabled = isMobile || shouldReduceMotion;
+
+  const textYValue = isParallaxDisabled ? 0 : textY;
+  const bgYValue = isParallaxDisabled ? 0 : bgY;
+  const bgScaleValue = isParallaxDisabled ? 1 : bgScale;
+  const opacityFadeValue = isParallaxDisabled ? 1 : opacityFade;
 
 
   // Split lines for majestic cinematic entry animation
@@ -57,17 +60,17 @@ export default function Hero() {
       <motion.div
         style={{ 
           y: bgYValue, 
-          willChange: isMobile ? 'auto' : 'transform',
-          transform: isMobile ? 'none' : 'translateZ(0)'
+          willChange: isParallaxDisabled ? 'auto' : 'transform',
+          transform: isParallaxDisabled ? 'none' : 'translateZ(0)'
         }}
-        className={`absolute inset-0 w-full ${isMobile ? 'h-full' : 'h-[128%]'} pointer-events-none`}
+        className={`absolute inset-0 w-full ${isParallaxDisabled ? 'h-full' : 'h-[128%]'} pointer-events-none`}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/85 z-10" />
         <motion.video
           style={{ 
             scale: bgScaleValue, 
-            willChange: isMobile ? 'auto' : 'transform',
-            transform: isMobile ? 'none' : 'translateZ(0)'
+            willChange: isParallaxDisabled ? 'auto' : 'transform',
+            transform: isParallaxDisabled ? 'none' : 'translateZ(0)'
           }}
           autoPlay
           muted
@@ -85,8 +88,8 @@ export default function Hero() {
         style={{ 
           y: textYValue, 
           opacity: opacityFadeValue,
-          willChange: isMobile ? 'auto' : 'transform, opacity',
-          transform: isMobile ? 'none' : 'translateZ(0)'
+          willChange: isParallaxDisabled ? 'auto' : 'transform, opacity',
+          transform: isParallaxDisabled ? 'none' : 'translateZ(0)'
         }}
         className="relative z-20 text-center px-6 max-w-4xl"
       >
@@ -109,7 +112,7 @@ export default function Hero() {
             {titleLine1.split(' ').map((word, idx) => (
               <motion.span
                 key={`tl1-${idx}`}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 + idx * 0.1, ease: 'easeOut' }}
                 className="inline-block mr-3"
@@ -122,7 +125,7 @@ export default function Hero() {
             {titleLine2.split(' ').map((word, idx) => (
               <motion.span
                 key={`tl2-${idx}`}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 + idx * 0.1, ease: 'easeOut' }}
                 className="inline-block mr-3"

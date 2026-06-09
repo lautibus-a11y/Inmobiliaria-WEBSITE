@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { X, Bed, ShowerHead, Eye, Calendar, User, Mail, ShieldAlert, CheckCircle, Clock } from 'lucide-react';
 import { Property } from '../types';
 
@@ -9,6 +9,7 @@ interface PropertyModalProps {
 }
 
 export default function PropertyModal({ property, onClose }: PropertyModalProps) {
+  const shouldReduceMotion = useReducedMotion();
   const [mediaType, setMediaType] = useState<'photos' | 'video'>('photos');
   const [formData, setFormData] = useState({
     name: '',
@@ -102,9 +103,9 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
         {/* Modal Container */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95, y: shouldReduceMotion ? 0 : 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 30 }}
+          exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95, y: shouldReduceMotion ? 0 : 30 }}
           transition={{ type: 'spring', damping: 25, stiffness: 220 }}
           className="relative w-full max-w-5xl rounded-3xl bg-neutral-950 border border-white/10 text-white overflow-hidden z-10 shadow-2xl flex flex-col md:flex-row max-h-[92vh] md:max-h-[85vh] no-scrollbar"
         >
@@ -141,7 +142,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                     key={currentImgIndex}
                     src={imagesList[currentImgIndex]}
                     alt={`${property.title} - Foto ${currentImgIndex + 1}`}
-                    initial={{ opacity: 0, scale: 1.02 }}
+                    initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 1.02 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4 }}
@@ -175,7 +176,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       : 'text-gray-450 hover:text-white'
                   }`}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-450 animate-pulse inline-block" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-455 animate-pulse inline-block" />
                   Video Tour
                 </button>
               </div>
@@ -231,7 +232,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 <h1 className="text-2xl md:text-3xl font-display font-bold tracking-tight mb-1 text-white">
                   {property.title}
                 </h1>
-                <p className="text-emerald-450 font-mono text-sm tracking-wide font-semibold">
+                <p className="text-emerald-455 font-mono text-sm tracking-wide font-semibold">
                   {property.price}
                 </p>
               </div>
@@ -255,7 +256,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
               {/* Description */}
               <div>
-                <p className="text-gray-450 text-xs font-mono tracking-widest uppercase mb-1">Descripción</p>
+                <p className="text-gray-455 text-xs font-mono tracking-widest uppercase mb-1">Descripción</p>
                 <p className="text-gray-300 text-xs md:text-sm leading-relaxed font-light font-sans">
                   {property.description}
                 </p>
@@ -288,7 +289,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
               {/* Amenities */}
               <div>
-                <h3 className="text-[10px] font-mono tracking-widest uppercase text-gray-450 mb-2.5">Características del Inmueble</h3>
+                <h3 className="text-[10px] font-mono tracking-widest uppercase text-gray-455 mb-2.5">Características del Inmueble</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {property.features.map((feat, idx) => (
                     <span
@@ -311,11 +312,11 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
               {isSuccess ? (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center"
                 >
-                  <CheckCircle className="text-emerald-450 w-10 h-10 mx-auto mb-3 animate-bounce" />
+                  <CheckCircle className="text-emerald-455 w-10 h-10 mx-auto mb-3 animate-bounce" />
                   <h4 className="text-sm font-display font-medium text-white mb-1">¡Visita Solicitada!</h4>
                   <p className="text-gray-400 text-xs leading-relaxed">
                     Uno de nuestros asesores VIP se contactará para coordinar el día y horario de la visita.
@@ -333,7 +334,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2 px-9 text-xs focus:border-emerald-500/65 focus:outline-none transition-all placeholder-gray-450 font-sans text-white focus:bg-white/10"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2 px-9 text-xs focus:border-emerald-500/65 focus:outline-none transition-all placeholder-gray-455 font-sans text-white focus:bg-white/10"
                       />
                     </div>
                     {/* Email */}
@@ -345,7 +346,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2 px-9 text-xs focus:border-emerald-500/65 focus:outline-none transition-all placeholder-gray-450 font-sans text-white focus:bg-white/10"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2 px-9 text-xs focus:border-emerald-500/65 focus:outline-none transition-all placeholder-gray-455 font-sans text-white focus:bg-white/10"
                       />
                     </div>
                   </div>

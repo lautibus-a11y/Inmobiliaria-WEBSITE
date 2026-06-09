@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 interface CinematicRevealProps {
   onComplete: () => void;
@@ -8,6 +8,7 @@ interface CinematicRevealProps {
 export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
   const [count, setCount] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     // Prevent scroll while loading
@@ -56,7 +57,11 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
   return (
     <motion.div
       initial={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
-      animate={isExiting ? { opacity: 0, filter: 'blur(35px)', scale: 1.05 } : {}}
+      animate={isExiting ? { 
+        opacity: 0, 
+        filter: shouldReduceMotion ? 'none' : 'blur(35px)', 
+        scale: shouldReduceMotion ? 1 : 1.05 
+      } : {}}
       transition={{ duration: 1.1, ease: [0.32, 0, 0.67, 0] }}
       className="fixed top-0 left-0 w-full h-full bg-[#030303] z-50 flex flex-col items-center justify-center select-none overflow-hidden"
       style={{ willChange: 'opacity, filter, transform' }}
@@ -71,7 +76,7 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
         
         {/* Large Logo Image */}
         <motion.div 
-          initial={{ scale: 0.88, opacity: 0 }}
+          initial={{ scale: shouldReduceMotion ? 1 : 0.88, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.3, ease: 'easeOut' }}
           className="w-[72vw] sm:w-[60vw] md:w-[50vw] max-w-[380px] lg:max-w-[440px] h-auto mx-auto overflow-hidden"
@@ -85,7 +90,7 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
 
         {/* Branding Title */}
         <motion.div 
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: 'easeOut', delay: 0.6 }}
           className="text-white text-lg sm:text-2xl font-display font-light tracking-[0.2em] mt-6 sm:mt-8 mb-10 sm:mb-12 text-center mx-auto select-none"
@@ -95,7 +100,7 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
 
         {/* Slider & Progress bar container */}
         <motion.div 
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: 'easeOut', delay: 0.7 }}
           className="w-full max-w-[280px] sm:max-w-[340px] space-y-4 mx-auto"

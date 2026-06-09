@@ -1,8 +1,9 @@
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Quote, Star } from 'lucide-react';
 import { testimonials } from '../data';
 
 export default function Testimonials() {
+  const shouldReduceMotion = useReducedMotion();
   // Let's multiply testimonials to simulate a fluent, continuous, infinite marquee track
   const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials];
 
@@ -23,9 +24,9 @@ export default function Testimonials() {
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
         </div>
         <motion.h2
-          initial={{ opacity: 0, x: -15 }}
+          initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -15 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={{ once: true, amount: 0.2, margin: '0px 0px -50px 0px' }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-3xl md:text-5xl font-display font-light text-white tracking-tight mb-4"
         >
@@ -36,7 +37,11 @@ export default function Testimonials() {
       {/* Infinite Autoplay Marquee row */}
       <div className="relative w-full overflow-hidden py-4 flex flex-col gap-6">
         {/* Row 1 Track scrolling Left */}
-        <div className="flex w-max gap-6 animate-[marquee_40s_linear_infinite] hover:[animation-play-state:paused] cursor-pointer">
+        <div
+          className={`flex w-max gap-6 animate-[marquee_40s_linear_infinite] cursor-pointer ${
+            shouldReduceMotion ? '[animation-play-state:paused]' : 'hover:[animation-play-state:paused]'
+          }`}
+        >
           {duplicatedTestimonials.map((test, index) => (
             <div
               key={`${test.id}-${index}`}

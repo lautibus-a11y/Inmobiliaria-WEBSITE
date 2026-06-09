@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'motion/react';
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
@@ -9,6 +9,7 @@ interface MostWantedProps {
 }
 
 export default function MostWanted({ onSelectProperty }: MostWantedProps) {
+  const shouldReduceMotion = useReducedMotion();
   // Filter most coveted properties (isMostWanted: true)
   const mostWantedList = properties.filter((p) => p.isMostWanted);
 
@@ -24,7 +25,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
   const [xTranslation, setXTranslation] = useState(0);
 
   useEffect(() => {
-    if (!trackRef.current) return;
+    if (!trackRef.current || shouldReduceMotion) return;
 
     const calculateScroll = () => {
       if (trackRef.current) {
@@ -53,7 +54,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
       window.removeEventListener('resize', calculateScroll);
       clearTimeout(timer);
     };
-  }, [mostWantedList.length]);
+  }, [mostWantedList.length, shouldReduceMotion]);
 
   // Map translation to [0.12, 0.88] progress range.
   // This creates "dead zones" at the start (0% to 12%) and end (88% to 100%)
@@ -67,9 +68,11 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
     <div
       ref={targetRef}
       id="mas-cotizadas"
-      className="relative h-[300vh] dynamic-light-lilac-gradient border-y border-neutral-200/50"
+      className={`relative dynamic-light-lilac-gradient border-y border-neutral-200/50 ${
+        shouldReduceMotion ? 'h-auto py-16' : 'h-[300vh]'
+      }`}
     >
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+      <div className={shouldReduceMotion ? 'relative w-full flex flex-col justify-center overflow-hidden' : 'sticky top-0 h-screen flex flex-col justify-center overflow-hidden'}>
         {/* Background neon soft blurs */}
         <div className="absolute top-[30%] right-[15%] w-[550px] h-[550px] rounded-full bg-emerald-300/[0.04] blur-[140px] pointer-events-none" />
         <div className="absolute bottom-[20%] left-[10%] w-[450px] h-[450px] rounded-full bg-emerald-500/[0.05] blur-[130px] pointer-events-none" />
@@ -87,15 +90,17 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
           </div>
 
           <div className="flex flex-col items-end gap-1.5 font-mono text-[10px] text-neutral-500 font-light">
-            <span className="tracking-widest uppercase">Desliza hacia abajo para explorar</span>
+            <span className="tracking-widest uppercase">
+              {shouldReduceMotion ? 'Explora horizontalmente' : 'Desliza hacia abajo para explorar'}
+            </span>
           </div>
         </div>
 
         {/* Horizontal track carrying items */}
-        <div className="relative w-full overflow-hidden px-6 md:px-12 pb-8 pt-4">
+        <div className={`relative w-full ${shouldReduceMotion ? 'overflow-x-auto no-scrollbar' : 'overflow-hidden'} px-6 md:px-12 pb-8 pt-4`}>
           <motion.div
             ref={trackRef}
-            style={{ x, willChange: 'transform' }}
+            style={shouldReduceMotion ? { x: 0 } : { x, willChange: 'transform' }}
             className="flex gap-6 w-max pr-12 md:pr-24 lg:pr-32"
           >
             {mostWantedList.map((property) => (
