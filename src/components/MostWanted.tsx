@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
@@ -25,8 +25,10 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
   const targetRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   
+  // Track scroll exactly while the target is sticky (from start to end of container)
   const { scrollYProgress } = useScroll({
     target: targetRef,
+    offset: ["start start", "end end"]
   });
 
   const [xTranslation, setXTranslation] = useState(0);
@@ -53,7 +55,10 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
     };
   }, [isMobile, mostWantedList.length]);
 
-  const x = useTransform(scrollYProgress, [0, 1], [0, xTranslation]);
+  const xTransform = useTransform(scrollYProgress, [0, 1], [0, xTranslation]);
+  
+  // Smooth out horizontal translation with a premium spring animation
+  const x = useSpring(xTransform, { stiffness: 85, damping: 24, mass: 0.6 });
 
   if (isMobile) {
     return (
