@@ -47,15 +47,12 @@ export default function Contact({ onSelectProperty }: ContactProps) {
     }, 1500);
   };
 
-  return (
-    <motion.section
+  return (    <motion.section
       id="contacto"
-      className="py-24 px-6 md:px-12 text-neutral-900 relative overflow-hidden border-t border-neutral-200"
+      className="py-24 px-6 md:px-12 text-neutral-900 relative overflow-hidden border-t border-neutral-200/50 dynamic-light-lilac-gradient"
       animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
       transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
       style={{
-        backgroundColor: "#ffffff",
-        backgroundImage: "linear-gradient(135deg, #ffffff 0%, #ffffff 25%, #f6eeff 50%, #ffffff 75%, #ffffff 100%)",
         backgroundSize: "400% 400%"
       }}
     >
@@ -64,7 +61,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
         {/* Title */}
         <div className="mb-16 text-center max-w-2xl mx-auto">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <span className="text-xs font-mono tracking-[0.25em] text-emerald-600 uppercase font-semibold">Contacto Directo</span>
+            <span className="text-xs font-mono tracking-[0.25em] text-emerald-700 uppercase font-semibold">Contacto Directo</span>
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           </div>
           <h2 className="text-3xl md:text-5xl font-display font-light tracking-tight text-neutral-900">
@@ -81,7 +78,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
           {/* Left Panel: Luxury Location Map Overlay */}
           <div className="lg:col-span-7 flex flex-col justify-between">
             <div className="mb-6">
-              <span className="text-[10px] font-mono tracking-widest text-emerald-600 block mb-2 uppercase">Ubicaciones Destacadas</span>
+              <span className="text-[10px] font-mono tracking-widest text-emerald-700 block mb-2 uppercase">Ubicaciones Destacadas</span>
               <h3 className="text-xl md:text-2xl font-display font-light mb-4">
                 Nuestra <strong className="font-semibold">Presencia</strong>
               </h3>
@@ -104,7 +101,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
               
               {/* Styled digital compass overlay */}
               <div className="absolute bottom-4 left-4 flex items-center gap-2 font-mono text-[9px] text-neutral-500 z-10">
-                <Navigation size={10} className="text-emerald-600/80 rotate-45" />
+                <Navigation size={10} className="text-emerald-600 rotate-45" />
                 <span>PORTAFOLIO DE PROPIEDADES ACTIVO</span>
               </div>
 
@@ -134,7 +131,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
                         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: Math.random() }}
                         className="absolute w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30"
                       />
-                      <div className="relative w-2 h-2 rounded-full bg-emerald-500 group-hover/map:bg-emerald-700 border border-white shadow-lg shadow-emerald-500/30" />
+                      <div className="relative w-2 h-2 rounded-full bg-emerald-500 group-hover/map:bg-emerald-600 border border-white shadow-lg shadow-emerald-500/30" />
                     </div>
                   </div>
                 );
@@ -147,7 +144,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
                     initial={{ opacity: 0, scale: 0.95, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                    className="absolute bottom-6 mx-auto bg-white/90 backdrop-blur-xl p-4 rounded-2xl w-72 text-neutral-900 flex gap-3 shadow-2xl z-20 pointer-events-auto cursor-pointer border border-emerald-500/20"
+                    className="absolute bottom-6 mx-auto bg-white/95 backdrop-blur-xl p-4 rounded-2xl w-72 text-neutral-900 flex gap-3 shadow-2xl z-20 pointer-events-auto cursor-pointer border border-emerald-500/20"
                     onClick={() => onSelectProperty(hoveredProperty)}
                   >
                     <img
@@ -157,7 +154,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
                       className="w-16 h-16 rounded-xl object-cover"
                     />
                     <div className="flex-1 min-w-0">
-                      <span className="text-[8px] font-mono tracking-widest text-emerald-600 block uppercase">
+                      <span className="text-[8px] font-mono tracking-widest text-emerald-700 block uppercase">
                         {hoveredProperty.category}
                       </span>
                       <h4 className="text-xs font-display font-semibold truncate text-neutral-900">{hoveredProperty.title}</h4>
@@ -170,7 +167,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
             </div>
 
             {/* Direct contact points */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-neutral-200/80 shadow-sm shadow-emerald-500/5 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100/50 flex items-center justify-center text-emerald-600">
                   <Mail size={16} />
@@ -210,7 +207,7 @@ export default function Contact({ onSelectProperty }: ContactProps) {
                     animate={{ opacity: 1, scale: 1 }}
                     className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center py-16"
                   >
-                    <CheckCircle className="text-emerald-600 w-12 h-12 mx-auto mb-4 animate-bounce" />
+                    <CheckCircle className="text-emerald-650 w-12 h-12 mx-auto mb-4 animate-bounce" />
                     <h3 className="text-lg font-display font-semibold text-emerald-800 mb-2">Consulta Enviada con Éxito</h3>
                     <p className="text-neutral-600 text-xs leading-relaxed font-light">
                       Recibimos tu mensaje de manera segura. Uno de nuestros asesores especializados se comunicará con vos a la brevedad para brindarte una atención personalizada.

@@ -57,18 +57,18 @@ export default function Hero() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-transparent"
+      className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#030303]"
     >
       {/* 1. Fluid Aurora Gradient Backgrounds */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-60">
-        <div className="absolute top-[-10%] left-[-10%] w-[65vw] h-[65vw] rounded-full bg-emerald-500/15 blur-[130px] animate-aurora mix-blend-screen" />
-        <div className="absolute bottom-[-15%] right-[-10%] w-[55vw] h-[55vw] rounded-full bg-teal-500/10 blur-[120px] animate-aurora mix-blend-screen [animation-delay:4s]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[65vw] h-[65vw] rounded-full bg-emerald-500/10 blur-[130px] animate-aurora mix-blend-multiply" />
+        <div className="absolute bottom-[-15%] right-[-10%] w-[55vw] h-[55vw] rounded-full bg-teal-500/5 blur-[120px] animate-aurora mix-blend-multiply [animation-delay:4s]" />
       </div>
 
       {/* 2. Intelligent Mouse Reactive Glow Spot */}
       {isHovered && (
         <motion.div
-          className="absolute pointer-events-none w-[600px] h-[600px] rounded-full bg-emerald-500/5 blur-[120px] mix-blend-screen z-10"
+          className="absolute pointer-events-none w-[600px] h-[600px] rounded-full bg-emerald-500/5 blur-[120px] mix-blend-multiply z-10"
           animate={{
             x: mousePosition.x - 300,
             y: mousePosition.y - 300,
@@ -76,20 +76,19 @@ export default function Hero() {
           transition={{ type: 'tween', ease: 'backOut', duration: 0.8 }}
         />
       )}
-
       {/* 3. Cinematic Parallax Cinematic Background Canvas with Local Video */}
       <motion.div
         style={{ y: bgY, willChange: 'transform' }}
         className="absolute inset-0 w-full h-[128%] pointer-events-none"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/85 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/85 z-10" />
         <motion.video
           style={{ scale: bgScale, willChange: 'transform' }}
           autoPlay
           muted
           loop
           playsInline
-          className="w-full h-full object-cover filter brightness-[0.65] saturate-[0.85] contrast-[1.05]"
+          className="w-full h-full object-cover filter brightness-[0.75] saturate-[0.85] contrast-[0.95]"
         >
           <source src="/videos-hero/videohero1.mp4" type="video/mp4" />
           <source src="/videos-hero/videohero2.mp4" type="video/mp4" />
@@ -108,8 +107,8 @@ export default function Hero() {
           transition={{ duration: 1.2, ease: 'easeOut' }}
           className="flex items-center justify-center gap-2 mb-6"
         >
-          <Sparkles size={14} className="text-emerald-400 animate-spin" style={{ animationDuration: '4s' }} />
-          <span className="text-xs md:text-sm font-mono text-emerald-400 font-medium pl-2 inline-block">
+          <Sparkles size={14} className="text-emerald-300 animate-spin" style={{ animationDuration: '4s' }} />
+          <span className="text-xs md:text-sm font-mono text-emerald-300 font-semibold pl-2 inline-block">
             {subtitleLine}
           </span>
         </motion.div>
@@ -126,7 +125,7 @@ export default function Hero() {
               {titleLine1}
             </motion.span>
           </span>
-          <span className="block overflow-hidden relative text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-emerald-400/85">
+          <span className="block overflow-hidden relative text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-emerald-300">
             <motion.span
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
@@ -147,13 +146,13 @@ export default function Hero() {
         >
           <a
             href="#propiedades-destacadas"
-            className="w-full sm:w-auto text-center px-8 py-4 rounded-xl border border-white bg-white text-black font-semibold text-xs tracking-widest uppercase hover:bg-emerald-400 hover:border-emerald-400 transition-all cursor-pointer shadow-lg hover:shadow-emerald-500/20 interactive-hover"
+            className="w-full sm:w-auto text-center px-8 py-4 rounded-xl border border-white bg-white text-neutral-950 font-semibold text-xs tracking-widest uppercase hover:bg-emerald-400 hover:border-emerald-400 transition-all cursor-pointer shadow-lg hover:shadow-emerald-500/10 interactive-hover"
           >
             Ver Catálogo
           </a>
           <a
             href="#contacto"
-            className="w-full sm:w-auto text-center px-8 py-4 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md text-white font-semibold text-xs tracking-widest uppercase hover:bg-white hover:text-black transition-all cursor-pointer interactive-hover"
+            className="w-full sm:w-auto text-center px-8 py-4 border border-white/30 bg-white/10 backdrop-blur-md text-white font-semibold text-xs tracking-widest uppercase hover:bg-white hover:text-neutral-950 hover:border-white transition-all cursor-pointer interactive-hover"
           >
             Agendar Reunión
           </a>

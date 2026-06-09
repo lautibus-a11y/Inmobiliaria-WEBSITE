@@ -262,6 +262,13 @@ body {
     0 30px 60px -15px rgba(0, 0, 0, 0.7);
 }
 
+.premium-card-shadow {
+  box-shadow: 
+    0 10px 30px -10px rgba(18, 9, 33, 0.04),
+    0 1px 3px rgba(18, 9, 33, 0.02),
+    0 0 0 1px rgba(185, 142, 235, 0.08);
+}
+
 /* 2. Enhanced Glass Blur */
 .glass-blur-sm {
   backdrop-filter: blur(8px) saturate(130%);
@@ -329,6 +336,19 @@ body {
 }
 
 @keyframes dynamic-lilac-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Dynamic Light Lilac Gradient Background for Light sections */
+.dynamic-light-lilac-gradient {
+  background: linear-gradient(-45deg, #ffffff, #f7f2fe, #efe3fc, #f7f2fe, #ffffff);
+  background-size: 400% 400%;
+  animation: dynamic-light-lilac-flow 8s ease infinite;
+}
+
+@keyframes dynamic-light-lilac-flow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }

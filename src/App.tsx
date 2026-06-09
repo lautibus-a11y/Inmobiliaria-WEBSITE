@@ -236,11 +236,11 @@ export default function App() {
         {/* Tabs filtered Properties section */}
         <AllProperties onSelectProperty={handleOpenProperty} />
 
-        {/* Cinematic premium ScrollTrigger CTA */}
-        <CinematicCTA />
-
         {/* Client testimonial infinite marquee track */}
         <Testimonials />
+
+        {/* Cinematic premium ScrollTrigger CTA */}
+        <CinematicCTA />
 
         {/* VIP Contact form & virtual coordinate interactive Map */}
         <Contact onSelectProperty={handleOpenProperty} />

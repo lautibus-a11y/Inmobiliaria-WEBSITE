@@ -95,12 +95,12 @@ export default function AboutUs() {
     <motion.section
       ref={scrollRef}
       id="nosotros"
-      className="py-24 relative overflow-hidden text-neutral-900 border-y border-neutral-200"
+      className="py-24 relative overflow-hidden text-white border-y border-white/5"
       animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
       transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
       style={{
-        backgroundColor: "#ffffff",
-        backgroundImage: "linear-gradient(135deg, #ffffff 0%, #ffffff 25%, #f6eeff 50%, #ffffff 75%, #ffffff 100%)",
+        backgroundColor: "#030303",
+        backgroundImage: "linear-gradient(135deg, #030303 0%, #030303 25%, #120921 50%, #030303 75%, #030303 100%)",
         backgroundSize: "400% 400%"
       }}
     >
@@ -119,7 +119,7 @@ export default function AboutUs() {
                     delay: idx * 0.15,
                     ease: [0.16, 1, 0.3, 1]
                   }}
-                  className="inline-block text-4xl md:text-7xl font-display font-light text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-800 to-neutral-500 tracking-tight select-none"
+                  className="inline-block text-4xl md:text-7xl font-display font-light text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-400 tracking-tight select-none"
                 >
                   {word}
                 </motion.span>
@@ -165,7 +165,7 @@ export default function AboutUs() {
           {/* Front overlapping secondary image with larger glass borders and shadow */}
           <motion.div
             style={{ y: imgY2 }}
-            className="absolute right-4 bottom-4 w-[55%] h-[60%] rounded-3xl overflow-hidden bg-white/40 border border-neutral-250/20 shadow-2xl z-30 backdrop-blur-md"
+            className="absolute right-4 bottom-4 w-[55%] h-[60%] rounded-3xl overflow-hidden bg-neutral-900/60 border border-white/10 shadow-2xl z-30 backdrop-blur-md"
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent z-10" />
             <img
@@ -184,7 +184,7 @@ export default function AboutUs() {
             <div className="w-12 h-px bg-emerald-500/30" />
           </div>
 
-          <h3 className="text-2xl sm:text-4xl font-display font-light text-neutral-900 tracking-tight leading-tight mb-6">
+          <h3 className="text-2xl sm:text-4xl font-display font-light text-white tracking-tight leading-tight mb-6">
             Buscamos la <strong className="font-semibold text-emerald-600">distinción</strong>, ofrecemos la <strong className="font-semibold">excelencia</strong>.
           </h3>
 
@@ -201,7 +201,7 @@ export default function AboutUs() {
                   delay: wordIdx * 0.05,
                   ease: 'easeOut'
                 }}
-                className="text-sm md:text-base text-neutral-600 font-sans tracking-wide leading-relaxed font-light"
+                className="text-sm md:text-base text-neutral-300 font-sans tracking-wide leading-relaxed font-light"
               >
                 {word}
               </motion.span>
@@ -213,7 +213,7 @@ export default function AboutUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
-            className="flex flex-col gap-4 text-xs font-mono text-neutral-600 border-l border-emerald-500/60 pl-5"
+            className="flex flex-col gap-4 text-xs font-mono text-neutral-300 border-l border-emerald-500/60 pl-5"
           >
             <p>✦ Privacidad absoluta y confidencialidad en cada etapa.</p>
             <p>✦ Asesoramiento integral en transacciones internacionales.</p>
@@ -231,14 +231,14 @@ export default function AboutUs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="p-6 rounded-2xl bg-white border border-neutral-200/60 shadow-xs text-center relative hover:bg-neutral-50 transition-colors"
+              className="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg text-center relative hover:bg-white/10 transition-colors"
             >
               {/* Top active hover circle badge */}
               <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-emerald-500/40" />
 
               <CountingNum value={st.value} suffix={st.suffix} prefix={st.prefix} />
               
-              <span className="text-[10px] md:text-xs font-sans tracking-widest text-neutral-500 uppercase font-medium">
+              <span className="text-[10px] md:text-xs font-sans tracking-widest text-neutral-400 uppercase font-medium">
                 {st.label}
               </span>
             </motion.div>
@@ -251,11 +251,11 @@ export default function AboutUs() {
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <span className="text-[10px] font-mono tracking-widest text-emerald-600 block mb-2">NUESTROS CONSULTORES</span>
-            <h3 className="text-2xl md:text-4xl font-display font-light text-neutral-900 tracking-tight">
+            <h3 className="text-2xl md:text-4xl font-display font-light text-white tracking-tight">
               Nuestro <strong className="font-semibold">Equipo de Categoría</strong>
             </h3>
           </div>
-          <p className="text-xs text-neutral-600 max-w-sm font-sans">
+          <p className="text-xs text-neutral-300 max-w-sm font-sans">
             Profesionales dedicados al asesoramiento personalizado y a la gestión discreta de propiedades exclusivas.
           </p>
         </div>
@@ -266,7 +266,7 @@ export default function AboutUs() {
             {[...team, ...team, ...team].map((member, idx) => (
               <div
                 key={`${member.id}-${idx}`}
-                className="w-72 h-[420px] rounded-3xl overflow-hidden bg-white border border-neutral-200/80 flex flex-col justify-between p-4 group hover:border-neutral-350/20 hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-300"
+                className="w-72 h-[420px] rounded-3xl overflow-hidden bg-white/5 border border-white/10 flex flex-col justify-between p-4 group hover:border-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-300"
               >
                 {/* Profile Photo */}
                 <div className="relative h-[280px] rounded-2xl overflow-hidden bg-neutral-900 mb-4">
@@ -281,10 +281,10 @@ export default function AboutUs() {
 
                 {/* Info and action */}
                 <div className="px-2">
-                  <h4 className="text-lg font-display font-semibold tracking-tight text-neutral-900 group-hover:text-emerald-600 transition-colors">
+                  <h4 className="text-lg font-display font-semibold tracking-tight text-white group-hover:text-emerald-600 transition-colors">
                     {member.name}
                   </h4>
-                  <p className="text-[11px] font-mono tracking-wider text-neutral-500 uppercase">
+                  <p className="text-[11px] font-mono tracking-wider text-neutral-400 uppercase">
                     {member.role}
                   </p>
                 </div>
@@ -293,7 +293,7 @@ export default function AboutUs() {
           </div>
 
           {/* Autoplay indicator helper */}
-          <div className="flex justify-end gap-2 mt-4 text-[11px] font-mono text-neutral-500">
+          <div className="flex justify-end gap-2 mt-4 text-[11px] font-mono text-neutral-400">
             <span>✦ Desplazamiento automático (Pase el cursor para pausar) ✦</span>
           </div>
         </div>
