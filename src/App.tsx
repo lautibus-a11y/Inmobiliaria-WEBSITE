@@ -5,7 +5,6 @@ import { Menu, X, Hexagon, Phone, Shield } from 'lucide-react';
 // Internal Premium Modules
 import CustomCursor from './components/CustomCursor';
 import Hero from './components/Hero';
-import InfinityMarquee from './components/InfinityMarquee';
 import FeaturedProperties from './components/FeaturedProperties';
 import AboutUs from './components/AboutUs';
 import MostWanted from './components/MostWanted';
@@ -15,6 +14,7 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import PropertyModal from './components/PropertyModal';
+import CinematicReveal from './components/CinematicReveal';
 
 // Type references
 import { Property } from './types';
@@ -25,6 +25,7 @@ export default function App() {
   const [isOverLightSection, setIsOverLightSection] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+  const [isAppLoaded, setIsAppLoaded] = useState(false);
 
   // Monitor document offset layout changes to float header with glass backdrop and detect section theme
   useEffect(() => {
@@ -75,6 +76,11 @@ export default function App() {
 
   return (
     <div className="relative w-full min-h-screen bg-[#030303] text-white font-sans selection:bg-emerald-500/30 selection:text-white">
+      {/* Cinematic Reveal Loader */}
+      {!isAppLoaded && (
+        <CinematicReveal onComplete={() => setIsAppLoaded(true)} />
+      )}
+
       {/* 1. Custom Liquid Glass Custom Cursor for desktop viewports */}
       <CustomCursor />
 
@@ -217,9 +223,6 @@ export default function App() {
       <main>
         {/* Fullscreen Hero parallax */}
         <Hero />
-
-        {/* Dynamic Infinity Marquee */}
-        <InfinityMarquee />
 
         {/* Featured Properties Stagger section */}
         <FeaturedProperties onSelectProperty={handleOpenProperty} />

@@ -261,7 +261,7 @@ export default function AboutUs() {
         </div>
 
         {/* Carousel Slider: Infinite Autoplay Loop with hover pause */}
-        <div className="relative overflow-hidden py-4 w-full cursor-default select-none">
+        <div className="relative overflow-hidden py-4 w-screen -mx-6 md:w-full md:mx-0 cursor-default select-none">
           <div className="flex gap-6 w-max animate-[teamMarquee_45s_linear_infinite] hover:[animation-play-state:paused]">
             {[...team, ...team, ...team].map((member, idx) => (
               <div

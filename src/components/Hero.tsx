@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 
 export default function Hero() {
@@ -9,10 +9,18 @@ export default function Hero() {
 
   // Parallax ratios triggered by standard document scrolls
   const { scrollY } = useScroll();
-  const textY = useTransform(scrollY, [0, 800], [0, 160]);
-  const bgY = useTransform(scrollY, [0, 800], [0, -120]);
-  const bgScale = useTransform(scrollY, [0, 800], [1.05, 1.25]);
-  const opacityFade = useTransform(scrollY, [0, 450], [1, 0]);
+  
+  // Smooth out scrollY to eliminate scroll lagging on all devices
+  const smoothScrollY = useSpring(scrollY, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const textY = useTransform(smoothScrollY, [0, 800], [0, 80]); // Slightly reduced to keep content stable
+  const bgY = useTransform(smoothScrollY, [0, 800], [0, -220]); // Deeper parallax for the background image
+  const bgScale = useTransform(smoothScrollY, [0, 800], [1.02, 1.18]);
+  const opacityFade = useTransform(smoothScrollY, [0, 450], [1, 0]);
 
   // Handle subtle interactive mouse glowing position in the container viewport
   useEffect(() => {
@@ -42,9 +50,9 @@ export default function Hero() {
   }, []);
 
   // Split lines for majestic cinematic entry animation
-  const subtitleLine = "PROPIEDADES DE CATEGORÍA EXCLUSIVA";
-  const titleLine1 = "El arte de vivir";
-  const titleLine2 = "con distinción.";
+  const subtitleLine = "PROPIEDADES EXCLUSIVAS";
+  const titleLine1 = "Residencias únicas";
+  const titleLine2 = "de valor atemporal.";
 
   return (
     <div
@@ -69,19 +77,23 @@ export default function Hero() {
         />
       )}
 
-      {/* 3. Cinematic Parallax Cinematic Background Canvas */}
+      {/* 3. Cinematic Parallax Cinematic Background Canvas with Local Video */}
       <motion.div
-        style={{ y: bgY }}
-        className="absolute inset-0 w-full h-[120%] pointer-events-none"
+        style={{ y: bgY, willChange: 'transform' }}
+        className="absolute inset-0 w-full h-[128%] pointer-events-none"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black z-10" />
-        <motion.img
-          style={{ scale: bgScale }}
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80"
-          alt="Cinematic Real Estate Mansion"
-          referrerPolicy="no-referrer"
-          className="w-full h-full object-cover filter brightness-[0.45] saturate-[0.85] contrast-[1.05]"
-        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/85 z-10" />
+        <motion.video
+          style={{ scale: bgScale, willChange: 'transform' }}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover filter brightness-[0.65] saturate-[0.85] contrast-[1.05]"
+        >
+          <source src="/videos-hero/videohero1.mp4" type="video/mp4" />
+          <source src="/videos-hero/videohero2.mp4" type="video/mp4" />
+        </motion.video>
       </motion.div>
 
       {/* 5. Majestic Cinematic Text Reveal Content */}
@@ -125,16 +137,6 @@ export default function Hero() {
             </motion.span>
           </span>
         </h1>
-
-        {/* Short introduction copy */}
-        <motion.p
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: 'easeOut', delay: 0.7 }}
-          className="mt-8 text-sm md:text-base text-gray-300 max-w-lg mx-auto font-sans leading-relaxed tracking-wide font-light"
-        >
-          Diseños icónicos, ubicaciones inigualables y propiedades con valor que trasciende generaciones. Descubrí residencias únicas.
-        </motion.p>
 
         {/* CTA scroll down indicators */}
         <motion.div

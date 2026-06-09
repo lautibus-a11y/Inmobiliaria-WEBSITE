@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { Property } from '../types';
@@ -76,15 +76,36 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
 
   // Calculate horizontal gliding translation dynamically to reach the end across all devices smoothly
   const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
+  const desktopProgress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileScrollProgress, setMobileScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleMobileScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (!isMobile) return;
+    const target = e.currentTarget;
+    const maxScroll = target.scrollWidth - target.clientWidth;
+    if (maxScroll <= 0) return;
+    setMobileScrollProgress(target.scrollLeft / maxScroll);
+  };
 
   return (
     <div
       ref={sectionRef}
       id="mas-cotizadas"
-      className="relative h-[250vh] bg-transparent"
+      className={`relative bg-transparent ${isMobile ? 'h-auto pb-16' : 'h-[250vh]'}`}
     >
       {/* Sticky Top viewport container lock */}
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-10">
+      <div className={isMobile ? "relative h-auto py-8 flex flex-col justify-start" : "sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-10"}>
         {/* Background neon soft blur (varying lilac pastel & aurora theme for premium coveted list) */}
         <div className="absolute top-[30%] right-[15%] w-[550px] h-[550px] rounded-full bg-emerald-300/[0.05] blur-[140px] pointer-events-none" />
         <div className="absolute bottom-[20%] left-[10%] w-[450px] h-[450px] rounded-full bg-emerald-500/[0.08] blur-[130px] pointer-events-none" />
@@ -106,8 +127,8 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
             <div className="flex items-center gap-2">
               <div className="w-20 h-[2px] bg-white/10 rounded-full overflow-hidden">
                 <motion.div 
-                  className="h-full bg-emerald-500" 
-                  style={{ width: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]) }}
+                  className="h-full bg-emerald-50" 
+                  style={{ width: isMobile ? `${mobileScrollProgress * 100}%` : desktopProgress }}
                 />
               </div>
               <span className="text-emerald-400 font-medium font-bold">EXPLORANDO</span>
@@ -116,16 +137,19 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
         </div>
 
         {/* Horizontal track carrying items */}
-        <div className="relative px-6 md:px-12 overflow-visible">
+        <div 
+          className={`relative overflow-visible ${isMobile ? 'overflow-x-auto pb-6 px-6 snap-x snap-mandatory scroll-smooth w-full no-scrollbar' : 'px-6 md:px-12'}`}
+          onScroll={handleMobileScroll}
+        >
           <motion.div
             ref={trackRef}
-            style={{ x }}
+            style={{ x: isMobile ? 0 : x }}
             className="flex gap-6 w-max"
           >
             {mostWantedList.map((property) => (
               <div
                 key={property.id}
-                className="shrink-0 w-[85vw] sm:w-[58vw] lg:w-[41vw] h-[480px] rounded-3xl overflow-hidden glass-panel glass-blur-md smooth-shadow-lg motion-blur-hover relative group cursor-pointer border border-white/5 hover:border-white/15 transition-all"
+                className="shrink-0 w-[85vw] sm:w-[58vw] lg:w-[41vw] h-[480px] rounded-3xl overflow-hidden glass-panel glass-blur-md smooth-shadow-lg motion-blur-hover relative group cursor-pointer border border-white/5 hover:border-white/15 transition-all snap-align-start"
                 onClick={() => onSelectProperty(property)}
               >
                 {/* Background image carrying fine parallax scale on hover */}

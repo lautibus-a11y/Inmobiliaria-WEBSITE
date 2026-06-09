@@ -149,7 +149,7 @@ body {
   max-width: 500px;
   max-height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(185, 142, 235, 0.4) 0%, rgba(139, 92, 246, 0.18) 45%, transparent 100%);
+  background: radial-gradient(circle, rgba(185, 142, 235, 0.12) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 100%);
   filter: blur(60px);
   animation: float-aurora-1 28s ease-in-out infinite alternate;
 }
@@ -173,7 +173,7 @@ body {
   max-width: 500px;
   max-height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(109, 40, 217, 0.35) 0%, rgba(185, 142, 235, 0.15) 50%, transparent 100%);
+  background: radial-gradient(circle, rgba(109, 40, 217, 0.09) 0%, rgba(185, 142, 235, 0.03) 50%, transparent 100%);
   filter: blur(70px);
   animation: float-aurora-2 35s ease-in-out infinite alternate;
 }
@@ -197,7 +197,7 @@ body {
   max-width: 500px;
   max-height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(185, 142, 235, 0.38) 0%, rgba(109, 40, 217, 0.16) 45%, transparent 100%);
+  background: radial-gradient(circle, rgba(185, 142, 235, 0.10) 0%, rgba(109, 40, 217, 0.04) 45%, transparent 100%);
   filter: blur(65px);
   animation: float-aurora-3 40s ease-in-out infinite alternate;
 }
@@ -319,4 +319,17 @@ body {
 
 .animate-marquee-scroll-reverse {
   animation: marquee-scroll 55s linear infinite reverse;
+}
+
+/* Dynamic Lilac Gradient Background for Cinematic Reveal */
+.dynamic-lilac-gradient {
+  background: linear-gradient(-45deg, #030303, #120921, #4c1d95, #120921, #030303);
+  background-size: 400% 400%;
+  animation: dynamic-lilac-flow 7s ease infinite;
+}
+
+@keyframes dynamic-lilac-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
