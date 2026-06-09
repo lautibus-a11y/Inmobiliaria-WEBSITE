@@ -6,6 +6,16 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Parallax ratios triggered by standard document scrolls
   const { scrollY } = useScroll();
@@ -21,6 +31,11 @@ export default function Hero() {
   const bgY = useTransform(smoothScrollY, [0, 800], [0, -220]); // Deeper parallax for the background image
   const bgScale = useTransform(smoothScrollY, [0, 800], [1.02, 1.18]);
   const opacityFade = useTransform(smoothScrollY, [0, 450], [1, 0]);
+
+  const textYValue = isMobile ? 0 : textY;
+  const bgYValue = isMobile ? 0 : bgY;
+  const bgScaleValue = isMobile ? 1 : bgScale;
+  const opacityFadeValue = isMobile ? 1 : opacityFade;
 
   // Handle subtle interactive mouse glowing position in the container viewport
   useEffect(() => {
@@ -78,14 +93,14 @@ export default function Hero() {
           transition={{ type: 'tween', ease: 'backOut', duration: 0.8 }}
         />
       )}
-      {/* 3. Cinematic Parallax Cinematic Background Canvas with Local Video */}
+      {/* 3. Parallax Background Canvas with Local Video */}
       <motion.div
-        style={{ y: bgY, willChange: 'transform' }}
-        className="absolute inset-0 w-full h-[128%] pointer-events-none"
+        style={{ y: bgYValue, willChange: isMobile ? 'auto' : 'transform' }}
+        className={`absolute inset-0 w-full ${isMobile ? 'h-full' : 'h-[128%]'} pointer-events-none`}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/85 z-10" />
         <motion.video
-          style={{ scale: bgScale, willChange: 'transform' }}
+          style={{ scale: bgScaleValue, willChange: isMobile ? 'auto' : 'transform' }}
           autoPlay
           muted
           loop
@@ -99,7 +114,7 @@ export default function Hero() {
 
       {/* 5. Majestic Cinematic Text Reveal Content */}
       <motion.div
-        style={{ y: textY, opacity: opacityFade }}
+        style={{ y: textYValue, opacity: opacityFadeValue }}
         className="relative z-20 text-center px-6 max-w-4xl"
       >
         {/* Cinematic dynamic label */}

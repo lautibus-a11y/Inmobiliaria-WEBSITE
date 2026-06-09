@@ -22,12 +22,19 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { 
+      opacity: 0, 
+      y: 35, 
+      scale: 0.97, 
+      filter: 'blur(4px)' 
+    },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
       transition: {
-        duration: 0.8,
+        duration: 0.85,
         ease: [0.16, 1, 0.3, 1], // Custom cinematic bezier curve for smooth entrance
       },
     },
@@ -88,6 +95,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
           <motion.div
             key={property.id}
             variants={cardVariants}
+            style={{ willChange: 'opacity, transform, filter' }}
             className="group rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow motion-blur-hover glass-card-reflection flex flex-col justify-between h-[520px] cursor-pointer transition-all hover:border-emerald-500/20"
             onClick={() => onSelectProperty(property)}
           >

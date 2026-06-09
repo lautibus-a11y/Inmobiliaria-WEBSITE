@@ -99,10 +99,10 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
     <div
       ref={sectionRef}
       id="mas-cotizadas"
-      className={`relative w-full ${isMobile ? 'h-[180vh]' : 'h-[250vh]'} dynamic-light-lilac-gradient border-y border-neutral-200/50`}
+      className={`relative w-full ${isMobile ? 'h-auto py-16' : 'h-[250vh]'} dynamic-light-lilac-gradient border-y border-neutral-200/50`}
     >
-      {/* Sticky Top viewport container lock */}
-      <div className="sticky top-0 h-[100dvh] overflow-hidden flex flex-col justify-center py-10 w-full">
+      {/* Sticky Top viewport container lock (disabled on mobile to avoid vertical empty space) */}
+      <div className={isMobile ? 'relative w-full flex flex-col justify-center' : 'sticky top-0 h-[100dvh] overflow-hidden flex flex-col justify-center py-10 w-full'}>
         {/* Background neon soft blur (varying lilac pastel & aurora theme for premium coveted list) */}
         <div className="absolute top-[30%] right-[15%] w-[550px] h-[550px] rounded-full bg-emerald-300/[0.04] blur-[140px] pointer-events-none" />
         <div className="absolute bottom-[20%] left-[10%] w-[450px] h-[450px] rounded-full bg-emerald-500/[0.05] blur-[130px] pointer-events-none" />
@@ -120,30 +120,30 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
           </div>
 
           <div className="flex flex-col items-start sm:items-end gap-1.5 font-mono text-[10px] text-neutral-500 font-light">
-            <span className="tracking-widest">DESLICE PARA EXPLORAR</span>
+            <span className="tracking-widest">{isMobile ? "DESLIZÁ PARA EXPLORAR" : "DESLICE PARA EXPLORAR"}</span>
             <div className="flex items-center gap-2">
               <div className="w-20 h-[2px] bg-neutral-200 rounded-full overflow-hidden">
                 <motion.div 
                   className="h-full bg-emerald-500" 
-                  style={{ width: progressPercent }}
+                  style={{ width: isMobile ? "100%" : progressPercent }}
                 />
               </div>
-              <span className="text-emerald-600 font-bold">EXPLORANDO</span>
+              <span className="text-emerald-600 font-bold">{isMobile ? "COMPLETO" : "EXPLORANDO"}</span>
             </div>
           </div>
         </div>
 
-        {/* Horizontal track carrying items - overflow-hidden to block mobile overflow bugs */}
-        <div className="relative px-6 md:px-12 w-full overflow-hidden">
+        {/* Horizontal track carrying items - native horizontal swipe on mobile, animated on desktop */}
+        <div className={isMobile ? "relative w-full overflow-x-auto snap-x snap-mandatory no-scrollbar px-6 pb-4" : "relative px-6 md:px-12 w-full overflow-hidden"}>
           <motion.div
             ref={trackRef}
-            style={{ x, willChange: 'transform' }}
+            style={isMobile ? undefined : { x, willChange: 'transform' }}
             className="flex gap-6 w-max"
           >
             {mostWantedList.map((property) => (
               <div
                 key={property.id}
-                className="shrink-0 w-[82vw] sm:w-[58vw] lg:w-[41vw] h-[480px] rounded-3xl overflow-hidden bg-white/70 backdrop-blur-md border border-neutral-200/80 premium-card-shadow motion-blur-hover relative group cursor-pointer hover:border-emerald-500/20 transition-all"
+                className="shrink-0 w-[82vw] sm:w-[58vw] lg:w-[41vw] h-[480px] rounded-3xl overflow-hidden bg-white/70 backdrop-blur-md border border-neutral-200/80 premium-card-shadow motion-blur-hover relative group cursor-pointer hover:border-emerald-500/20 transition-all snap-center"
                 onClick={() => onSelectProperty(property)}
               >
                 {/* Background image carrying fine parallax scale on hover */}
@@ -174,7 +174,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
                 {/* Bottom floating details card inside. Fully styled glassmorphic box */}
                 <div className="absolute bottom-6 left-6 right-6 z-20 p-6 rounded-2xl bg-white/85 backdrop-blur-xl border border-neutral-200/85 premium-card-shadow text-neutral-900 hover:bg-white transition-colors">
                   <div className="flex items-center justify-between gap-4 mb-2">
-                    <h3 className="text-xl md:text-2xl font-display font-medium tracking-tight group-hover:text-emerald-600 transition-colors">
+                    <h3 className="text-xl md:text-2xl font-display font-medium tracking-tight group-hover:text-emerald-650 transition-colors">
                       {property.title}
                     </h3>
                     {/* Floating link indicator */}

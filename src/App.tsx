@@ -1,20 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Hexagon, Phone, Shield } from 'lucide-react';
 
-// Internal Premium Modules
+// Internal Premium Modules (Critical above-the-fold)
 import CustomCursor from './components/CustomCursor';
 import Hero from './components/Hero';
-import FeaturedProperties from './components/FeaturedProperties';
-import AboutUs from './components/AboutUs';
-import MostWanted from './components/MostWanted';
-import AllProperties from './components/AllProperties';
-import CinematicCTA from './components/CinematicCTA';
-import Testimonials from './components/Testimonials';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import PropertyModal from './components/PropertyModal';
 import CinematicReveal from './components/CinematicReveal';
+
+// Lazy-loaded modules for optimized bundle size & TTI
+const FeaturedProperties = lazy(() => import('./components/FeaturedProperties'));
+const AboutUs = lazy(() => import('./components/AboutUs'));
+const MostWanted = lazy(() => import('./components/MostWanted'));
+const AllProperties = lazy(() => import('./components/AllProperties'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
+const CinematicCTA = lazy(() => import('./components/CinematicCTA'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
+const PropertyModal = lazy(() => import('./components/PropertyModal'));
 
 // Type references
 import { Property } from './types';
@@ -27,42 +29,45 @@ export default function App() {
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [isAppLoaded, setIsAppLoaded] = useState(false);
 
-  // Monitor document offset layout changes to float header with glass backdrop and detect section theme
+  // Monitor scroll for float styles & use IntersectionObserver to detect section theme without reflows
   useEffect(() => {
-    let ticking = false;
-
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrollYPos = window.scrollY;
-          setIsScrolled(scrollYPos > 50);
-
-          // Detect if the navigation bar is overlapping any light section
-          const lightSectionIds = ['propiedades-destacadas', 'mas-cotizadas', 'todas-propiedades', 'contacto'];
-          let overLight = false;
-          const testY = 50; // Reference height for the header
-
-          for (const id of lightSectionIds) {
-            const el = document.getElementById(id);
-            if (el) {
-              const rect = el.getBoundingClientRect();
-              if (rect.top <= testY && rect.bottom >= testY) {
-                overLight = true;
-                break;
-              }
-            }
-          }
-          setIsOverLightSection(overLight);
-          ticking = false;
-        });
-        ticking = true;
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
-    
-    return () => window.removeEventListener('scroll', handleScroll);
+    handleScroll();
+
+    // Intersection observer detects overlay of light sections on the header area
+    const lightSectionIds = ['propiedades-destacadas', 'mas-cotizadas', 'todas-propiedades', 'contacto'];
+    const activeIntersections = new Set<string>();
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50px 0px -92% 0px', // Scanning zone at the height of the fixed navigation bar
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          activeIntersections.add(entry.target.id);
+        } else {
+          activeIntersections.delete(entry.target.id);
+        }
+      });
+      setIsOverLightSection(activeIntersections.size > 0);
+    }, observerOptions);
+
+    lightSectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const navLinks = [
@@ -232,33 +237,39 @@ export default function App() {
         {/* Fullscreen Hero parallax */}
         <Hero />
 
-        {/* Featured Properties Stagger section */}
-        <FeaturedProperties onSelectProperty={handleOpenProperty} />
+        <Suspense fallback={
+          <div className="py-32 text-center text-xs font-mono text-neutral-400 tracking-widest uppercase">
+            Cargando residencias exclusivas...
+          </div>
+        }>
+          {/* Featured Properties Stagger section */}
+          <FeaturedProperties onSelectProperty={handleOpenProperty} />
 
-        {/* About Section with double-stacked image animations */}
-        <AboutUs />
+          {/* About Section with double-stacked image animations */}
+          <AboutUs />
 
-        {/* Horizontal scroll properties section */}
-        <MostWanted onSelectProperty={handleOpenProperty} />
+          {/* Horizontal scroll properties section */}
+          <MostWanted onSelectProperty={handleOpenProperty} />
 
-        {/* Tabs filtered Properties section */}
-        <AllProperties onSelectProperty={handleOpenProperty} />
+          {/* Tabs filtered Properties section */}
+          <AllProperties onSelectProperty={handleOpenProperty} />
 
-        {/* Client testimonial infinite marquee track */}
-        <Testimonials />
+          {/* Client testimonial infinite marquee track */}
+          <Testimonials />
 
-        {/* Cinematic premium ScrollTrigger CTA */}
-        <CinematicCTA />
+          {/* Cinematic premium ScrollTrigger CTA */}
+          <CinematicCTA />
 
-        {/* VIP Contact form & virtual coordinate interactive Map */}
-        <Contact onSelectProperty={handleOpenProperty} />
+          {/* VIP Contact form & virtual coordinate interactive Map */}
+          <Contact onSelectProperty={handleOpenProperty} />
+
+          {/* 5. Clean footer block */}
+          <Footer />
+
+          {/* 6. Dynamic responsive property details Modal */}
+          <PropertyModal property={selectedProperty} onClose={handleCloseProperty} />
+        </Suspense>
       </main>
-
-      {/* 5. Clean footer block */}
-      <Footer />
-
-      {/* 6. Dynamic responsive property details Modal */}
-      <PropertyModal property={selectedProperty} onClose={handleCloseProperty} />
     </div>
   );
 }

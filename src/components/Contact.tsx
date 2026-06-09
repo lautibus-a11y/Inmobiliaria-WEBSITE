@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, Landmark, Send, CheckCircle, ShieldAlert, Navigation } from 'lucide-react';
 import { properties } from '../data';
@@ -16,6 +16,16 @@ export default function Contact({ onSelectProperty }: ContactProps) {
     investmentRange: '1-5m',
     message: '',
   });
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -120,16 +130,16 @@ export default function Contact({ onSelectProperty }: ContactProps) {
                     key={p.id}
                     className="absolute cursor-pointer"
                     style={{ left: `${p.coordinates.x}%`, top: `${p.coordinates.y}%` }}
-                    onMouseEnter={() => setHoveredProperty(p)}
-                    onMouseLeave={() => setHoveredProperty(null)}
+                    onMouseEnter={() => !isMobile && setHoveredProperty(p)}
+                    onMouseLeave={() => !isMobile && setHoveredProperty(null)}
                     onClick={() => onSelectProperty(p)}
                   >
                     {/* Glowing outer circle indicator */}
                     <div className="relative flex items-center justify-center w-8 h-8">
                       <motion.div
-                        animate={{ scale: [1, 2, 1], opacity: [0.3, 0.7, 0.3] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: Math.random() }}
-                        className="absolute w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30"
+                        animate={isMobile ? {} : { scale: [1, 2, 1], opacity: [0.3, 0.7, 0.3] }}
+                        transition={isMobile ? {} : { duration: 3, repeat: Infinity, ease: 'easeInOut', delay: Math.random() }}
+                        className={`absolute w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 ${isMobile ? 'animate-pulse' : ''}`}
                       />
                       <div className="relative w-2 h-2 rounded-full bg-emerald-500 group-hover/map:bg-emerald-600 border border-white shadow-lg shadow-emerald-500/30" />
                     </div>

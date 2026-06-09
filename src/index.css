@@ -363,20 +363,17 @@ body {
 
 /* Mobile performance overrides */
 @media (max-width: 767px) {
-  /* Disable background floats to reduce CPU cycles and redraws */
+  /* Disable background floats and ambient animations to reduce active CPU cycles and redraws */
   .aurora-glow-1,
   .aurora-glow-2,
-  .aurora-glow-3 {
+  .aurora-glow-3,
+  .animate-aurora,
+  .animate-pulse-slow {
     animation: none !important;
   }
   
-  /* Disable all backdrop filters to prevent scrolling lag */
-  .backdrop-blur-sm,
-  .backdrop-blur-md,
-  .backdrop-blur-lg,
-  .backdrop-blur-xl,
-  .backdrop-blur-2xl,
-  .backdrop-blur-\[2px\] {
+  /* Globally disable backdrop filters on mobile to eliminate repaint scrolling lag */
+  *, *::before, *::after {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }

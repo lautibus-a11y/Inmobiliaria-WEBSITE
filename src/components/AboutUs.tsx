@@ -58,9 +58,22 @@ export default function AboutUs() {
     offset: ["start end", "end start"]
   });
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Parallax effects for the double-stacked images
   const imgY1 = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const imgY2 = useTransform(scrollYProgress, [0, 1], [0, 50]);
+
+  const imgY1Value = isMobile ? 0 : imgY1;
+  const imgY2Value = isMobile ? 0 : imgY2;
 
   // Let's create an Animated Title: "SOBRE NOSOTROS"
   const titleText = "SOBRE NOSOTROS";
@@ -138,13 +151,13 @@ export default function AboutUs() {
           
           {/* Glassmorphic lilac semi-frame for Back image */}
           <motion.div
-            style={{ y: imgY1 }}
+            style={{ y: imgY1Value }}
             className="absolute left-4 top-4 w-[75%] h-[85%] rounded-3xl bg-emerald-500/10 border-t-2 border-l-2 border-emerald-400/40 backdrop-blur-md -translate-x-3 -translate-y-3 pointer-events-none z-0"
           />
 
           {/* Back main overlapping image with glass borders */}
           <motion.div
-            style={{ y: imgY1 }}
+            style={{ y: imgY1Value }}
             className="absolute left-4 top-4 w-[75%] h-[85%] rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-neutral-900 z-10"
           >
             <div className="absolute inset-0 bg-black/10 z-10" />
@@ -158,13 +171,13 @@ export default function AboutUs() {
 
           {/* Glassmorphic lilac semi-frame for Front image */}
           <motion.div
-            style={{ y: imgY2 }}
+            style={{ y: imgY2Value }}
             className="absolute right-4 bottom-4 w-[55%] h-[60%] rounded-3xl bg-emerald-500/10 border-b-2 border-r-2 border-emerald-400/40 backdrop-blur-md translate-x-3 translate-y-3 pointer-events-none z-20"
           />
 
           {/* Front overlapping secondary image with larger glass borders and shadow */}
           <motion.div
-            style={{ y: imgY2 }}
+            style={{ y: imgY2Value }}
             className="absolute right-4 bottom-4 w-[55%] h-[60%] rounded-3xl overflow-hidden bg-neutral-900/60 border border-white/10 shadow-2xl z-30 backdrop-blur-md"
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent z-10" />
@@ -189,24 +202,36 @@ export default function AboutUs() {
           </h3>
 
           {/* Elegant Word split paragraph reveal */}
-          <div className="flex flex-wrap gap-x-1.5 gap-y-1 mb-8">
-            {descWords.map((word, wordIdx) => (
-              <motion.span
-                key={wordIdx}
-                initial={{ opacity: 0, filter: 'blur(10px)', y: 15 }}
-                whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{
-                  duration: 0.6,
-                  delay: wordIdx * 0.05,
-                  ease: 'easeOut'
-                }}
-                className="text-sm md:text-base text-neutral-300 font-sans tracking-wide leading-relaxed font-light"
-              >
-                {word}
-              </motion.span>
-            ))}
-          </div>
+          {isMobile ? (
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              className="text-sm md:text-base text-neutral-300 font-sans tracking-wide leading-relaxed font-light mb-8"
+            >
+              {descParagraph}
+            </motion.p>
+          ) : (
+            <div className="flex flex-wrap gap-x-1.5 gap-y-1 mb-8">
+              {descWords.map((word, wordIdx) => (
+                <motion.span
+                  key={wordIdx}
+                  initial={{ opacity: 0, filter: 'blur(10px)', y: 15 }}
+                  whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{
+                    duration: 0.6,
+                    delay: wordIdx * 0.05,
+                    ease: 'easeOut'
+                  }}
+                  className="text-sm md:text-base text-neutral-300 font-sans tracking-wide leading-relaxed font-light"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </div>
+          )}
 
           <motion.div
             initial={{ opacity: 0, y: 15 }}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight } from 'lucide-react';
 import { Property } from '../types';
@@ -13,6 +13,16 @@ type CategoryType = 'todas' | 'casas' | 'departamentos' | 'oficinas' | 'terrenos
 export default function AllProperties({ onSelectProperty }: AllPropertiesProps) {
   const [activeCategory, setActiveCategory] = useState<CategoryType>('todas');
   const [priceSort, setPriceSort] = useState<'default' | 'asc' | 'desc'>('default');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const categories: { label: string; value: CategoryType }[] = [
     { label: 'Todas', value: 'todas' },
@@ -121,17 +131,17 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
       {/* Catalog Render Panel */}
       <div className="max-w-7xl mx-auto">
         <motion.div
-          layout
+          layout={!isMobile}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode={isMobile ? "wait" : "popLayout"}>
             {sortedList.map((property) => (
               <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9, y: 15 }}
+                layout={!isMobile ? "position" : false}
+                initial={{ opacity: 0, scale: 0.95, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 15 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 key={property.id}
                 className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 glass-blur-md premium-card-shadow motion-blur-hover glass-card-reflection flex flex-col justify-between h-[450px] cursor-pointer hover:border-emerald-500/30"
                 onClick={() => onSelectProperty(property)}
