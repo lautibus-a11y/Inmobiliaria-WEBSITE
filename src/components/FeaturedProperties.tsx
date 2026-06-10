@@ -9,12 +9,14 @@ interface FeaturedPropertiesProps {
   onSelectProperty: (property: Property) => void;
 }
 export default function FeaturedProperties({ onSelectProperty }: FeaturedPropertiesProps) {
-  const [isMobile, setIsMobile] = useState(false);
+  // Initialize synchronously from window to avoid layout flash
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
-    check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
