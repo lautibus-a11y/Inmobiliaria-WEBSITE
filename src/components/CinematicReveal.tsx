@@ -9,13 +9,17 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
   const [count, setCount] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  // Use ref to check mobile inside the rAF loop without causing re-renders
+  const isMobileRef = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
   useEffect(() => {
     // Prevent scroll while loading
     document.body.style.overflow = 'hidden';
 
-    // Simulate loading progress
-    const duration = 2600; // 2.6s
+    // On mobile: shorter total duration to avoid user frustration
+    const duration = isMobileRef ? 1600 : 2600;
+    const exitDuration = isMobileRef ? 700 : 1100;
+    const startDelay = isMobileRef ? 300 : 800;
     const startTime = performance.now();
 
     const animate = (currentTime: number) => {
@@ -36,20 +40,20 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
         setTimeout(() => {
           document.body.style.overflow = '';
           onComplete();
-        }, 1100); // Wait for exit animation
+        }, exitDuration);
       }
     };
 
     // Delay start slightly to allow initial stagger to appear
     const delayTimer = setTimeout(() => {
       requestAnimationFrame(animate);
-    }, 800);
+    }, startDelay);
 
     return () => {
       clearTimeout(delayTimer);
       document.body.style.overflow = '';
     };
-  }, [onComplete]);
+  }, [onComplete, isMobileRef]);
 
   // Format count to 2-digit format, e.g. "05" or "99"
   const formattedCount = count < 10 ? `0${count}` : `${count}`;
@@ -59,12 +63,12 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
       initial={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
       animate={isExiting ? { 
         opacity: 0, 
-        filter: shouldReduceMotion ? 'none' : 'blur(35px)', 
-        scale: shouldReduceMotion ? 1 : 1.05 
+        // blur(35px) on mobile is extremely expensive — skip it entirely
+        filter: (shouldReduceMotion || isMobileRef) ? 'none' : 'blur(35px)', 
+        scale: shouldReduceMotion ? 1 : (isMobileRef ? 1.02 : 1.05)
       } : {}}
-      transition={{ duration: 1.1, ease: [0.32, 0, 0.67, 0] }}
+      transition={{ duration: isMobileRef ? 0.7 : 1.1, ease: [0.32, 0, 0.67, 0] }}
       className="fixed top-0 left-0 w-full h-full bg-[#030303] z-50 flex flex-col items-center justify-center select-none overflow-hidden"
-      style={{ willChange: 'opacity, filter, transform' }}
     >
       {/* Soft ambient lila light under the logo to keep theme premium */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-35 z-0">
@@ -84,7 +88,7 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
           <img 
             src="/logo.png" 
             alt="Aurelia Propiedades Logo" 
-            className="w-full h-auto object-contain mx-auto filter drop-shadow-[0_0_25px_rgba(185,142,235,0.2)]"
+            className="w-full h-auto object-contain mx-auto"
           />
         </motion.div>
 

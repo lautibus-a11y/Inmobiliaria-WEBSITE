@@ -29,18 +29,19 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        // Reduced stagger on mobile to avoid overlapping animation triggers during scroll
+        staggerChildren: isMobile ? 0.08 : 0.15,
       },
     },
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : (isMobile ? 20 : 30) },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: isMobile ? 0.4 : 0.6,
         ease: [0.16, 1, 0.3, 1],
       },
     },
@@ -100,8 +101,9 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
           <motion.div
             key={property.id}
             variants={cardVariants}
-            style={{ willChange: 'opacity, transform' }}
-            className="group rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[520px] cursor-pointer transition-all hover:border-emerald-500/20 hover:-translate-y-1"
+            // willChange only needed during active animation; static value causes GPU layer thrashing on mobile
+            onAnimationStart={() => {}}
+            className={`group rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[520px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-emerald-500/20 ${!isMobile ? 'hover:-translate-y-1 hover:transition-transform' : ''}`}
             onClick={() => onSelectProperty(property)}
           >
             {/* Top Image Section with Internal Parallax Effect */}

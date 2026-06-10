@@ -362,4 +362,23 @@ body {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
+
+  /* Force will-change to auto on mobile — avoids unnecessary GPU compositing layers
+     that cause flickering when multiple animated elements coexist */
+  * {
+    will-change: auto !important;
+  }
+
+  /* Disable expensive image filters inside property cards on mobile.
+     brightness + saturate force a compositing layer per image, causing flicker during scroll */
+  .group img {
+    filter: none !important;
+  }
+
+  /* Use a static flat background instead of the animated gradient on mobile
+     to avoid triggering layout/repaint on featured section background */
+  .dynamic-light-lilac-gradient {
+    background: #f7f2fe !important;
+  }
 }
+
