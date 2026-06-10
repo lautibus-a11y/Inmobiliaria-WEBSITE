@@ -59,9 +59,10 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
       {/* Title block */}
       <div className="max-w-7xl mx-auto mb-16 text-center">
         <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2, margin: "0px 0px -40px 0px" }}
+          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="flex items-center justify-center gap-2 mb-3"
         >
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -70,10 +71,10 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
         </motion.div>
         
         <motion.h2
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2, margin: "0px 0px -40px 0px" }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          transition={{ duration: 0.35, delay: 0.06, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-3xl md:text-5xl font-display font-light text-neutral-900 tracking-tight mb-4"
         >
           Propiedades <strong className="font-semibold">Disponibles</strong>
@@ -145,13 +146,12 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
             {sortedList.map((property) => (
               <motion.div
                 layout={!isMobile ? "position" : false}
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-                style={{ willChange: 'transform, opacity' }}
+                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+                transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
                 key={property.id}
-                className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[450px] cursor-pointer transition-all hover:border-emerald-500/30 hover:-translate-y-1"
+                className={`group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[450px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-emerald-500/30 ${!isMobile ? 'hover:-translate-y-1 hover:transition-transform' : ''}`}
                 onClick={() => onSelectProperty(property)}
               >
                 {/* Photo frame */}
@@ -173,7 +173,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                 </div>
 
                 {/* Info and specs */}
-                <div className="p-5 flex-1 flex flex-col justify-between bg-transparent animate-sm transition-all">
+                <div className="p-5 flex-1 flex flex-col justify-between bg-transparent">
                   <div>
                     <div className="flex items-center gap-1 text-neutral-500 text-[10px] mb-1 font-mono uppercase tracking-wide">
                       <MapPin size={10} className="text-emerald-600" />

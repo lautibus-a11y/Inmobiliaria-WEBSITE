@@ -25,11 +25,11 @@ export default function CinematicCTA() {
         
         {/* Animated Badge */}
         <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-          transition={{ duration: 0.8 }}
-          className="mb-6 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
+          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="mb-6 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10"
         >
           <Sparkles size={11} className="text-emerald-300 animate-pulse" />
           <span className="text-[10px] font-mono tracking-widest text-emerald-300 uppercase font-semibold">
@@ -37,12 +37,12 @@ export default function CinematicCTA() {
           </span>
         </motion.div>
 
-        {/* Animated Heading */}
+        {/* Animated Heading - no blur filter animation (expensive on mobile) */}
         <motion.h2
-          initial={{ opacity: 0, filter: shouldReduceMotion ? 'none' : 'blur(4px)' }}
-          whileInView={{ opacity: 1, filter: 'blur(0px)' }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          transition={{ duration: 0.35, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-3xl sm:text-5xl md:text-6xl font-display font-light text-white tracking-tight leading-tight mb-6 max-w-3xl"
         >
           Tu próxima inversión <strong className="font-semibold text-emerald-300 font-sans">de colección</strong>
@@ -50,10 +50,10 @@ export default function CinematicCTA() {
 
         {/* Animated Description */}
         <motion.p
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.32, delay: 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-neutral-300 text-sm sm:text-base max-w-xl mx-auto font-sans font-light leading-relaxed mb-10"
         >
           Asesoramiento discreto y acceso exclusivo a las propiedades más cotizadas del mercado.
@@ -61,10 +61,10 @@ export default function CinematicCTA() {
 
         {/* Action Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.3, delay: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto px-4 sm:px-0"
         >
           <a

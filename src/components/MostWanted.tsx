@@ -61,8 +61,9 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
   // where the section is sticky but static, allowing the first and last cards to be fully appreciated.
   const xTransform = useTransform(scrollYProgress, [0.12, 0.88], [0, xTranslation]);
   
-  // Smooth out horizontal translation with a premium spring animation
-  const x = useSpring(xTransform, { stiffness: 85, damping: 24, mass: 0.6 });
+  // Smooth out horizontal translation.
+  // Higher stiffness = more responsive / less "gummy" feel during fast scroll
+  const x = useSpring(xTransform, { stiffness: 180, damping: 28, mass: 0.5 });
 
   return (
     <div
@@ -106,7 +107,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
             {mostWantedList.map((property) => (
               <div
                 key={property.id}
-                className="shrink-0 w-[75vw] md:w-[45vw] lg:w-[41vw] max-w-[600px] h-[480px] rounded-3xl overflow-hidden bg-white/70 backdrop-blur-md border border-neutral-200/80 premium-card-shadow relative group cursor-pointer hover:border-emerald-500/30 transition-all hover:-translate-y-1"
+                className="shrink-0 w-[75vw] md:w-[45vw] lg:w-[41vw] max-w-[600px] h-[480px] rounded-3xl overflow-hidden bg-white/70 border border-neutral-200/80 premium-card-shadow relative group cursor-pointer hover:border-emerald-500/30 transition-[border-color] duration-300"
                 onClick={() => onSelectProperty(property)}
               >
                 {/* Background image */}
@@ -115,27 +116,27 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
                     src={property.image}
                     alt={property.title}
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-[0.85]"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/40 via-transparent to-transparent z-10" />
                 </div>
 
                 {/* Over picture details glass panel */}
                 <div className="absolute top-6 left-6 z-20">
-                  <span className="text-[10px] px-3 py-1.5 bg-white/95 backdrop-blur-md rounded-lg border border-neutral-200/60 text-emerald-700 uppercase font-mono tracking-wider font-semibold shadow-sm">
+                  <span className="text-[10px] px-3 py-1.5 bg-white/95 rounded-lg border border-neutral-200/60 text-emerald-700 uppercase font-mono tracking-wider font-semibold shadow-sm">
                     Exclusivo
                   </span>
                 </div>
 
                 {/* Price badge over image top right */}
                 <div className="absolute top-6 right-6 z-20">
-                  <span className="text-xs px-3.5 py-2 bg-white/95 backdrop-blur-md border border-neutral-200/60 font-mono text-neutral-900 rounded-xl shadow-md font-medium">
+                  <span className="text-xs px-3.5 py-2 bg-white/95 border border-neutral-200/60 font-mono text-neutral-900 rounded-xl shadow-md font-medium">
                     {property.price}
                   </span>
                 </div>
 
-                {/* Bottom floating details card */}
-                <div className="absolute bottom-6 left-6 right-6 z-20 p-6 rounded-2xl bg-white/95 backdrop-blur-xl border border-neutral-200/85 premium-card-shadow text-neutral-900 hover:bg-white transition-colors">
+                {/* Bottom floating details card - no backdrop-blur to avoid compositing layers per card */}
+                <div className="absolute bottom-6 left-6 right-6 z-20 p-6 rounded-2xl bg-white/97 border border-neutral-200/85 premium-card-shadow text-neutral-900 hover:bg-white transition-colors">
                   <div className="flex items-center justify-between gap-4 mb-2">
                     <h3 className="text-xl md:text-2xl font-display font-medium tracking-tight group-hover:text-emerald-650 transition-colors">
                       {property.title}

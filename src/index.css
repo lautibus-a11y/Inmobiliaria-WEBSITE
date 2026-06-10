@@ -345,6 +345,17 @@ body {
   background: linear-gradient(-45deg, #ffffff, #f7f2fe, #efe3fc, #f7f2fe, #ffffff);
 }
 
+/* Interactive hover micro-animation for CTA buttons and interactive elements */
+.interactive-hover {
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
+}
+.interactive-hover:hover {
+  transform: translateY(-1px) scale(1.01);
+}
+.interactive-hover:active {
+  transform: translateY(0) scale(0.99);
+}
+
 
 /* Mobile performance overrides */
 @media (max-width: 767px) {
@@ -379,6 +390,17 @@ body {
      to avoid triggering layout/repaint on featured section background */
   .dynamic-light-lilac-gradient {
     background: #f7f2fe !important;
+  }
+
+  /* Disable mix-blend-multiply on mobile — forces compositing stacking context
+     and is expensive when combined with blur filters in Hero aurora glows */
+  .mix-blend-multiply {
+    mix-blend-mode: normal !important;
+  }
+
+  /* interactive-hover transforms serve no purpose on touch devices */
+  .interactive-hover:hover {
+    transform: none !important;
   }
 }
 

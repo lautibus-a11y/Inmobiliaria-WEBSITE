@@ -80,9 +80,8 @@ export default function AboutUs() {
   const titleText = "SOBRE NOSOTROS";
   const titleWords = titleText.split(' ');
 
-  // Description copy split by words
+  // Description copy (displayed as full paragraph, not split)
   const descParagraph = "Somos una inmobiliaria boutique orientada a la confidencialidad y la excelencia. Seleccionamos propiedades únicas que representan verdaderas joyas de diseño y estilo de vida.";
-  const descWords = descParagraph.split(' ');
 
   // Team carousel slider controls
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -122,15 +121,14 @@ export default function AboutUs() {
             return (
               <motion.span
                 key={idx}
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
                 transition={{
-                  duration: 0.6,
-                  delay: idx * 0.15,
-                  ease: 'easeOut'
+                  duration: 0.32,
+                  delay: idx * 0.08,
+                  ease: [0.25, 0.46, 0.45, 0.94]
                 }}
-                style={{ willChange: 'transform, opacity' }}
                 className="inline-block text-4xl md:text-7xl font-display font-light text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-400 tracking-tight select-none"
               >
                 {word}
@@ -201,20 +199,20 @@ export default function AboutUs() {
 
           {/* Elegant paragraph reveal */}
           <motion.p
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-sm md:text-base text-neutral-300 font-sans tracking-wide leading-relaxed font-light mb-8"
           >
             {descParagraph}
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2, margin: "0px 0px -40px 0px" }}
-            transition={{ delay: 0.4 }}
+            transition={{ duration: 0.32, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="flex flex-col gap-4 text-xs font-mono text-neutral-300 border-l border-emerald-500/60 pl-5"
           >
             <p>✦ Privacidad absoluta y confidencialidad en cada etapa.</p>

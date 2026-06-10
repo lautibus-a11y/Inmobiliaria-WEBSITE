@@ -60,30 +60,30 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
       <div className="max-w-7xl mx-auto mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
           <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="flex items-center gap-2 mb-3"
           >
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             <span className="text-xs font-mono tracking-[0.3em] text-emerald-700 uppercase font-semibold">Colección Exclusiva</span>
           </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+            transition={{ duration: 0.35, delay: 0.06, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-3xl md:text-5xl font-display font-light text-neutral-900 tracking-tight"
           >
             Propiedades <strong className="font-semibold">Destacadas</strong>
           </motion.h2>
         </div>
-        <motion.p
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+          <motion.p
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.35, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-sm text-neutral-600 max-w-md font-sans leading-relaxed"
         >
           Una cuidada selección de residencias que combinan un diseño excepcional y los más altos estándares de calidad.
