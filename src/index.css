@@ -422,10 +422,10 @@ body {
     filter: none !important;
   }
 
-  /* Static top→bottom gradient on mobile — white top fading to very light lilac.
-     Direction 180deg guarantees white always visible at top on any screen height. */
+  /* Static symmetric vertical gradient on mobile — white top/bottom fading to a very light lilac in the center.
+     This ensures white starts and ends at the boundaries of the sections, blending smoothly on mobile. */
   .dynamic-light-lilac-gradient {
-    background: linear-gradient(180deg, #ffffff 0%, #f9f5fe 60%, #f0e8fc 100%) !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f5edff 50%, #ffffff 100%) !important;
   }
 
   /* Disable mix-blend-multiply on mobile — forces compositing stacking context
