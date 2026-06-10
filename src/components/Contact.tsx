@@ -53,7 +53,8 @@ export default function Contact() {
       id="contacto"
       className={`py-24 px-6 md:px-12 text-neutral-900 relative overflow-hidden border-t border-neutral-200/50 ${!isMobile ? 'dynamic-light-lilac-gradient' : ''}`}
       style={{
-        background: isMobile ? 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)' : undefined
+        backgroundColor: isMobile ? '#ffffff' : undefined,
+        backgroundImage: isMobile ? 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)' : undefined
       }}
     >
       <div className="max-w-7xl mx-auto relative z-10">

@@ -109,7 +109,8 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
       id="propiedades-destacadas"
       className={`py-24 px-6 md:px-12 border-y border-neutral-200/50 relative overflow-hidden ${!isMobile ? 'dynamic-light-lilac-gradient' : ''}`}
       style={{
-        background: isMobile ? 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)' : undefined
+        backgroundColor: isMobile ? '#ffffff' : undefined,
+        backgroundImage: isMobile ? 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)' : undefined
       }}
     >
       {/* Background lighting */}

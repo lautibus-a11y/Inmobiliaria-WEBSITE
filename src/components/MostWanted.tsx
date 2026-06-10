@@ -74,7 +74,8 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
         id="mas-cotizadas"
         className="py-16 border-y border-neutral-200/50 overflow-hidden"
         style={{
-          background: 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)'
+          backgroundColor: '#ffffff',
+          backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)'
         }}
       >
         {/* Title */}
