@@ -72,7 +72,10 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
     return (
       <section
         id="mas-cotizadas"
-        className="py-16 dynamic-light-lilac-gradient border-y border-neutral-200/50 overflow-hidden"
+        className="py-16 border-y border-neutral-200/50 overflow-hidden"
+        style={{
+          background: 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)'
+        }}
       >
         {/* Title */}
         <div className="px-6 mb-8">

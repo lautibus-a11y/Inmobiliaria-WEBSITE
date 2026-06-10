@@ -378,7 +378,7 @@ body {
 
 /* Dynamic Light Lilac Gradient Background for Light sections */
 .dynamic-light-lilac-gradient {
-  background: linear-gradient(-45deg, #ffffff, #f7f2fe, #efe3fc, #f7f2fe, #ffffff);
+  background: linear-gradient(-45deg, #ffffff, #faf7fe, #f6f0fe, #faf7fe, #ffffff);
 }
 
 /* Interactive hover micro-animation for CTA buttons and interactive elements */
@@ -425,7 +425,7 @@ body {
   /* Static symmetric vertical gradient on mobile — white top/bottom fading to a very light lilac in the center.
      This ensures white starts and ends at the boundaries of the sections, blending smoothly on mobile. */
   .dynamic-light-lilac-gradient {
-    background: linear-gradient(180deg, #ffffff 0%, #f5edff 50%, #ffffff 100%) !important;
+    background: linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%) !important;
   }
 
   /* Disable mix-blend-multiply on mobile — forces compositing stacking context

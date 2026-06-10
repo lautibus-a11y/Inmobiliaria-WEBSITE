@@ -12,12 +12,11 @@ export default function Contact() {
     message: '',
   });
 
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
@@ -52,7 +51,10 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      className="py-24 px-6 md:px-12 text-neutral-900 relative overflow-hidden border-t border-neutral-200/50 dynamic-light-lilac-gradient"
+      className={`py-24 px-6 md:px-12 text-neutral-900 relative overflow-hidden border-t border-neutral-200/50 ${!isMobile ? 'dynamic-light-lilac-gradient' : ''}`}
+      style={{
+        background: isMobile ? 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)' : undefined
+      }}
     >
       <div className="max-w-7xl mx-auto relative z-10">
         

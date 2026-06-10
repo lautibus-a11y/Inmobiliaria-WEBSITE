@@ -55,7 +55,10 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
   return (
     <section
       id="todas-propiedades"
-      className="py-24 px-6 md:px-12 dynamic-light-lilac-gradient border-y border-neutral-200/50 relative overflow-hidden"
+      className={`py-24 px-6 md:px-12 border-y border-neutral-200/50 relative overflow-hidden ${!isMobile ? 'dynamic-light-lilac-gradient' : ''}`}
+      style={{
+        background: isMobile ? 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)' : undefined
+      }}
     >
       {/* Background radial spotlight lights (varying jade & teal theme) */}
       <div className="absolute top-[10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-emerald-500/[0.04] blur-[140px] pointer-events-none" />
