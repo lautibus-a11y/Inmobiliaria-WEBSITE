@@ -422,10 +422,10 @@ body {
     filter: none !important;
   }
 
-  /* Use a static flat background instead of the animated gradient on mobile
-     to avoid triggering layout/repaint on featured section background */
+  /* Static gradient on mobile (no animation = no repaint overhead).
+     Matches the visual style of the desktop dynamic gradient. */
   .dynamic-light-lilac-gradient {
-    background: #f7f2fe !important;
+    background: linear-gradient(160deg, #ffffff 0%, #f7f2fe 45%, #efe3fc 100%) !important;
   }
 
   /* Disable mix-blend-multiply on mobile — forces compositing stacking context
