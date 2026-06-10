@@ -11,13 +11,11 @@ interface MostWantedProps {
 export default function MostWanted({ onSelectProperty }: MostWantedProps) {
   const shouldReduceMotion = useReducedMotion();
 
-  // Initialize synchronously from window to avoid layout flash
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth < 768 : false
-  );
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
+    check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);

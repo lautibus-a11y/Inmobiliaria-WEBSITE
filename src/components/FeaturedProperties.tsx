@@ -8,16 +8,13 @@ import { useOnScreen } from '../hooks/useOnScreen';
 interface FeaturedPropertiesProps {
   onSelectProperty: (property: Property) => void;
 }
-
 export default function FeaturedProperties({ onSelectProperty }: FeaturedPropertiesProps) {
-  // Initialize synchronously from window to avoid flash of wrong layout
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth < 768 : false
-  );
+  const [isMobile, setIsMobile] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
+    check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);

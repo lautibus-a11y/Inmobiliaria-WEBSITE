@@ -14,10 +14,7 @@ type CategoryType = 'todas' | 'casas' | 'departamentos' | 'oficinas' | 'terrenos
 export default function AllProperties({ onSelectProperty }: AllPropertiesProps) {
   const [activeCategory, setActiveCategory] = useState<CategoryType>('todas');
   const [priceSort, setPriceSort] = useState<'default' | 'asc' | 'desc'>('default');
-  // Initialize synchronously to avoid flash of wrong layout
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth < 768 : false
-  );
+  const [isMobile, setIsMobile] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   // CSS animation hooks for mobile (compositor thread)
@@ -26,6 +23,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
+    check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
