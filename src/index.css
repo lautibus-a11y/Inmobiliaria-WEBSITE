@@ -44,6 +44,42 @@
   }
 }
 
+/* ─── Mobile CSS-only animations ──────────────────────────────────────────────
+   These run entirely on the GPU compositor thread (zero JS per-frame overhead).
+   Triggered via IntersectionObserver class toggle using useOnScreen hook.
+   ──────────────────────────────────────────────────────────────────────────── */
+@keyframes m-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes m-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Title block reveal */
+.m-reveal {
+  opacity: 0;
+}
+.m-reveal.in-view {
+  animation: m-fade-up 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Cards grid reveal — single fade, no stagger overhead */
+.m-reveal-cards {
+  opacity: 0;
+}
+.m-reveal-cards.in-view {
+  animation: m-fade-in 0.3s ease-out forwards;
+}
+
+/* Stagger helpers (CSS, zero JS cost) */
+.m-d1 { animation-delay: 0.05s !important; }
+.m-d2 { animation-delay: 0.10s !important; }
+.m-d3 { animation-delay: 0.15s !important; }
+
+
 /* Custom styles for Liquid Glass UI and Smooth Scroll */
 :root {
   background-color: #030303; /* Deep luxury dark background canvas */

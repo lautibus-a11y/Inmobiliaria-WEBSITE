@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
+import { useOnScreen } from '../hooks/useOnScreen';
 
 interface AllPropertiesProps {
   onSelectProperty: (property: Property) => void;
@@ -13,16 +14,20 @@ type CategoryType = 'todas' | 'casas' | 'departamentos' | 'oficinas' | 'terrenos
 export default function AllProperties({ onSelectProperty }: AllPropertiesProps) {
   const [activeCategory, setActiveCategory] = useState<CategoryType>('todas');
   const [priceSort, setPriceSort] = useState<'default' | 'asc' | 'desc'>('default');
-  const [isMobile, setIsMobile] = useState(false);
+  // Initialize synchronously to avoid flash of wrong layout
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
   const shouldReduceMotion = useReducedMotion();
 
+  // CSS animation hooks for mobile (compositor thread)
+  const [titleRef, titleVisible] = useOnScreen('0px 0px -30px 0px');
+  const [gridRef, gridVisible] = useOnScreen('0px 0px -20px 0px');
+
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
   const categories: { label: string; value: CategoryType }[] = [
@@ -58,30 +63,52 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
 
       {/* Title block */}
       <div className="max-w-7xl mx-auto mb-16 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2, margin: "0px 0px -40px 0px" }}
-          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="flex items-center justify-center gap-2 mb-3"
-        >
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          <span className="text-xs font-mono tracking-[0.3em] uppercase text-emerald-700 font-semibold animate-pulse-slow">Catálogo Completo</span>
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-        </motion.div>
-        
-        <motion.h2
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2, margin: "0px 0px -40px 0px" }}
-          transition={{ duration: 0.35, delay: 0.06, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-3xl md:text-5xl font-display font-light text-neutral-900 tracking-tight mb-4"
-        >
-          Propiedades <strong className="font-semibold">Disponibles</strong>
-        </motion.h2>
-        <p className="text-neutral-600 text-sm max-w-lg mx-auto font-sans font-light">
-          Filtre la búsqueda por tipo de propiedad y encuentre su próximo destino de inversión.
-        </p>
+        {isMobile ? (
+          /* Mobile: single CSS animation for title block */
+          <div
+            ref={titleRef}
+            className={`m-reveal${titleVisible ? ' in-view' : ''}`}
+          >
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span className="text-xs font-mono tracking-[0.3em] uppercase text-emerald-700 font-semibold">Catálogo Completo</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            </div>
+            <h2 className="text-3xl font-display font-light text-neutral-900 tracking-tight mb-4">
+              Propiedades <strong className="font-semibold">Disponibles</strong>
+            </h2>
+            <p className="text-neutral-600 text-sm max-w-lg mx-auto font-sans font-light">
+              Filtre la búsqueda por tipo de propiedad y encuentre su próximo destino de inversión.
+            </p>
+          </div>
+        ) : (
+          /* Desktop: Framer Motion */
+          <>
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="flex items-center justify-center gap-2 mb-3"
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span className="text-xs font-mono tracking-[0.3em] uppercase text-emerald-700 font-semibold">Catálogo Completo</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: 0.06, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="text-3xl md:text-5xl font-display font-light text-neutral-900 tracking-tight mb-4"
+            >
+              Propiedades <strong className="font-semibold">Disponibles</strong>
+            </motion.h2>
+            <p className="text-neutral-600 text-sm max-w-lg mx-auto font-sans font-light">
+              Filtre la búsqueda por tipo de propiedad y encuentre su próximo destino de inversión.
+            </p>
+          </>
+        )}
       </div>
 
       {/* Tabs Menu Glass Navigation */}
@@ -138,93 +165,138 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
 
       {/* Catalog Render Panel */}
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          layout={!isMobile}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-        >
-          <AnimatePresence mode={isMobile ? "wait" : "popLayout"}>
+        {isMobile ? (
+          /* Mobile: plain divs with single CSS animation — zero Framer Motion overhead */
+          <div
+            ref={gridRef}
+            className={`grid grid-cols-1 gap-5 m-reveal-cards${gridVisible ? ' in-view' : ''}`}
+          >
             {sortedList.map((property) => (
-              <motion.div
-                layout={!isMobile ? "position" : false}
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
-                transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+              <div
                 key={property.id}
-                className={`group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[450px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-emerald-500/30 ${!isMobile ? 'hover:-translate-y-1 hover:transition-transform' : ''}`}
+                className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[420px] cursor-pointer"
                 onClick={() => onSelectProperty(property)}
               >
-                {/* Photo frame */}
-                <div className="relative h-48 overflow-hidden bg-neutral-900">
+                <div className="relative h-44 overflow-hidden bg-neutral-900">
                   <img
                     src={property.image}
                     alt={property.title}
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105 filter brightness-[0.85] saturate-[0.95]"
+                    className="w-full h-full object-cover"
                   />
-                  {/* Category overlay */}
                   <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-emerald-700 font-semibold shadow-xs">
                     {property.category}
                   </span>
-                  {/* Price overlay */}
                   <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
                     {property.price}
                   </span>
                 </div>
-
-                {/* Info and specs */}
                 <div className="p-5 flex-1 flex flex-col justify-between bg-transparent">
                   <div>
                     <div className="flex items-center gap-1 text-neutral-500 text-[10px] mb-1 font-mono uppercase tracking-wide">
                       <MapPin size={10} className="text-emerald-600" />
                       <span>{property.location.split(',')[0]}</span>
                     </div>
-                    <h3 className="text-base font-display font-semibold text-neutral-900 tracking-tight leading-snug group-hover:text-emerald-650 transition-colors mb-2">
+                    <h3 className="text-base font-display font-semibold text-neutral-900 tracking-tight leading-snug mb-2">
                       {property.title}
                     </h3>
                     <p className="text-neutral-600 text-xs font-sans leading-relaxed line-clamp-2 font-light">
                       {property.description}
                     </p>
                   </div>
-
-                  {/* Icon Specs Row */}
                   <div className="border-t border-neutral-100 pt-4 flex items-center justify-between">
                     <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
                       {property.beds > 0 && (
-                        <div className="flex items-center gap-1">
-                          <Bed size={12} className="text-emerald-600" />
-                          <span>{property.beds} Dorm</span>
-                        </div>
+                        <div className="flex items-center gap-1"><Bed size={12} className="text-emerald-600" /><span>{property.beds} Dorm</span></div>
                       )}
                       {property.baths > 0 && (
-                        <div className="flex items-center gap-1">
-                          <ShowerHead size={12} className="text-emerald-600" />
-                          <span>{property.baths} B</span>
-                        </div>
+                        <div className="flex items-center gap-1"><ShowerHead size={12} className="text-emerald-600" /><span>{property.baths} B</span></div>
                       )}
-                      <div className="flex items-center gap-1">
-                        <Grid size={11} className="text-emerald-600" />
-                        <span>{property.area}</span>
-                      </div>
+                      <div className="flex items-center gap-1"><Grid size={11} className="text-emerald-600" /><span>{property.area}</span></div>
                     </div>
-
-                    {/* Miniature arrow trigger */}
-                    <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                    <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
                       <ArrowUpRight size={12} />
                     </span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </AnimatePresence>
-
-          {/* Empty fallback state */}
-          {sortedList.length === 0 && (
-            <div className="col-span-full py-16 text-center text-neutral-500 font-sans">
-              <p>No se encontraron propiedades disponibles en esta categoría.</p>
-            </div>
-          )}
-        </motion.div>
+            {sortedList.length === 0 && (
+              <div className="py-16 text-center text-neutral-500 font-sans">
+                <p>No se encontraron propiedades disponibles en esta categoría.</p>
+              </div>
+            )}
+          </div>
+        ) : (
+          /* Desktop: Framer Motion AnimatePresence with layout animations */
+          <motion.div
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          >
+            <AnimatePresence mode="popLayout">
+              {sortedList.map((property) => (
+                <motion.div
+                  layout="position"
+                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+                  transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  key={property.id}
+                  className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[450px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-emerald-500/30 hover:-translate-y-1 hover:transition-transform"
+                  onClick={() => onSelectProperty(property)}
+                >
+                  <div className="relative h-48 overflow-hidden bg-neutral-900">
+                    <img
+                      src={property.image}
+                      alt={property.title}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
+                    />
+                    <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-emerald-700 font-semibold shadow-xs">
+                      {property.category}
+                    </span>
+                    <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
+                      {property.price}
+                    </span>
+                  </div>
+                  <div className="p-5 flex-1 flex flex-col justify-between bg-transparent">
+                    <div>
+                      <div className="flex items-center gap-1 text-neutral-500 text-[10px] mb-1 font-mono uppercase tracking-wide">
+                        <MapPin size={10} className="text-emerald-600" />
+                        <span>{property.location.split(',')[0]}</span>
+                      </div>
+                      <h3 className="text-base font-display font-semibold text-neutral-900 tracking-tight leading-snug group-hover:text-emerald-650 transition-colors mb-2">
+                        {property.title}
+                      </h3>
+                      <p className="text-neutral-600 text-xs font-sans leading-relaxed line-clamp-2 font-light">
+                        {property.description}
+                      </p>
+                    </div>
+                    <div className="border-t border-neutral-100 pt-4 flex items-center justify-between">
+                      <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
+                        {property.beds > 0 && (
+                          <div className="flex items-center gap-1"><Bed size={12} className="text-emerald-600" /><span>{property.beds} Dorm</span></div>
+                        )}
+                        {property.baths > 0 && (
+                          <div className="flex items-center gap-1"><ShowerHead size={12} className="text-emerald-600" /><span>{property.baths} B</span></div>
+                        )}
+                        <div className="flex items-center gap-1"><Grid size={11} className="text-emerald-600" /><span>{property.area}</span></div>
+                      </div>
+                      <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                        <ArrowUpRight size={12} />
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            {sortedList.length === 0 && (
+              <div className="col-span-full py-16 text-center text-neutral-500 font-sans">
+                <p>No se encontraron propiedades disponibles en esta categoría.</p>
+              </div>
+            )}
+          </motion.div>
+        )}
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useInView, useReducedMotion } from 'motion/react';
 import { stats, team } from '../data';
+import { useOnScreen } from '../hooks/useOnScreen';
 
 // Helper component for counting numbers smoothly
 function CountingNum({ value, suffix, prefix }: { value: number; suffix?: string; prefix?: string }) {
@@ -59,15 +60,18 @@ export default function AboutUs() {
     offset: ["start end", "end start"]
   });
 
-  const [isMobile, setIsMobile] = useState(false);
+  // Initialize synchronously to avoid layout flash on mobile
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
+
+  // CSS animation hook for mobile title block
+  const [mobileTitleRef, mobileTitleVisible] = useOnScreen('0px 0px -30px 0px');
 
   // Parallax effects for the double-stacked images
   const imgY1 = useTransform(scrollYProgress, [0, 1], [0, -40]);
@@ -114,28 +118,33 @@ export default function AboutUs() {
         backgroundImage: "linear-gradient(135deg, #030303 0%, #030303 25%, #120921 50%, #030303 75%, #030303 100%)"
       }}
     >
-      {/* 1. LIGHTWEIGHT FADE-IN TITLE */}
-      <div ref={titleRef} className="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-center">
-        <div className="flex justify-center items-center gap-4 md:gap-6 py-4 flex-wrap">
-          {titleWords.map((word, idx) => {
-            return (
+      {/* 1. TITLE — mobile: single CSS fade (zero JS per frame) | desktop: per-word Framer Motion */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-center">
+        {isMobile ? (
+          <div
+            ref={mobileTitleRef}
+            className={`m-reveal${mobileTitleVisible ? ' in-view' : ''}`}
+          >
+            <h2 className="text-4xl font-display font-light text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-400 tracking-tight select-none py-4">
+              SOBRE NOSOTROS
+            </h2>
+          </div>
+        ) : (
+          <div ref={titleRef} className="flex justify-center items-center gap-4 md:gap-6 py-4 flex-wrap">
+            {titleWords.map((word, idx) => (
               <motion.span
                 key={idx}
                 initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-                transition={{
-                  duration: 0.32,
-                  delay: idx * 0.08,
-                  ease: [0.25, 0.46, 0.45, 0.94]
-                }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.32, delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="inline-block text-4xl md:text-7xl font-display font-light text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-400 tracking-tight select-none"
               >
                 {word}
               </motion.span>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        )}
         <div className="w-16 h-0.5 bg-emerald-500/50 mx-auto mt-2 rounded-full" />
       </div>
 
