@@ -127,12 +127,20 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
 
       {/* Footer Branding credits - Responsive position and size */}
       <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.6 }}
-        transition={{ duration: 1, ease: 'easeOut', delay: 0.8 }}
-        className="absolute bottom-6 sm:bottom-8 text-center text-[9px] sm:text-xs font-mono text-gray-600 tracking-wider px-4 z-10"
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: 'easeOut', delay: 0.9 }}
+        className="absolute bottom-6 sm:bottom-8 text-center px-4 z-10 flex flex-col items-center gap-1"
       >
-        Desarrollado por <span className="text-purple-400 font-semibold">Broadcastweb</span> • Todos los derechos reservados
+        <span className="font-mono text-[11px] sm:text-sm tracking-[0.18em] text-violet-400 uppercase">
+          Desarrollado por
+        </span>
+        <span className="font-display font-bold text-base sm:text-lg tracking-[0.25em] text-violet-300 uppercase drop-shadow-[0_0_10px_rgba(167,139,250,0.7)]">
+          Broadcastweb
+        </span>
+        <span className="font-mono text-[9px] sm:text-[10px] tracking-wider text-violet-500/70 mt-0.5">
+          Todos los derechos reservados
+        </span>
       </motion.div>
     </motion.div>
   );
