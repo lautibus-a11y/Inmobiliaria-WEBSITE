@@ -123,7 +123,7 @@ export default function App() {
             <span className={`text-xl font-display tracking-[0.25em] font-bold uppercase group-hover:text-emerald-500 transition-colors ${
               isOverLightSection ? 'text-neutral-900' : 'text-white'
             }`}>
-              AURELIA
+              IVANA MOLINA
             </span>
           </a>
 

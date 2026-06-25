@@ -45,9 +45,8 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
   const imagesList = property.images && property.images.length > 0 ? property.images : [property.image];
 
-  // Dynamic assignment of video tour based on property ID
-  const isOddProperty = parseInt(property.id.replace('prop-', '')) % 2 !== 0;
-  const videoSrc = isOddProperty ? '/video-tour-3d/videotour1.mp4' : '/video-tour-3d/videotour2.mp4';
+  // Assignment of video tour
+  const videoSrc = '/video-tour-3d/videotour.mp4';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

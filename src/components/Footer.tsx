@@ -15,7 +15,7 @@ export default function Footer() {
           <div className="md:col-span-1">
             <div className="flex items-center gap-2.5 mb-4 select-none">
               <Hexagon size={24} className="text-emerald-400 rotate-90" />
-              <span className="text-lg font-display tracking-[0.2em] font-bold text-white uppercase">AURELIA</span>
+              <span className="text-lg font-display tracking-[0.2em] font-bold text-white uppercase">IVANA MOLINA</span>
             </div>
             <p className="text-xs text-gray-400 leading-relaxed font-sans font-light">
               Asesoramiento exclusivo y transacciones confidenciales en el mercado inmobiliario de alta categoría.
@@ -78,7 +78,7 @@ export default function Footer() {
 
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono text-gray-400">
           <div>
-            <p>© {currentYear} Aurelia Propiedades de Categoría. Todos los derechos reservados.</p>
+            <p>© {currentYear} Ivana Molina Propiedades de Categoría. Todos los derechos reservados.</p>
           </div>
           <div className="flex gap-4 items-center">
             <span className="flex items-center gap-1">

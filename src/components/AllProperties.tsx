@@ -10,8 +10,10 @@ interface AllPropertiesProps {
 }
 
 type CategoryType = 'todas' | 'casas' | 'departamentos' | 'oficinas' | 'terrenos' | 'premium';
+type TransactionType = 'todas' | 'venta' | 'alquiler';
 
 export default function AllProperties({ onSelectProperty }: AllPropertiesProps) {
+  const [activeTransaction, setActiveTransaction] = useState<TransactionType>('todas');
   const [activeCategory, setActiveCategory] = useState<CategoryType>('todas');
   const [priceSort, setPriceSort] = useState<'default' | 'asc' | 'desc'>('default');
   // Initialize synchronously to avoid layout flash
@@ -30,6 +32,12 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  const transactions: { label: string; value: TransactionType }[] = [
+    { label: 'Todas', value: 'todas' },
+    { label: 'Venta', value: 'venta' },
+    { label: 'Alquiler', value: 'alquiler' },
+  ];
+
   const categories: { label: string; value: CategoryType }[] = [
     { label: 'Todas', value: 'todas' },
     { label: 'Casas', value: 'casas' },
@@ -41,8 +49,9 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
 
   // Filtering based on standard selections
   const filteredList = properties.filter((p) => {
-    if (activeCategory === 'todas') return true;
-    return p.category === activeCategory;
+    const matchesTransaction = activeTransaction === 'todas' || p.transactionType === activeTransaction;
+    const matchesCategory = activeCategory === 'todas' || p.category === activeCategory;
+    return matchesTransaction && matchesCategory;
   });
 
   // Sorting
@@ -116,10 +125,58 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
       </div>
 
       {/* Tabs Menu Glass Navigation */}
-      <div className="max-w-7xl mx-auto mb-12 flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-neutral-200/60">
+      <div className="max-w-7xl mx-auto mb-12 flex flex-col gap-6 pb-6 border-b border-neutral-200/60">
         
-        {/* Horizontal scrollable glass bar on tabs */}
-        <div className="flex overflow-x-auto w-full md:w-auto p-1.5 rounded-2xl bg-neutral-100 border border-neutral-200/80 backdrop-blur-md no-scrollbar">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
+          {/* Main Transaction Types (Todas / Venta / Alquiler) */}
+          <div className="flex w-full md:w-auto p-1.5 rounded-2xl bg-neutral-100 border border-neutral-200/80 backdrop-blur-md">
+            <div className="flex gap-1.5 w-full md:w-max">
+              {transactions.map((trans) => {
+                const isActive = activeTransaction === trans.value;
+                return (
+                  <button
+                    key={trans.value}
+                    onClick={() => setActiveTransaction(trans.value)}
+                    className={`flex-1 md:flex-none text-xs px-8 py-3 rounded-xl font-medium tracking-wide transition-all uppercase cursor-pointer select-none relative ${
+                      isActive
+                        ? 'text-white font-semibold'
+                        : 'text-neutral-500 hover:text-neutral-950 hover:bg-neutral-200/50'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeTransTabUnder"
+                        className="absolute inset-0 bg-emerald-600 rounded-xl shadow-lg"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{trans.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Filter / Sort controller */}
+          <div className="flex items-center gap-3 w-full md:w-auto justify-end">
+            <div className="flex items-center gap-2 text-xs font-mono text-neutral-500">
+              <SlidersHorizontal size={14} className="text-emerald-600" />
+              <span>Ordenar por:</span>
+            </div>
+            <select
+              value={priceSort}
+              onChange={(e) => setPriceSort(e.target.value as any)}
+              className="bg-white border border-neutral-200/80 text-xs rounded-xl py-2 px-3 text-neutral-800 focus:outline-none focus:border-emerald-500/50 [&_option]:bg-white [&_option]:text-neutral-800"
+            >
+              <option value="default">Relevancia</option>
+              <option value="asc">Menor a Mayor Precio</option>
+              <option value="desc">Mayor a Menor Precio</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Secondary Category Types (Casas / Departamentos / etc) */}
+        <div className="flex overflow-x-auto w-full p-1.5 rounded-2xl bg-neutral-100/50 border border-neutral-200/40 backdrop-blur-md no-scrollbar">
           <div className="flex gap-1.5 w-max">
             {categories.map((cat) => {
               const isActive = activeCategory === cat.value;
@@ -127,18 +184,16 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                 <button
                   key={cat.value}
                   onClick={() => setActiveCategory(cat.value)}
-                  className={`text-xs px-5 py-2.5 rounded-xl font-medium tracking-wide transition-all uppercase cursor-pointer select-none relative ${
+                  className={`text-[11px] px-5 py-2.5 rounded-xl font-medium tracking-wide transition-all uppercase cursor-pointer select-none relative ${
                     isActive
                       ? 'text-emerald-950 font-semibold'
-                      : 'text-neutral-500 hover:text-neutral-950 hover:bg-neutral-200/50'
+                      : 'text-neutral-500 hover:text-neutral-950 hover:bg-neutral-200/80'
                   }`}
-                  id={`tab-${cat.value}`}
                 >
-                  {/* Under active indicator glow */}
                   {isActive && (
                     <motion.div
-                      layoutId="activeTabUnder"
-                      className="absolute inset-0 bg-emerald-500/10 rounded-xl border border-emerald-500/20 shadow-lg"
+                      layoutId="activeCatTabUnder"
+                      className="absolute inset-0 bg-white rounded-xl border border-neutral-200 shadow-sm"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -147,23 +202,6 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
               );
             })}
           </div>
-        </div>
-
-        {/* Filter / Sort controller */}
-        <div className="flex items-center gap-3 w-full md:w-auto justify-end">
-          <div className="flex items-center gap-2 text-xs font-mono text-neutral-500">
-            <SlidersHorizontal size={14} className="text-emerald-600" />
-            <span>Ordenar por:</span>
-          </div>
-          <select
-            value={priceSort}
-            onChange={(e) => setPriceSort(e.target.value as any)}
-            className="bg-white border border-neutral-200/80 text-xs rounded-xl py-2 px-3 text-neutral-800 focus:outline-none focus:border-emerald-500/50 [&_option]:bg-white [&_option]:text-neutral-800"
-          >
-            <option value="default">Relevancia</option>
-            <option value="asc">Menor a Mayor Precio</option>
-            <option value="desc">Mayor a Menor Precio</option>
-          </select>
         </div>
       </div>
 

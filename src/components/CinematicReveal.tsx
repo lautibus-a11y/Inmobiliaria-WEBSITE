@@ -83,23 +83,13 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
           initial={{ scale: shouldReduceMotion ? 1 : 0.88, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.3, ease: 'easeOut' }}
-          className="w-[72vw] sm:w-[60vw] md:w-[50vw] max-w-[380px] lg:max-w-[440px] h-auto mx-auto overflow-hidden"
+          className="w-[85vw] sm:w-[65vw] md:w-[55vw] max-w-[420px] lg:max-w-[480px] h-auto mx-auto overflow-hidden -mt-16 sm:-mt-8 mb-16 sm:mb-12"
         >
           <img 
-            src="/logo.png" 
-            alt="Aurelia Propiedades Logo" 
+            src="/logo.webp" 
+            alt="Ivana Molina Propiedades Logo" 
             className="w-full h-auto object-contain mx-auto"
           />
-        </motion.div>
-
-        {/* Branding Title */}
-        <motion.div 
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: 'easeOut', delay: 0.6 }}
-          className="text-white text-lg sm:text-2xl font-display font-light tracking-[0.2em] mt-6 sm:mt-8 mb-10 sm:mb-12 text-center mx-auto select-none"
-        >
-          Aurelia <strong className="font-semibold text-purple-300">Propiedades</strong>
         </motion.div>
 
         {/* Slider & Progress bar container */}

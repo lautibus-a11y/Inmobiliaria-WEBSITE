@@ -6,6 +6,7 @@ export interface Property {
   priceNumeric: number;
   location: string;
   category: 'casas' | 'departamentos' | 'oficinas' | 'terrenos' | 'premium';
+  transactionType: 'venta' | 'alquiler';
   image: string;
   images?: string[];
   description: string;

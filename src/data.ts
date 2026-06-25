@@ -3,6 +3,7 @@ import { Property, TeamMember, Testimonial, Stat } from './types';
 export const properties: Property[] = [
   {
     id: 'prop-1',
+    transactionType: 'venta',
     title: 'Vila Lumina',
     subtitle: 'Obra de arte en vidrio y luz',
     price: '$8,250,000 USD',
@@ -27,6 +28,7 @@ export const properties: Property[] = [
   },
   {
     id: 'prop-2',
+    transactionType: 'venta',
     title: 'Aura Penthouse',
     subtitle: 'Vistas únicas sobre la gran ciudad',
     price: '$4,900,000 USD',
@@ -50,6 +52,7 @@ export const properties: Property[] = [
   },
   {
     id: 'prop-3',
+    transactionType: 'alquiler',
     title: 'Brutal Sanctuary',
     subtitle: 'Fusión de hormigón y naturaleza',
     price: '$6,100,000 USD',
@@ -73,6 +76,7 @@ export const properties: Property[] = [
   },
   {
     id: 'prop-4',
+    transactionType: 'venta',
     title: 'Nirvana Oceanfront',
     subtitle: 'Exclusividad frente al océano',
     price: '$12,500,000 USD',
@@ -96,6 +100,7 @@ export const properties: Property[] = [
   },
   {
     id: 'prop-5',
+    transactionType: 'alquiler',
     title: 'Apex Business Pavilion',
     subtitle: 'Innovación en oficinas ejecutivas',
     price: '$15,800,000 USD',
@@ -119,6 +124,7 @@ export const properties: Property[] = [
   },
   {
     id: 'prop-6',
+    transactionType: 'venta',
     title: 'Terra Sanctum',
     subtitle: 'Lote único para proyectos exclusivos',
     price: '$3,400,000 USD',
@@ -142,6 +148,7 @@ export const properties: Property[] = [
   },
   {
     id: 'prop-7',
+    transactionType: 'alquiler',
     title: 'The Obsidian Pavilion',
     subtitle: 'Elegancia y diseño en vidrio templado',
     price: '$7,800,000 USD',
@@ -165,6 +172,7 @@ export const properties: Property[] = [
   },
   {
     id: 'prop-8',
+    transactionType: 'venta',
     title: 'Helix Premium Suite',
     subtitle: 'Estilo moderno de curvas orgánicas',
     price: '$3,850,000 USD',

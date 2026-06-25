@@ -98,7 +98,7 @@ export default function Contact() {
             {/* Google Maps Embed Classic with lila border */}
             <div className="relative w-full h-[400px] md:h-[450px] rounded-3xl overflow-hidden border border-[#b98eeb]/35 shadow-xl shadow-[#b98eeb]/5 mb-6">
               <iframe
-                title="Google Maps Aurelia Propiedades"
+                title="Google Maps Ivana Molina Propiedades"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0167132768468!2d-58.36472!3d-34.60472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a3352fd9cc8a05%3A0x6b8ec11598f822aa!2sPuerto%20Madero%2C%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1700000000000!5m2!1ses!2sar"
                 width="100%"
                 height="100%"
@@ -118,7 +118,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <span className="text-[9px] font-mono text-neutral-500 block">CORREO ELECTRÓNICO</span>
-                  <p className="text-xs font-mono tracking-tight text-neutral-800 hover:text-emerald-700">contacto@aureliapropiedades.com.ar</p>
+                  <p className="text-xs font-mono tracking-tight text-neutral-800 hover:text-emerald-700">contacto@ivanamolinapropiedades.com.ar</p>
                 </div>
               </div>
               <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-neutral-200/80 shadow-sm shadow-emerald-500/5 flex items-center gap-3">
@@ -182,7 +182,7 @@ export default function Contact() {
                       <input
                         type="email"
                         required
-                        placeholder="ej. moretti@aureliapropiedades.com.ar"
+                        placeholder="ej. moretti@ivanamolinapropiedades.com.ar"
                         value={formData.vipEmail}
                         onChange={(e) => setFormData({ ...formData, vipEmail: e.target.value })}
                         className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-emerald-500/60 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans shadow-xs"
