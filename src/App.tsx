@@ -120,7 +120,7 @@ export default function App() {
               alt="Ivana Molina Propiedades"
               className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
             />
-            <span className={`text-sm sm:text-base font-display tracking-[0.18em] font-bold uppercase group-hover:text-emerald-500 transition-colors hidden sm:block ${
+            <span className={`text-[11px] sm:text-sm md:text-base font-display tracking-[0.12em] sm:tracking-[0.18em] font-bold uppercase group-hover:text-emerald-500 transition-colors ${
               isOverLightSection ? 'text-neutral-900' : 'text-white'
             }`}>
               Ivana Molina
