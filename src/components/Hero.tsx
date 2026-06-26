@@ -195,7 +195,7 @@ export default function Hero({ isAppLoaded = true }: HeroProps) {
           className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 sm:px-0"
         >
           <a
-            href="#propiedades-destacadas"
+            href="#todas-propiedades"
             className="w-full sm:w-auto text-center px-8 py-4 rounded-xl border border-emerald-500 bg-emerald-500 text-white font-semibold text-xs tracking-widest uppercase hover:bg-emerald-600 hover:border-emerald-600 transition-colors cursor-pointer shadow-lg interactive-hover"
           >
             Ver Catálogo
