@@ -78,7 +78,7 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
       {/* Main Container - Responsive layout */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full px-6 text-center max-w-2xl mx-auto">
         
-        {/* Large Logo Image */}
+        {/* Large Logo Image + Brand Text — animate together */}
         <motion.div 
           initial={{ scale: shouldReduceMotion ? 1 : 0.88, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -90,20 +90,15 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
             alt="Ivana Molina Propiedades Logo" 
             className="w-[70vw] sm:w-[50vw] md:w-[40vw] max-w-[340px] lg:max-w-[400px] h-auto object-contain mx-auto"
           />
-          {/* Brand text below logo */}
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.8 }}
-            className="mt-5 flex flex-col items-center gap-1 select-none"
-          >
+          {/* Brand text — appears with the same entry as the logo */}
+          <div className="mt-5 flex flex-col items-center gap-1 select-none">
             <span className="font-display font-light text-white text-base sm:text-xl tracking-[0.25em] uppercase">
               Ivana Molina y Asociados
             </span>
             <span className="font-mono text-[10px] sm:text-xs tracking-[0.4em] text-emerald-400 uppercase">
               Bienes Raíces
             </span>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Slider & Progress bar container */}
