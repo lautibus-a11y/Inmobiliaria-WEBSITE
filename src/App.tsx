@@ -1,6 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Hexagon, Phone, Shield } from 'lucide-react';
+import { Menu, X, Phone, Shield } from 'lucide-react';
 
 import Hero from './components/Hero';
 import CinematicReveal from './components/CinematicReveal';
@@ -114,16 +114,16 @@ export default function App() {
         }`}
       >
         <div className="w-full px-6 md:px-8 flex items-center justify-between">
-          {/* Logo Brand */}
-          <a href="#" className="flex items-center gap-2.5 z-50 select-none group">
-            <Hexagon 
-              size={22} 
-              className="text-emerald-500 transform group-hover:rotate-180 transition-transform duration-700 ease-in-out" 
+          <a href="#" className="flex items-center gap-3 z-50 select-none group">
+            <img
+              src="/logocabecera.webp"
+              alt="Ivana Molina Propiedades"
+              className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
             />
-            <span className={`text-xl font-display tracking-[0.25em] font-bold uppercase group-hover:text-emerald-500 transition-colors ${
+            <span className={`text-sm sm:text-base font-display tracking-[0.18em] font-bold uppercase group-hover:text-emerald-500 transition-colors hidden sm:block ${
               isOverLightSection ? 'text-neutral-900' : 'text-white'
             }`}>
-              IVANA MOLINA
+              Ivana Molina
             </span>
           </a>
 

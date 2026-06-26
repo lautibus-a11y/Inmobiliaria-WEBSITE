@@ -88,25 +88,6 @@ export default function AboutUs() {
   const descParagraph = "Somos una inmobiliaria boutique orientada a la confidencialidad y la excelencia. Seleccionamos propiedades únicas que representan verdaderas joyas de diseño y estilo de vida.";
 
   // Team carousel slider controls
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [carouselWidth, setCarouselWidth] = useState(0);
-
-  useEffect(() => {
-    if (carouselRef.current) {
-      setCarouselWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
-    }
-    
-    // Auto-update on window resize
-    const handleResize = () => {
-      if (carouselRef.current) {
-        setCarouselWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const [dragOffset, setDragOffset] = useState(0);
 
   return (
     <motion.section

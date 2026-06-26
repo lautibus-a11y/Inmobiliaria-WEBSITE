@@ -83,13 +83,27 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
           initial={{ scale: shouldReduceMotion ? 1 : 0.88, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.3, ease: 'easeOut' }}
-          className="w-[85vw] sm:w-[65vw] md:w-[55vw] max-w-[420px] lg:max-w-[480px] h-auto mx-auto overflow-hidden -mt-16 sm:-mt-8 mb-16 sm:mb-12"
+          className="flex flex-col items-center -mt-16 sm:-mt-8 mb-12"
         >
           <img 
-            src="/logo.webp" 
+            src="/logocabecera.webp" 
             alt="Ivana Molina Propiedades Logo" 
-            className="w-full h-auto object-contain mx-auto"
+            className="w-[70vw] sm:w-[50vw] md:w-[40vw] max-w-[340px] lg:max-w-[400px] h-auto object-contain mx-auto"
           />
+          {/* Brand text below logo */}
+          <motion.div
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.8 }}
+            className="mt-5 flex flex-col items-center gap-1 select-none"
+          >
+            <span className="font-display font-light text-white text-base sm:text-xl tracking-[0.25em] uppercase">
+              Ivana Molina y Asociados
+            </span>
+            <span className="font-mono text-[10px] sm:text-xs tracking-[0.4em] text-emerald-400 uppercase">
+              Bienes Raíces
+            </span>
+          </motion.div>
         </motion.div>
 
         {/* Slider & Progress bar container */}
