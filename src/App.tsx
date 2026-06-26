@@ -231,7 +231,7 @@ export default function App() {
       {/* 4. Page Sections layout */}
       <main>
         {/* Fullscreen Hero parallax */}
-        <Hero />
+        <Hero isAppLoaded={isAppLoaded} />
 
         <Suspense fallback={
           <div className="py-32 text-center text-xs font-mono text-neutral-400 tracking-widest uppercase">
