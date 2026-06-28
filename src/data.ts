@@ -9,7 +9,7 @@ export const properties: Property[] = [
     price: '$8,250,000 USD',
     priceNumeric: 8250000,
     location: 'Beverly Hills, Los Ángeles',
-    category: 'premium',
+    category: 'casas-quinta',
     image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80',
     images: [
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80',
@@ -82,7 +82,7 @@ export const properties: Property[] = [
     price: '$12,500,000 USD',
     priceNumeric: 12500005,
     location: 'Malibú, California',
-    category: 'premium',
+    category: 'casas-quinta',
     image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
     images: [
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
@@ -106,7 +106,7 @@ export const properties: Property[] = [
     price: '$15,800,000 USD',
     priceNumeric: 15800000,
     location: 'Salo, Suiza',
-    category: 'oficinas',
+    category: 'terrenos',
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
     images: [
       'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',

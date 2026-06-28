@@ -226,7 +226,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 )}
                 
                 <span className="px-3 py-1 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-xs tracking-widest uppercase font-mono rounded-full mb-3 inline-block font-semibold">
-                  {property.category === 'premium' ? 'Colección Premium' : property.category}
+                  {property.category === 'casas-quinta' ? 'Casas Quinta' : property.category}
                 </span>
                 <h1 className="text-2xl md:text-3xl font-display font-bold tracking-tight mb-1 text-white">
                   {property.title}

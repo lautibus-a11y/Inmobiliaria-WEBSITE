@@ -5,7 +5,7 @@ export interface Property {
   price: string;
   priceNumeric: number;
   location: string;
-  category: 'casas' | 'departamentos' | 'oficinas' | 'terrenos' | 'premium';
+  category: 'casas' | 'departamentos' | 'terrenos' | 'casas-quinta';
   transactionType: 'venta' | 'alquiler';
   image: string;
   images?: string[];
