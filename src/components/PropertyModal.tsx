@@ -276,7 +276,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
             {/* Action Buttons Widget */}
             <div className="mt-8 border-t border-white/5 pt-6 flex flex-col gap-3">
               <a
-                href="https://wa.me/5491168091223"
+                href={`https://wa.me/5491168091223?text=${encodeURIComponent(`Hola Ivana Molina Bienes Raíces. Me comunico desde su sitio web porque me interesa la propiedad: ${property.title}. Quisiera recibir más información y agendar una visita.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold text-xs tracking-widest uppercase hover:bg-white/20 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-black/20"

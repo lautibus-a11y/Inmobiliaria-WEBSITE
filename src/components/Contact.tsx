@@ -161,7 +161,7 @@ export default function Contact() {
 
             <div className="mt-4 flex flex-col sm:flex-row gap-4">
               <a
-                href="https://wa.me/5491168091223"
+                href={`https://wa.me/5491168091223?text=${encodeURIComponent('Hola Ivana Molina Bienes Raíces. Me comunico desde su sitio web y quisiera recibir más información.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 p-4 rounded-2xl bg-neutral-900 text-white font-semibold text-xs tracking-widest uppercase hover:bg-neutral-800 transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-black/10 interactive-hover"
