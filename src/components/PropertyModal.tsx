@@ -202,7 +202,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
           </div>
 
           {/* Right panel: Details & Scheduler (Scrollable) */}
-          <div className="w-full md:w-1/2 p-6 md:p-8 overflow-y-auto no-scrollbar flex flex-col justify-between">
+          <div className="w-full md:w-1/2 p-6 md:p-8 overflow-y-auto flex flex-col justify-between">
             <div className="space-y-6">
               {/* Heading */}
               <div>

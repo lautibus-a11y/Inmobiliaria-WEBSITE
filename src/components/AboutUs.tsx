@@ -244,7 +244,7 @@ export default function AboutUs() {
       </div>
 
       {/* 4. SERVICIOS SECTION */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div id="servicios" className="max-w-7xl mx-auto px-6 md:px-12 pt-28 -mt-16">
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <span className="text-[10px] font-mono tracking-widest text-white/40 block mb-2">LO QUE HACEMOS</span>
@@ -279,7 +279,12 @@ export default function AboutUs() {
                 </p>
               </div>
               
-              <a href="#contacto" className="inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-white/70 group-hover:text-white transition-colors mt-6 w-max">
+              <a
+                href={`https://wa.me/5491168091223?text=${encodeURIComponent(`Hola Ivana Molina Bienes Raíces. Me comunico desde su sitio web porque estoy interesado en el servicio de ${srv.title}. Quisiera recibir más información.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-white/70 group-hover:text-white transition-colors mt-6 w-max"
+              >
                 Consultar ahora 
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </a>

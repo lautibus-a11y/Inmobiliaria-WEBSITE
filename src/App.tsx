@@ -71,10 +71,9 @@ export default function App() {
   const navLinks = [
     { label: 'Destacadas', href: '#propiedades-destacadas' },
     { label: 'Nosotros', href: '#nosotros' },
-    { label: 'Más Buscadas', href: '#mas-cotizadas' },
+    { label: 'Servicios', href: '#servicios' },
     { label: 'Catálogo', href: '#todas-propiedades' },
     { label: 'Testimonios', href: '#testimonios' },
-    { label: 'Contacto', href: '#contacto' },
   ];
 
   const handleOpenProperty = (property: Property) => {
