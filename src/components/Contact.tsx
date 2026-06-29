@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { Mail, Phone, Landmark, Send, CheckCircle, ShieldAlert } from 'lucide-react';
+import { Mail, Phone, Landmark, Send, CheckCircle, ShieldAlert, Instagram, Facebook, MapPin, MessageCircle, ExternalLink } from 'lucide-react';
 
 export default function Contact() {
   const shouldReduceMotion = useReducedMotion();
@@ -55,7 +55,7 @@ export default function Contact() {
       className={`py-24 px-6 md:px-12 text-neutral-900 relative overflow-hidden border-t border-neutral-200/50 ${!isMobile ? 'dynamic-light-lilac-gradient' : ''}`}
       style={{
         backgroundColor: isMobile ? '#ffffff' : undefined,
-        backgroundImage: isMobile ? 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)' : undefined
+        backgroundImage: isMobile ? 'linear-gradient(180deg, #ffffff 0%, #f5f5f5 50%, #ffffff 100%)' : undefined
       }}
     >
       <div className="max-w-7xl mx-auto relative z-10">
@@ -69,8 +69,8 @@ export default function Contact() {
           className="mb-16 text-center max-w-2xl mx-auto"
         >
           <div className="flex items-center justify-center gap-2 mb-3">
-            <span className="text-xs font-mono tracking-[0.25em] text-emerald-700 uppercase font-semibold">Contacto Directo</span>
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span className="text-xs font-mono tracking-[0.25em] text-neutral-500 uppercase font-semibold">Contacto Directo</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
           </div>
           <h2 className="text-3xl md:text-5xl font-display font-light tracking-tight text-neutral-900">
             Escribinos tu <strong className="font-semibold">Consulta</strong>
@@ -86,7 +86,7 @@ export default function Contact() {
           {/* Left Panel: Luxury Location Map Overlay */}
           <div className="lg:col-span-7 flex flex-col justify-between">
             <div className="mb-6">
-              <span className="text-[10px] font-mono tracking-widest text-emerald-700 block mb-2 uppercase">Ubicaciones Destacadas</span>
+              <span className="text-[10px] font-mono tracking-widest text-neutral-500 block mb-2 uppercase">Ubicaciones Destacadas</span>
               <h3 className="text-xl md:text-2xl font-display font-light mb-4">
                 Nuestra <strong className="font-semibold">Presencia</strong>
               </h3>
@@ -96,10 +96,10 @@ export default function Contact() {
             </div>
 
             {/* Google Maps Embed Classic with lila border */}
-            <div className="relative w-full h-[400px] md:h-[450px] rounded-3xl overflow-hidden border border-[#b98eeb]/35 shadow-xl shadow-[#b98eeb]/5 mb-6">
+            <div className="relative w-full h-[400px] md:h-[450px] rounded-3xl overflow-hidden border border-neutral-200/60 shadow-xl shadow-black/5 mb-6">
               <iframe
                 title="Google Maps Ivana Molina Propiedades"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0167132768468!2d-58.36472!3d-34.60472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a3352fd9cc8a05%3A0x6b8ec11598f822aa!2sPuerto%20Madero%2C%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1700000000000!5m2!1ses!2sar"
+                src="https://maps.google.com/maps?q=Pablo%20Ceretti%20739,%2020%20de%20Junio,%20La%20Matanza&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -112,36 +112,99 @@ export default function Contact() {
 
             {/* Direct contact points */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-neutral-200/80 shadow-sm shadow-emerald-500/5 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100/50 flex items-center justify-center text-emerald-600">
+              <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-neutral-200/80 shadow-sm shadow-black/5 flex items-center gap-3">
+                <div className="w-10 h-10 shrink-0 rounded-xl bg-neutral-100 border border-neutral-200/50 flex items-center justify-center text-neutral-600">
+                  <Phone size={16} />
+                </div>
+                <div>
+                  <span className="text-[9px] font-mono text-neutral-500 block">TELÉFONO / WHATSAPP</span>
+                  <p className="text-xs font-mono tracking-tight text-neutral-800">1168091223</p>
+                </div>
+              </div>
+              <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-neutral-200/80 shadow-sm shadow-black/5 flex items-center gap-3">
+                <div className="w-10 h-10 shrink-0 rounded-xl bg-neutral-100 border border-neutral-200/50 flex items-center justify-center text-neutral-600">
                   <Mail size={16} />
                 </div>
                 <div>
                   <span className="text-[9px] font-mono text-neutral-500 block">CORREO ELECTRÓNICO</span>
-                  <p className="text-xs font-mono tracking-tight text-neutral-800 hover:text-emerald-700">contacto@ivanamolinapropiedades.com.ar</p>
+                  <p className="text-xs font-mono tracking-tight text-neutral-800 hover:text-neutral-600 break-all">info@molinaivana.com.ar</p>
                 </div>
               </div>
-              <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-neutral-200/80 shadow-sm shadow-emerald-500/5 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100/50 flex items-center justify-center text-emerald-600">
-                  <Phone size={16} />
+              <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-neutral-200/80 shadow-sm shadow-black/5 flex items-center gap-3">
+                <div className="w-10 h-10 shrink-0 rounded-xl bg-neutral-100 border border-neutral-200/50 flex items-center justify-center text-neutral-600">
+                  <Instagram size={16} />
                 </div>
                 <div>
-                  <span className="text-[9px] font-mono text-neutral-500 block">TELÉFONO DE CONTACTO</span>
-                  <p className="text-xs font-mono tracking-tight text-neutral-800">+54 11 7202-3171</p>
+                  <span className="text-[9px] font-mono text-neutral-500 block">INSTAGRAM</span>
+                  <p className="text-xs font-mono tracking-tight text-neutral-800 hover:text-neutral-600">@molinaivana_bienesraices</p>
                 </div>
+              </div>
+              <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-neutral-200/80 shadow-sm shadow-black/5 flex items-center gap-3">
+                <div className="w-10 h-10 shrink-0 rounded-xl bg-neutral-100 border border-neutral-200/50 flex items-center justify-center text-neutral-600">
+                  <Facebook size={16} />
+                </div>
+                <div>
+                  <span className="text-[9px] font-mono text-neutral-500 block">FACEBOOK</span>
+                  <p className="text-xs font-mono tracking-tight text-neutral-800 hover:text-neutral-600">Molina Ivana</p>
+                </div>
+              </div>
+              <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-neutral-200/80 shadow-sm shadow-black/5 flex items-center gap-3 md:col-span-2">
+                <div className="w-10 h-10 shrink-0 rounded-xl bg-neutral-100 border border-neutral-200/50 flex items-center justify-center text-neutral-600">
+                  <MapPin size={16} />
+                </div>
+                <div>
+                  <span className="text-[9px] font-mono text-neutral-500 block">UBICACIÓN DE LA OFICINA</span>
+                  <p className="text-xs font-sans font-medium tracking-tight text-neutral-800">Pablo Ceretti 739, 20 de Junio, La Matanza</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-col sm:flex-row gap-4">
+              <a
+                href="https://wa.me/5491168091223"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 p-4 rounded-2xl bg-neutral-900 text-white font-semibold text-xs tracking-widest uppercase hover:bg-neutral-800 transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-black/10 interactive-hover"
+              >
+                <MessageCircle size={18} />
+                Consultanos por WhatsApp
+              </a>
+            </div>
+
+            <div className="mt-6">
+              <span className="text-[10px] font-mono tracking-widest text-neutral-500 block mb-3 uppercase">Enlaces de Interés</span>
+              <div className="flex flex-col gap-2">
+                <a
+                  href="https://arquiler.com/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcASud39leHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAacey9UnfLnROGV0jUgrMTJbf3EByNTLbyA8_6id2ksXTJUU6OeZKyK64v1x5A_aem__neI0hM5uaAm0BOafFfc-g"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs font-sans font-medium text-neutral-700 hover:text-neutral-900 transition-colors p-3 rounded-xl bg-neutral-100/50 border border-neutral-200/50 hover:bg-neutral-100"
+                >
+                  <ExternalLink size={14} className="text-neutral-500" />
+                  Calculadora de Alquileres
+                </a>
+                <a
+                  href="https://www.boletinoficial.gob.ar/detalleAviso/primera/231429/20200630?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcASud0xleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAacey9UnfLnROGV0jUgrMTJbf3EByNTLbyA8_6id2ksXTJUU6OeZKyK64v1x5A_aem__neI0hM5uaAm0BOafFfc-g"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs font-sans font-medium text-neutral-700 hover:text-neutral-900 transition-colors p-3 rounded-xl bg-neutral-100/50 border border-neutral-200/50 hover:bg-neutral-100"
+                >
+                  <ExternalLink size={14} className="text-neutral-500" />
+                  Código Civil y Comercial de la Nación
+                </a>
               </div>
             </div>
           </div>
 
           {/* Right Panel: Glassmorphic Contact Form */}
           <div className="lg:col-span-5">
-            <div className="h-full rounded-3xl bg-white/80 backdrop-blur-xl border border-neutral-200/85 p-6 md:p-8 flex flex-col justify-between shadow-2xl shadow-emerald-500/5 relative">
+            <div className="h-full rounded-3xl bg-white/80 backdrop-blur-xl border border-neutral-200/85 p-6 md:p-8 flex flex-col justify-between shadow-2xl shadow-black/5 relative">
               {/* Background gradient lighting inside form container */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/[0.015] to-transparent pointer-events-none rounded-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-neutral-100/30 to-transparent pointer-events-none rounded-3xl" />
               
               <div>
                 <div className="flex gap-2 items-center text-neutral-500 mb-6 border-b border-neutral-100 pb-4">
-                  <Landmark size={16} className="text-emerald-600" />
+                  <Landmark size={16} className="text-neutral-500" />
                   <span className="text-[10px] font-mono tracking-wider font-semibold uppercase text-neutral-800">Formulario de Contacto</span>
                 </div>
 
@@ -149,10 +212,10 @@ export default function Contact() {
                   <motion.div
                     initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center py-16"
+                    className="p-6 rounded-2xl bg-neutral-100 border border-neutral-200 text-center py-16"
                   >
-                    <CheckCircle className="text-emerald-650 w-12 h-12 mx-auto mb-4 animate-bounce" />
-                    <h3 className="text-lg font-display font-semibold text-emerald-800 mb-2">Consulta Enviada con Éxito</h3>
+                    <CheckCircle className="text-neutral-700 w-12 h-12 mx-auto mb-4 animate-bounce" />
+                    <h3 className="text-lg font-display font-semibold text-neutral-900 mb-2">Consulta Enviada con Éxito</h3>
                     <p className="text-neutral-600 text-xs leading-relaxed font-light">
                       Recibimos tu mensaje de manera segura. Uno de nuestros asesores especializados se comunicará con vos a la brevedad para brindarte una atención personalizada.
                     </p>
@@ -170,7 +233,7 @@ export default function Contact() {
                         placeholder="ej. Alessandra Moretti"
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-emerald-500/60 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans shadow-xs"
+                        className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-neutral-400 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans shadow-xs"
                       />
                     </div>
 
@@ -185,7 +248,7 @@ export default function Contact() {
                         placeholder="ej. moretti@ivanamolinapropiedades.com.ar"
                         value={formData.vipEmail}
                         onChange={(e) => setFormData({ ...formData, vipEmail: e.target.value })}
-                        className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-emerald-500/60 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans shadow-xs"
+                        className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-neutral-400 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans shadow-xs"
                       />
                     </div>
 
@@ -199,7 +262,7 @@ export default function Contact() {
                         placeholder="ej. +54 9 11 7202-3171"
                         value={formData.telephone}
                         onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
-                        className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-emerald-500/60 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans shadow-xs"
+                        className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-neutral-400 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans shadow-xs"
                       />
                     </div>
 
@@ -211,7 +274,7 @@ export default function Contact() {
                       <select
                         value={formData.investmentRange}
                         onChange={(e) => setFormData({ ...formData, investmentRange: e.target.value })}
-                        className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-emerald-500/60 focus:bg-white focus:outline-none transition-all text-neutral-900 font-sans shadow-xs"
+                        className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-neutral-400 focus:bg-white focus:outline-none transition-all text-neutral-900 font-sans shadow-xs"
                       >
                         {ranges.map((rn) => (
                           <option key={rn.value} value={rn.value} className="bg-white text-neutral-900 leading-loose select-none">
@@ -232,7 +295,7 @@ export default function Contact() {
                         placeholder="Contanos qué tipo de propiedad estás buscando o cuál es tu consulta específica..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-emerald-500/60 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans resize-none shadow-xs"
+                        className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-neutral-400 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans resize-none shadow-xs"
                       />
                     </div>
 
@@ -246,7 +309,7 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 bg-emerald-600 text-white font-semibold text-xs uppercase tracking-widest rounded-xl hover:bg-emerald-700 hover:scale-[1.01] transition-all cursor-pointer flex items-center justify-center gap-2 overflow-hidden relative shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20 interactive-hover"
+                      className="w-full py-3.5 bg-neutral-900 text-white font-semibold text-xs uppercase tracking-widest rounded-xl hover:bg-neutral-700 hover:scale-[1.01] transition-all cursor-pointer flex items-center justify-center gap-2 overflow-hidden relative shadow-lg shadow-black/10 hover:shadow-black/20 interactive-hover"
                     >
                       {isSubmitting ? (
                         <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

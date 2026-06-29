@@ -13,15 +13,15 @@ export default function Testimonials() {
       className="py-24 relative overflow-hidden text-white border-t border-white/5 dynamic-lilac-gradient"
       style={{
         backgroundColor: "#030303",
-        backgroundImage: "linear-gradient(135deg, #030303 0%, #030303 25%, #120921 50%, #030303 75%, #030303 100%)",
+        backgroundImage: "linear-gradient(135deg, #030303 0%, #0d0d0d 25%, #1a1a1a 50%, #0d0d0d 75%, #030303 100%)",
         backgroundSize: "400% 400%"
       }}
     >
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-center">
         <div className="flex items-center justify-center gap-2 mb-3">
-          <span className="text-xs font-mono tracking-[0.3em] uppercase text-emerald-400 font-medium">Opiniones de Clientes</span>
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          <span className="text-xs font-mono tracking-[0.3em] uppercase text-white/50 font-medium">Opiniones de Clientes</span>
+          <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
         </div>
         <motion.h2
           initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -15 }}
@@ -30,7 +30,7 @@ export default function Testimonials() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-3xl md:text-5xl font-display font-light text-white tracking-tight mb-4"
         >
-          Clientes <strong className="font-semibold text-emerald-400">Satisfechos</strong>
+          Clientes <strong className="font-semibold text-white">Satisfechos</strong>
         </motion.h2>
       </div>
 
@@ -45,16 +45,16 @@ export default function Testimonials() {
           {duplicatedTestimonials.map((test, index) => (
             <div
               key={`${test.id}-${index}`}
-              className="w-[350px] md:w-[420px] p-8 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg shadow-emerald-500/5 text-white hover:bg-white/10 transition-all hover:border-emerald-500/30 h-64 flex flex-col justify-between"
+              className="w-[350px] md:w-[420px] p-8 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg shadow-black/10 text-white hover:bg-white/10 transition-all hover:border-white/20 h-64 flex flex-col justify-between"
             >
               {/* Star header & Quote */}
               <div className="flex justify-between items-start mb-4">
-                <div className="flex gap-1 text-emerald-400">
+                <div className="flex gap-1 text-white/70">
                   {Array.from({ length: test.rating }).map((_, rIdx) => (
                     <Star key={rIdx} size={14} fill="currentColor" className="stroke-none" />
                   ))}
                 </div>
-                <Quote size={20} className="text-emerald-400/20" />
+                <Quote size={20} className="text-white/15" />
               </div>
 
               {/* Text content details */}

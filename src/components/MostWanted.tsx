@@ -64,22 +64,22 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
       className="py-24 px-6 md:px-12 border-y border-neutral-200/50 relative overflow-hidden"
       style={{
         backgroundColor: '#ffffff',
-        backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)'
+        backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f5f5f5 50%, #ffffff 100%)'
       }}
     >
       {/* Background radial spotlight lights */}
-      <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-500/[0.03] blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-[20%] left-[-5%] w-[400px] h-[400px] rounded-full bg-teal-500/[0.02] blur-[120px] pointer-events-none" />
+      <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-neutral-200/20 blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-[20%] left-[-5%] w-[400px] h-[400px] rounded-full bg-neutral-200/15 blur-[120px] pointer-events-none" />
 
       {/* Header Container */}
       <div className="max-w-7xl mx-auto mb-12 flex flex-col sm:flex-row sm:items-end justify-between gap-6 relative z-10">
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs font-mono tracking-[0.25em] text-emerald-700 font-semibold uppercase">Las Más Codiciadas</span>
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span className="text-xs font-mono tracking-[0.25em] text-neutral-500 font-semibold uppercase">Las Más Codiciadas</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
           </div>
           <h2 className="text-3xl md:text-5xl font-display font-light text-neutral-900 tracking-tight">
-            Propiedades <strong className="font-semibold text-emerald-600 font-sans">Exclusivas</strong>
+            Propiedades <strong className="font-semibold text-neutral-900 font-sans">Exclusivas</strong>
           </h2>
           <p className="text-[10px] font-mono text-neutral-450 tracking-widest uppercase mt-3">
             Deslizá para explorar la colección
@@ -93,7 +93,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
             disabled={!canScrollLeft}
             className={`w-12 h-12 rounded-2xl border flex items-center justify-center transition-all duration-350 cursor-pointer ${
               canScrollLeft
-                ? 'border-neutral-200 bg-white text-neutral-800 hover:bg-neutral-50 hover:border-emerald-500/30'
+                ? 'border-neutral-200 bg-white text-neutral-800 hover:bg-neutral-50 hover:border-neutral-300'
                 : 'border-neutral-100 bg-neutral-50/50 text-neutral-300 cursor-not-allowed'
             }`}
             aria-label="Anterior"
@@ -105,7 +105,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
             disabled={!canScrollRight}
             className={`w-12 h-12 rounded-2xl border flex items-center justify-center transition-all duration-350 cursor-pointer ${
               canScrollRight
-                ? 'border-neutral-200 bg-white text-neutral-800 hover:bg-neutral-50 hover:border-emerald-500/30'
+                ? 'border-neutral-200 bg-white text-neutral-800 hover:bg-neutral-50 hover:border-neutral-300'
                 : 'border-neutral-100 bg-neutral-50/50 text-neutral-300 cursor-not-allowed'
             }`}
             aria-label="Siguiente"
@@ -125,7 +125,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
           {mostWantedList.map((property) => (
             <div
               key={property.id}
-              className="shrink-0 w-[82vw] sm:w-[50vw] md:w-[42vw] lg:w-[31vw] xl:w-[23vw] max-w-[420px] h-[460px] md:h-[480px] rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow relative cursor-pointer snap-center sm:snap-start group hover:border-emerald-500/30 transition-all duration-300"
+              className="shrink-0 w-[82vw] sm:w-[50vw] md:w-[42vw] lg:w-[31vw] xl:w-[23vw] max-w-[420px] h-[460px] md:h-[480px] rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow relative cursor-pointer snap-center sm:snap-start group hover:border-neutral-300/60 transition-all duration-300"
               onClick={() => onSelectProperty(property)}
             >
               {/* Background Image */}
@@ -134,6 +134,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
                   src={property.image}
                   alt={property.title}
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/45 via-transparent to-transparent z-10" />
@@ -141,7 +142,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
 
               {/* Exclusivo Badge */}
               <div className="absolute top-5 left-5 z-20">
-                <span className="text-[10px] px-3 py-1.5 bg-white/95 rounded-lg border border-neutral-200/60 text-emerald-700 uppercase font-mono tracking-wider font-semibold shadow-xs">
+                <span className="text-[10px] px-3 py-1.5 bg-white/95 rounded-lg border border-neutral-200/60 text-neutral-600 uppercase font-mono tracking-wider font-semibold shadow-xs">
                   Exclusivo
                 </span>
               </div>
@@ -156,7 +157,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
               {/* Bottom Info Panel */}
               <div className="absolute bottom-5 left-5 right-5 z-20 p-5 rounded-2xl bg-white border border-neutral-200/80 premium-card-shadow text-neutral-900 hover:bg-neutral-50/98 transition-colors duration-300">
                 <div className="flex items-center justify-between gap-3 mb-1">
-                  <h3 className="text-lg font-display font-medium tracking-tight leading-tight group-hover:text-emerald-750 transition-colors">
+                  <h3 className="text-lg font-display font-medium tracking-tight leading-tight group-hover:text-neutral-600 transition-colors">
                     {property.title}
                   </h3>
                   <span className="shrink-0 w-8 h-8 rounded-xl bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-600 group-hover:bg-neutral-950 group-hover:text-white transition-all duration-300">
@@ -190,7 +191,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
       <div className="max-w-xs mx-auto mt-6 flex justify-center items-center z-10 relative">
         <div className="w-full h-[3px] bg-neutral-200/50 rounded-full overflow-hidden relative">
           <div
-            className="absolute top-0 left-0 h-full bg-emerald-500 rounded-full transition-all duration-150 ease-out"
+            className="absolute top-0 left-0 h-full bg-neutral-600 rounded-full transition-all duration-150 ease-out"
             style={{ width: `${scrollProgress}%` }}
           />
         </div>

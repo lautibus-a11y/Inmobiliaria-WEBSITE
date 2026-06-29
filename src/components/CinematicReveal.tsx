@@ -35,41 +35,31 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 1, scale: 1 }}
-      animate={isExiting ? { 
-        opacity: 0, 
-        scale: shouldReduceMotion ? 1 : (isMobileRef ? 1.02 : 1.05)
-      } : {}}
+      initial={{ opacity: 1 }}
+      animate={isExiting ? { opacity: 0 } : { opacity: 1 }}
       transition={{ duration: isMobileRef ? 0.7 : 1.1, ease: [0.32, 0, 0.67, 0] }}
-      className="fixed top-0 left-0 w-full h-full bg-[#030303] z-50 flex flex-col items-center justify-center select-none overflow-hidden"
+      className="fixed top-0 left-0 w-full h-full bg-white z-50 flex items-center justify-center select-none overflow-hidden"
     >
-      {/* Main Container */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full px-6 text-center max-w-2xl mx-auto h-full">
-        
-        {/* Large Logo Image + Brand Text — Ken Burns Effect (Zoom out & Pan side) */}
-        <motion.div 
-          initial={{ scale: shouldReduceMotion ? 1 : 1.25, x: shouldReduceMotion ? 0 : '4%', opacity: 0 }}
-          animate={{ scale: 1, x: shouldReduceMotion ? 0 : '-2%', opacity: 1 }}
-          transition={{ duration: isMobileRef ? 2.7 : 4.1, ease: 'easeOut' }}
-          className="flex flex-col items-center justify-center"
-        >
-          <img 
-            src="/logocabecera.webp" 
-            alt="Ivana Molina Propiedades Logo" 
-            className="w-[70vw] sm:w-[50vw] md:w-[40vw] max-w-[340px] lg:max-w-[400px] h-auto object-contain mx-auto"
-          />
-          {/* Brand text */}
-          <div className="mt-5 flex flex-col items-center gap-1 select-none">
-            <span className="font-display font-light text-white text-base sm:text-xl tracking-[0.25em] uppercase">
-              Ivana Molina y Asociados
-            </span>
-            <span className="font-mono text-[10px] sm:text-xs tracking-[0.4em] text-emerald-400 uppercase">
-              Bienes Raíces
-            </span>
-          </div>
-        </motion.div>
-
-      </div>
+      <motion.img 
+        initial={{ scale: 1, opacity: 0, filter: 'blur(15px)' }}
+        animate={isExiting ? { 
+          scale: shouldReduceMotion ? 1 : 1.1,
+          opacity: 0,
+          filter: 'blur(10px)'
+        } : { 
+          scale: shouldReduceMotion ? 1 : 1.08, 
+          opacity: 1,
+          filter: 'blur(0px)'
+        }}
+        transition={{ 
+          scale: { duration: isMobileRef ? 2.7 : 4.1, ease: 'linear' },
+          opacity: { duration: isExiting ? 0.6 : 1.5, ease: isExiting ? 'easeIn' : 'easeOut' },
+          filter: { duration: isExiting ? 0.6 : 1.5, ease: isExiting ? 'easeIn' : 'easeOut' }
+        }}
+        src="/cinematic-reveal-logo-convertido-de-jpeg.webp" 
+        alt="Ivana Molina Propiedades" 
+        className="w-[85vw] sm:w-[60vw] md:w-[45vw] max-w-[500px] h-auto object-contain"
+      />
     </motion.div>
   );
 }

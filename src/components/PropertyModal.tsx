@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { X, Bed, ShowerHead, Eye, Calendar, User, Mail, ShieldAlert, CheckCircle, Clock } from 'lucide-react';
+import { X, Bed, ShowerHead, Eye } from 'lucide-react';
 import { Property } from '../types';
 
 interface PropertyModalProps {
@@ -11,17 +11,6 @@ interface PropertyModalProps {
 export default function PropertyModal({ property, onClose }: PropertyModalProps) {
   const shouldReduceMotion = useReducedMotion();
   const [mediaType, setMediaType] = useState<'photos' | 'video'>('photos');
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    date: '',
-    time: '11:00',
-    type: 'presencial', // presencial or virtual
-  });
-  
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
@@ -30,14 +19,6 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
     if (property) {
       setCurrentImgIndex(0);
       setMediaType('photos');
-      setIsSuccess(false);
-      setFormData({
-        name: '',
-        email: '',
-        date: '',
-        time: '11:00',
-        type: 'presencial',
-      });
     }
   }, [property?.id]);
 
@@ -47,24 +28,6 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
   // Assignment of video tour
   const videoSrc = '/video-tour-3d/videotour.mp4';
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMessage('');
-    
-    if (!formData.name.trim() || !formData.email.trim() || !formData.date) {
-      setErrorMessage('Por favor, completá todos los campos obligatorios.');
-      return;
-    }
-    
-    setIsSubmitting(true);
-    
-    // Simulate high-end server confirmation
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 1500);
-  };
 
   // Touch handlers for swipe gesture on mobile
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -160,7 +123,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                   onClick={() => setMediaType('photos')}
                   className={`px-3 py-1.5 rounded-lg text-[9px] font-mono tracking-widest uppercase transition-all cursor-pointer ${
                     mediaType === 'photos'
-                      ? 'bg-emerald-500 text-white font-semibold'
+                      ? 'bg-white text-neutral-950 font-semibold'
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
@@ -171,11 +134,11 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                   onClick={() => setMediaType('video')}
                   className={`px-3 py-1.5 rounded-lg text-[9px] font-mono tracking-widest uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
                     mediaType === 'video'
-                      ? 'bg-emerald-500 text-white font-semibold'
+                      ? 'bg-white text-neutral-950 font-semibold'
                       : 'text-gray-450 hover:text-white'
                   }`}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-455 animate-pulse inline-block" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse inline-block" />
                   Video Tour
                 </button>
               </div>
@@ -193,14 +156,14 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                   <button
                     type="button"
                     onClick={() => setCurrentImgIndex((prev) => (prev === 0 ? imagesList.length - 1 : prev - 1))}
-                    className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-25 w-8 h-8 rounded-full bg-black/60 border border-white/10 items-center justify-center text-white hover:bg-emerald-600 transition-colors cursor-pointer select-none opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300"
+                    className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-25 w-8 h-8 rounded-full bg-black/60 border border-white/10 items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer select-none opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300"
                   >
                     ‹
                   </button>
                   <button
                     type="button"
                     onClick={() => setCurrentImgIndex((prev) => (prev === imagesList.length - 1 ? 0 : prev + 1))}
-                    className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-25 w-8 h-8 rounded-full bg-black/60 border border-white/10 items-center justify-center text-white hover:bg-emerald-600 transition-colors cursor-pointer select-none opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300"
+                    className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-25 w-8 h-8 rounded-full bg-black/60 border border-white/10 items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer select-none opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300"
                   >
                     ›
                   </button>
@@ -218,20 +181,20 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                         type="button"
                         onClick={() => setCurrentImgIndex(dotIdx)}
                         className={`h-1 rounded-full transition-all cursor-pointer ${
-                          currentImgIndex === dotIdx ? 'bg-emerald-400 w-4' : 'bg-white/30 w-2'
+                          currentImgIndex === dotIdx ? 'bg-white w-4' : 'bg-white/30 w-2'
                         }`}
                       />
                     ))}
                   </div>
                 )}
                 
-                <span className="px-3 py-1 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-xs tracking-widest uppercase font-mono rounded-full mb-3 inline-block font-semibold">
+                <span className="px-3 py-1 bg-white/10 border border-white/20 text-white/80 text-xs tracking-widest uppercase font-mono rounded-full mb-3 inline-block font-semibold">
                   {property.category === 'casas-quinta' ? 'Casas Quinta' : property.category}
                 </span>
                 <h1 className="text-2xl md:text-3xl font-display font-bold tracking-tight mb-1 text-white">
                   {property.title}
                 </h1>
-                <p className="text-emerald-455 font-mono text-sm tracking-wide font-semibold">
+                <p className="text-white/70 font-mono text-sm tracking-wide font-semibold">
                   {property.price}
                 </p>
               </div>
@@ -243,8 +206,8 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
             <div className="space-y-6">
               {/* Heading */}
               <div>
-                <h2 className="text-xs font-mono tracking-widest uppercase text-emerald-400">Detalles de la Propiedad</h2>
-                <div className="w-8 h-0.5 bg-emerald-500/50 mt-1 rounded-full" />
+                <h2 className="text-xs font-mono tracking-widest uppercase text-white/50">Detalles de la Propiedad</h2>
+                <div className="w-8 h-0.5 bg-white/20 mt-1 rounded-full" />
               </div>
 
               {/* Location */}
@@ -253,10 +216,18 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 <p className="text-white font-medium text-sm">📍 {property.location}</p>
               </div>
 
+              {/* Streets */}
+              {property.streets && (
+                <div>
+                  <p className="text-gray-400 text-xs font-mono tracking-widest uppercase mb-1">Calles</p>
+                  <p className="text-white font-medium text-sm">🛣️ {property.streets}</p>
+                </div>
+              )}
+
               {/* Description */}
               <div>
                 <p className="text-gray-455 text-xs font-mono tracking-widest uppercase mb-1">Descripción</p>
-                <p className="text-gray-300 text-xs md:text-sm leading-relaxed font-light font-sans">
+                <p className="text-gray-300 text-xs md:text-sm leading-relaxed font-light font-sans whitespace-pre-line">
                   {property.description}
                 </p>
               </div>
@@ -266,21 +237,21 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 <div className="text-center">
                   <span className="text-gray-400 text-[10px] font-mono block mb-1 uppercase">Dormitorios</span>
                   <div className="flex items-center justify-center gap-1.5 text-white">
-                    <Bed size={15} className="text-emerald-400" />
+                    <Bed size={15} className="text-white/60" />
                     <span className="font-mono text-xs font-medium">{property.beds || '—'}</span>
                   </div>
                 </div>
                 <div className="text-center border-x border-white/5">
                   <span className="text-gray-400 text-[10px] font-mono block mb-1 uppercase">Baños</span>
                   <div className="flex items-center justify-center gap-1.5 text-white">
-                    <ShowerHead size={15} className="text-emerald-400" />
+                    <ShowerHead size={15} className="text-white/60" />
                     <span className="font-mono text-xs font-medium">{property.baths || '—'}</span>
                   </div>
                 </div>
                 <div className="text-center">
                   <span className="text-gray-400 text-[10px] font-mono block mb-1 uppercase">Superficie</span>
                   <div className="flex items-center justify-center gap-1.5 text-white">
-                    <Eye size={15} className="text-emerald-400" />
+                    <Eye size={15} className="text-white/60" />
                     <span className="font-mono text-[11px] font-medium whitespace-nowrap">{property.area}</span>
                   </div>
                 </div>
@@ -302,97 +273,26 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
               </div>
             </div>
 
-            {/* Private Tour Booking Widget */}
-            <div className="mt-8 border-t border-white/5 pt-6">
-              <h3 className="text-xs font-mono tracking-widest uppercase text-gray-400 mb-4 flex items-center gap-2">
-                <Clock size={14} className="text-emerald-400" />
-                Agendar una Visita Privada
-              </h3>
+            {/* Action Buttons Widget */}
+            <div className="mt-8 border-t border-white/5 pt-6 flex flex-col gap-3">
+              <a
+                href="https://wa.me/5491168091223"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold text-xs tracking-widest uppercase hover:bg-white/20 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-black/20"
+              >
+                Agendar una Visita
+              </a>
 
-              {isSuccess ? (
-                <motion.div
-                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center"
+              {property.mercadoLibreLink && (
+                <a
+                  href={property.mercadoLibreLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 rounded-xl bg-[#FFE600] text-[#2D3277] font-bold text-xs tracking-widest uppercase hover:bg-[#FFD100] transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-[#FFE600]/20"
                 >
-                  <CheckCircle className="text-emerald-455 w-10 h-10 mx-auto mb-3 animate-bounce" />
-                  <h4 className="text-sm font-display font-medium text-white mb-1">¡Visita Solicitada!</h4>
-                  <p className="text-gray-400 text-xs leading-relaxed">
-                    Uno de nuestros asesores VIP se contactará para coordinar el día y horario de la visita.
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <div className="grid grid-cols-2 gap-3">
-                    {/* Name */}
-                    <div className="relative">
-                      <User size={13} className="absolute left-3 top-3 text-gray-400" />
-                      <input
-                        type="text"
-                        placeholder="Nombre completo"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2 px-9 text-xs focus:border-emerald-500/65 focus:outline-none transition-all placeholder-gray-455 font-sans text-white focus:bg-white/10"
-                      />
-                    </div>
-                    {/* Email */}
-                    <div className="relative">
-                      <Mail size={13} className="absolute left-3 top-3 text-gray-400" />
-                      <input
-                        type="email"
-                        placeholder="Correo VIP"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2 px-9 text-xs focus:border-emerald-500/65 focus:outline-none transition-all placeholder-gray-455 font-sans text-white focus:bg-white/10"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-3">
-                    {/* Date */}
-                    <div className="col-span-2 relative">
-                      <Calendar size={13} className="absolute left-3 top-3 text-gray-400" />
-                      <input
-                        type="date"
-                        required
-                        value={formData.date}
-                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-9 pr-2 text-xs focus:border-emerald-500/65 focus:outline-none transition-all font-mono text-white focus:bg-white/10"
-                      />
-                    </div>
-                    {/* Type selection */}
-                    <select
-                      value={formData.type}
-                      onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl py-2 px-2 text-xs focus:border-emerald-500/65 focus:outline-none transition-all font-sans text-white focus:bg-white/10 [&_option]:bg-[#0c0c0c] [&_option]:text-white"
-                    >
-                      <option className="bg-[#0c0c0c] text-white" value="presencial">Presencial</option>
-                      <option className="bg-[#0c0c0c] text-white" value="virtual">Videollamada</option>
-                    </select>
-                  </div>
-
-                  {errorMessage && (
-                    <div className="text-rose-500 text-[10px] flex items-center gap-1.5 font-mono">
-                      <ShieldAlert size={12} />
-                      {errorMessage}
-                    </div>
-                  )}
-
-                  {/* Submission Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3 rounded-xl bg-white text-black font-semibold text-xs tracking-widest uppercase hover:bg-emerald-500 hover:text-white transition-all cursor-pointer flex items-center justify-center gap-2 overflow-hidden relative shadow-lg hover:shadow-emerald-500/20 interactive-hover"
-                  >
-                    {isSubmitting ? (
-                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    ) : (
-                      'Confirmar Visita'
-                    )}
-                  </button>
-                </form>
+                  Ver en Mercado Libre
+                </a>
               )}
             </div>
           </div>

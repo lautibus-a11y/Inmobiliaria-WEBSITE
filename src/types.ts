@@ -5,6 +5,8 @@ export interface Property {
   price: string;
   priceNumeric: number;
   location: string;
+  streets?: string;
+  mercadoLibreLink?: string;
   category: 'casas' | 'departamentos' | 'terrenos' | 'casas-quinta';
   transactionType: 'venta' | 'alquiler';
   image: string;
@@ -19,12 +21,7 @@ export interface Property {
   isMostWanted: boolean;
 }
 
-export interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  image: string;
-}
+
 
 export interface Testimonial {
   id: string;

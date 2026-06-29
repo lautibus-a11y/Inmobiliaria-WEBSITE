@@ -12,18 +12,7 @@
   --color-glass-border: rgba(255, 255, 255, 0.08);
   --color-glass-bg-hover: rgba(255, 255, 255, 0.1);
   
-  /* Emerald variables redefined for a premium pastel lilac palette */
-  --color-emerald-50: #fbf7fe;
-  --color-emerald-100: #f5ecfc;
-  --color-emerald-200: #ebdaf9;
-  --color-emerald-300: #dec2f5;
-  --color-emerald-400: #cca8f0;
-  --color-emerald-500: #b98eeb;
-  --color-emerald-600: #a274db;
-  --color-emerald-700: #8b56cc;
-  --color-emerald-800: #743dbb;
-  --color-emerald-900: #5a2ea1;
-  --color-emerald-950: #120921;
+
 
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-aurora: aurora 20s linear infinite;
@@ -106,12 +95,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(185, 142, 235, 0.25);
+  background: rgba(255, 255, 255, 0.18);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(185, 142, 235, 0.45);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .glass-panel {
@@ -132,9 +121,9 @@ body {
 /* Custom card shadow used across property cards */
 .premium-card-shadow {
   box-shadow: 
-    0 10px 30px -10px rgba(18, 9, 33, 0.04),
-    0 1px 3px rgba(18, 9, 33, 0.02),
-    0 0 0 1px rgba(185, 142, 235, 0.08);
+    0 10px 30px -10px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 /* Hide horizontal scroll indicators */
@@ -165,7 +154,7 @@ body {
   max-width: 500px;
   max-height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(185, 142, 235, 0.12) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 100%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(180, 180, 180, 0.02) 45%, transparent 100%);
   filter: blur(60px);
   animation: float-aurora-1 28s ease-in-out infinite alternate;
 }
@@ -189,7 +178,7 @@ body {
   max-width: 500px;
   max-height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(109, 40, 217, 0.09) 0%, rgba(185, 142, 235, 0.03) 50%, transparent 100%);
+  background: radial-gradient(circle, rgba(120, 120, 120, 0.06) 0%, rgba(255, 255, 255, 0.02) 50%, transparent 100%);
   filter: blur(70px);
   animation: float-aurora-2 35s ease-in-out infinite alternate;
 }
@@ -213,7 +202,7 @@ body {
   max-width: 500px;
   max-height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(185, 142, 235, 0.10) 0%, rgba(109, 40, 217, 0.04) 45%, transparent 100%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(150, 150, 150, 0.02) 45%, transparent 100%);
   filter: blur(65px);
   animation: float-aurora-3 40s ease-in-out infinite alternate;
 }
@@ -248,14 +237,14 @@ body {
 
 
 
-/* Dynamic Lilac Gradient Background for Cinematic Reveal */
+/* Dynamic Dark Gradient Background for Cinematic Reveal */
 .dynamic-lilac-gradient {
-  background: linear-gradient(-45deg, #030303, #120921, #4c1d95, #120921, #030303);
+  background: linear-gradient(-45deg, #030303, #0d0d0d, #1a1a1a, #0d0d0d, #030303);
 }
 
-/* Dynamic Light Lilac Gradient Background for Light sections */
+/* Dynamic Light Neutral Gradient Background for Light sections */
 .dynamic-light-lilac-gradient {
-  background: linear-gradient(-45deg, #ffffff, #faf7fe, #f6f0fe, #faf7fe, #ffffff);
+  background: linear-gradient(-45deg, #ffffff, #fafafa, #f5f5f5, #fafafa, #ffffff);
 }
 
 /* Interactive hover micro-animation for CTA buttons and interactive elements */
@@ -298,10 +287,9 @@ body {
     filter: none !important;
   }
 
-  /* Static symmetric vertical gradient on mobile — white top/bottom fading to a very light lilac in the center.
-     This ensures white starts and ends at the boundaries of the sections, blending smoothly on mobile. */
+  /* Static symmetric vertical gradient on mobile — pure white on mobile for max performance. */
   .dynamic-light-lilac-gradient {
-    background: linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%) !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 50%, #ffffff 100%) !important;
   }
 
   /* Disable mix-blend-multiply on mobile — forces compositing stacking context

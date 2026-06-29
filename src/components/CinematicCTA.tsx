@@ -31,8 +31,8 @@ export default function CinematicCTA() {
           transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-6 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10"
         >
-          <Sparkles size={11} className="text-emerald-300 animate-pulse" />
-          <span className="text-[10px] font-mono tracking-widest text-emerald-300 uppercase font-semibold">
+          <Sparkles size={11} className="text-white/70 animate-pulse" />
+          <span className="text-[10px] font-mono tracking-widest text-white/70 uppercase font-semibold">
             Atención Privada
           </span>
         </motion.div>
@@ -45,7 +45,7 @@ export default function CinematicCTA() {
           transition={{ duration: 0.35, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-3xl sm:text-5xl md:text-6xl font-display font-light text-white tracking-tight leading-tight mb-6 max-w-3xl"
         >
-          Tu próxima inversión <strong className="font-semibold text-emerald-300 font-sans">de colección</strong>
+          Tu próxima inversión <strong className="font-semibold text-white font-sans">de colección</strong>
         </motion.h2>
 
         {/* Animated Description */}
@@ -69,7 +69,7 @@ export default function CinematicCTA() {
         >
           <a
             href="#contacto"
-            className="w-full sm:w-auto text-center px-8 py-4 bg-white text-neutral-950 font-semibold text-xs tracking-widest uppercase rounded-xl hover:bg-emerald-400 transition-all shadow-lg hover:shadow-emerald-500/20 cursor-pointer interactive-hover"
+            className="w-full sm:w-auto text-center px-8 py-4 bg-white text-neutral-950 font-semibold text-xs tracking-widest uppercase rounded-xl hover:bg-neutral-200 transition-all shadow-lg hover:shadow-black/20 cursor-pointer interactive-hover"
           >
             Agendar Asesoría
           </a>

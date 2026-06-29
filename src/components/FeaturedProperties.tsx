@@ -47,11 +47,12 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
           src={property.image}
           alt={property.title}
           referrerPolicy="no-referrer"
+          loading="lazy"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/15 to-transparent" />
         <div className="absolute top-4 left-4">
-          <span className="text-[10px] px-3 py-1 bg-white/95 rounded-full border border-neutral-200 text-emerald-700 uppercase font-mono tracking-wider shadow-xs font-semibold">
+          <span className="text-[10px] px-3 py-1 bg-white/95 rounded-full border border-neutral-200 text-neutral-600 uppercase font-mono tracking-wider shadow-xs font-semibold">
             ✦ {property.category}
           </span>
         </div>
@@ -66,7 +67,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
       <div className="p-6 flex-1 flex flex-col justify-between bg-transparent">
         <div>
           <div className="flex items-center gap-1 text-neutral-500 mb-2">
-            <MapPin size={12} className="text-emerald-600" />
+            <MapPin size={12} className="text-neutral-500" />
             <span className="text-[11px] font-mono tracking-wide uppercase">{property.location}</span>
           </div>
           <h3 className="text-xl font-display font-medium text-neutral-900 mb-2 leading-snug">
@@ -80,18 +81,18 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
           <div className="flex gap-4 items-center">
             {property.beds > 0 && (
               <div className="flex items-center gap-1">
-                <Bed size={14} className="text-emerald-600" />
+                <Bed size={14} className="text-neutral-500" />
                 <span className="text-[11px] font-mono text-neutral-500">{property.beds} Dorm</span>
               </div>
             )}
             {property.baths > 0 && (
               <div className="flex items-center gap-1">
-                <ShowerHead size={14} className="text-emerald-600" />
+                <ShowerHead size={14} className="text-neutral-500" />
                 <span className="text-[11px] font-mono text-neutral-500">{property.baths} Baños</span>
               </div>
             )}
             <div className="flex items-center gap-1">
-              <Grid size={13} className="text-emerald-600" />
+              <Grid size={13} className="text-neutral-500" />
               <span className="text-[11px] font-mono text-neutral-500 whitespace-nowrap">{property.area}</span>
             </div>
           </div>
@@ -109,12 +110,12 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
       className={`py-24 px-6 md:px-12 border-y border-neutral-200/50 relative overflow-hidden ${!isMobile ? 'dynamic-light-lilac-gradient' : ''}`}
       style={{
         backgroundColor: isMobile ? '#ffffff' : undefined,
-        backgroundImage: isMobile ? 'linear-gradient(180deg, #ffffff 0%, #faf6ff 50%, #ffffff 100%)' : undefined
+        backgroundImage: isMobile ? 'linear-gradient(180deg, #ffffff 0%, #f5f5f5 50%, #ffffff 100%)' : undefined
       }}
     >
       {/* Background lighting */}
-      <div className="absolute right-[-10%] top-[10%] w-[500px] h-[500px] rounded-full bg-emerald-500/5 blur-[130px] pointer-events-none" />
-      <div className="absolute left-[5%] bottom-[5%] w-[400px] h-[400px] rounded-full bg-teal-500/5 blur-[120px] pointer-events-none" />
+      <div className="absolute right-[-10%] top-[10%] w-[500px] h-[500px] rounded-full bg-neutral-200/20 blur-[130px] pointer-events-none" />
+      <div className="absolute left-[5%] bottom-[5%] w-[400px] h-[400px] rounded-full bg-neutral-200/15 blur-[120px] pointer-events-none" />
 
       {/* ── MOBILE HEADER: plain HTML + CSS animation ─────────────────────── */}
       {isMobile ? (
@@ -124,8 +125,8 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
         >
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <span className="text-xs font-mono tracking-[0.3em] text-emerald-700 uppercase font-semibold">Colección Exclusiva</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
+              <span className="text-xs font-mono tracking-[0.3em] text-neutral-500 uppercase font-semibold">Colección Exclusiva</span>
             </div>
             <h2 className="text-3xl font-display font-light text-neutral-900 tracking-tight">
               Propiedades <strong className="font-semibold">Destacadas</strong>
@@ -146,8 +147,8 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
               transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="flex items-center gap-2 mb-3"
             >
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <span className="text-xs font-mono tracking-[0.3em] text-emerald-700 uppercase font-semibold">Colección Exclusiva</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
+              <span className="text-xs font-mono tracking-[0.3em] text-neutral-500 uppercase font-semibold">Colección Exclusiva</span>
             </motion.div>
             <motion.h2
               initial={{ opacity: 0, y: 10 }}
@@ -200,7 +201,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
             <motion.div
               key={property.id}
               variants={cardVariants}
-              className="group rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[520px] cursor-pointer hover:border-emerald-500/20 hover:-translate-y-1 transition-[border-color,transform] duration-300"
+              className="group rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[520px] cursor-pointer hover:border-neutral-400/40 hover:-translate-y-1 transition-[border-color,transform] duration-300"
               onClick={() => onSelectProperty(property)}
             >
               <CardInner property={property} />
