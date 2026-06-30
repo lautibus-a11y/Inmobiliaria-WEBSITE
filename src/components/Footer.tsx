@@ -1,4 +1,4 @@
-import { Landmark, Compass, Shield, Hexagon } from 'lucide-react';
+import { Shield } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,6 +17,7 @@ export default function Footer() {
               <img
                 src="/iavana-molina-favion-cabecera.webp"
                 alt="Ivana Molina Propiedades"
+                loading="lazy"
                 className="h-8 md:h-9 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
               />
               <span className="text-lg font-display tracking-[0.2em] font-bold text-white uppercase group-hover:text-white/80 transition-colors">IVANA MOLINA</span>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { Mail, Phone, Landmark, Send, CheckCircle, ShieldAlert, Instagram, Facebook, MapPin, MessageCircle, ExternalLink } from 'lucide-react';
+import { Mail, Phone, Landmark, Send, CheckCircle, ShieldAlert, Instagram, Facebook, MapPin, ExternalLink } from 'lucide-react';
 
 export default function Contact() {
   const shouldReduceMotion = useReducedMotion();
