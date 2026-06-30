@@ -173,7 +173,7 @@ export const properties: Property[] = [
     image: '/venta/terrenos/Terreno_Venta_JuanCasacuberta_20DeJunio_LaMatanza/PORTADA-1.webp',
     images: [
       '/venta/terrenos/Terreno_Venta_JuanCasacuberta_20DeJunio_LaMatanza/PORTADA-1.webp',
-      '/venta/terrenos/Terreno_Venta_JuanCasacuberta_20DeJunio_LaMatanza/Edición foto cielo despejado y luz.webp'
+      '/venta/terrenos/Terreno_Venta_JuanCasacuberta_20DeJunio_LaMatanza/foto-2.webp'
     ],
     description: 'Terrenos en Venta – Juan Casacuberta, 20 de Junio\nUbicación: Calle Juan Casacuberta, entre Cóndor y Corona, localidad de 20 de Junio, La Matanza.\n\nExcelente oportunidad de adquisición de lotes individuales o en conjunto. Se trata de dos terrenos contiguos (Lotes 18 y 19) parquizados, con una hermosa arboleda natural y listos para construir.\n\nCaracterísticas y dimensiones (cada lote):\n• Frente: 13 metros\n• Fondo: 42 metros\n• Superficie total: 546 m² por lote\n\nUbicación y entorno:\n• A solo 2 cuadras y media del asfalto.\n• Ubicados frente al campo, en una zona sumamente tranquila y rodeada de naturaleza.\n• Excelente entorno con gran potencial de desarrollo y crecimiento.\n\nInformación comercial:\n• Los lotes se venden por separado.\n• El valor publicado es individual (por cada uno).\n• Se escuchan ofertas por la compra de ambos lotes juntos.\n\nIVANA MOLINA & ASOC. BIENES RAÍCES\nMAT 1048 – CDMDLM',
     beds: 0,
@@ -198,9 +198,9 @@ export const properties: Property[] = [
     image: '/venta/terrenos/Terreno_Venta_PabloCeretti_20DeJunio_LaMatanza/Ajustes de nitidez y temperatura.webp',
     images: [
       '/venta/terrenos/Terreno_Venta_PabloCeretti_20DeJunio_LaMatanza/Ajustes de nitidez y temperatura.webp',
-      '/venta/terrenos/Terreno_Venta_PabloCeretti_20DeJunio_LaMatanza/Diseño sin título (71).webp',
-      '/venta/terrenos/Terreno_Venta_PabloCeretti_20DeJunio_LaMatanza/Diseño sin título (72).webp',
-      '/venta/terrenos/Terreno_Venta_PabloCeretti_20DeJunio_LaMatanza/Diseño sin título (73).webp'
+      '/venta/terrenos/Terreno_Venta_PabloCeretti_20DeJunio_LaMatanza/foto-2.webp',
+      '/venta/terrenos/Terreno_Venta_PabloCeretti_20DeJunio_LaMatanza/foto-3.webp',
+      '/venta/terrenos/Terreno_Venta_PabloCeretti_20DeJunio_LaMatanza/foto-4.webp'
     ],
     description: 'Terreno en Venta – Pablo Ceretti, 20 de Junio\nUbicación: Calle Pablo Ceretti, entre Gibson y Av. Gorostiaga, 20 de Junio, La Matanza.\n\nExcelente fracción de terreno de aproximadamente 900 m² a la venta. La propiedad se destaca por su entorno sumamente tranquilo y natural, ideal para quienes buscan privacidad, descanso y contacto con la naturaleza.\n\nCaracterísticas principales:\n• Superficie aproximada: 900 m²\n• Hermosa arboleda añosa con variedad de especies, garantizando sombra y un ambiente muy agradable durante todo el año.\n• Posee su respectivo título de propiedad al día.\n\nInformación sobre subdivisión:\n• La subdivisión se encuentra pendiente de realización.\n• El proyecto de subdivisión ya fue evaluado y aprobado por agrimensor, habiéndose verificado que las medidas proyectadas cumplen con las dimensiones mínimas exigidas por la zonificación correspondiente a la zona.\n\nUna opción ideal tanto para vivienda permanente, casa de fin de semana o como proyecto de inversión en una zona de alta tranquilidad y en constante crecimiento.\n\nIVANA MOLINA & ASOC. BIENES RAÍCES\nMAT 1048 – CDMDLM',
     beds: 0,
