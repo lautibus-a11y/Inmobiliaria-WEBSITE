@@ -1,0 +1,49 @@
+{
+  "generalInfo": {
+    "name": "Ivana Molina Bienes Raíces",
+    "address": "Pablo Ceretti 739, 20 de Junio, La Matanza",
+    "phone": "+54 9 11 7202-3171 o 1168091223",
+    "email": "info@molinaivana.com.ar",
+    "schedule": "Lunes a Viernes de 9:00 a 18:00 hs. Sábados de 9:00 a 13:00 hs."
+  },
+  "services": [
+    "Tasaciones precisas y objetivas",
+    "Ventas de inmuebles (casas, terrenos, quintas, etc)",
+    "Alquileres y selección de inquilinos",
+    "Administración integral de propiedades"
+  ],
+  "faq": [
+    {
+      "keywords": ["comision", "comisión", "honorarios", "cobran", "porcentaje"],
+      "answer": "Nuestra comisión inmobiliaria estándar para ventas es del 3% al 4% del valor de la propiedad, dependiendo del tipo de operación. Para alquileres, los honorarios suelen ser del equivalente a un mes de alquiler o el 4% del total del contrato. ¡Consultanos por tu caso particular!"
+    },
+    {
+      "keywords": ["credito", "crédito", "hipotecario", "prestamo", "banco", "apto"],
+      "answer": "Sí, trabajamos con propiedades aptas para crédito hipotecario. Si tenés un crédito pre-aprobado, avisanos y te filtramos las opciones que cumplen con todos los requisitos bancarios (planos registrados, título perfecto)."
+    },
+    {
+      "keywords": ["requisitos", "documentacion", "documentación", "alquilar", "garantia", "garantía", "recibo"],
+      "answer": "Para alquilar solemos solicitar: 1) Garantía propietaria o seguro de caución, 2) Recibos de sueldo o demostración de ingresos del inquilino y garantes, 3) Mes de adelanto, 4) Mes de depósito. Esto puede variar según la propiedad."
+    },
+    {
+      "keywords": ["horario", "atienden", "abierto", "atencion", "dias"],
+      "answer": "Nuestro horario de atención es de Lunes a Viernes de 9:00 a 18:00 hs, y los Sábados de 9:00 a 13:00 hs."
+    },
+    {
+      "keywords": ["donde", "ubicacion", "ubicados", "oficina", "direccion", "dirección"],
+      "answer": "Nuestra oficina se encuentra en Pablo Ceretti 739, 20 de Junio, Partido de La Matanza. ¡Te esperamos!"
+    },
+    {
+      "keywords": ["publicar", "vender", "poner en venta", "ofrecer"],
+      "answer": "¡Nos encantaría ayudarte a vender tu propiedad! Ofrecemos tasaciones sin cargo, estrategias de marketing digital y posicionamiento. Podés dejarnos tus datos en el formulario de la sección 'Contacto' o escribirnos al WhatsApp."
+    },
+    {
+      "keywords": ["tasacion", "tasar", "valor", "cotizar", "cuanto sale", "precio de mi casa"],
+      "answer": "Realizamos tasaciones profesionales analizando el mercado actual. Podés solicitarla escribiéndonos al WhatsApp (+54 9 11 7202-3171) con los detalles básicos de tu propiedad y coordinaremos una visita."
+    },
+    {
+      "keywords": ["visita", "visitar", "conocer", "ver la casa", "coordinar"],
+      "answer": "Para coordinar una visita a una propiedad, necesitamos conversar previamente por WhatsApp para entender tus necesidades y agendar un turno que te resulte cómodo. Seleccioná 'Hablar con un asesor' si querés hacerlo ahora mismo."
+    }
+  ]
+}

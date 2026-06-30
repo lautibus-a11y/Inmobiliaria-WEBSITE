@@ -15,7 +15,7 @@ const CinematicCTA = lazy(() => import('./components/CinematicCTA'));
 const Contact = lazy(() => import('./components/Contact'));
 const Footer = lazy(() => import('./components/Footer'));
 const PropertyModal = lazy(() => import('./components/PropertyModal'));
-
+const Chatbot = lazy(() => import('./components/Chatbot/Chatbot'));
 // Type references
 import { Property } from './types';
 
@@ -264,6 +264,9 @@ export default function App() {
 
           {/* 6. Dynamic responsive property details Modal */}
           <PropertyModal property={selectedProperty} onClose={handleCloseProperty} />
+          
+          {/* 7. Chatbot */}
+          <Chatbot />
           
           {/* Floating WhatsApp Button */}
           <AnimatePresence>

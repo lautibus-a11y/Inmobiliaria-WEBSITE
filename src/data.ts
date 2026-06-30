@@ -99,7 +99,13 @@ export const properties: Property[] = [
       '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/2.webp',
       '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/3.webp',
       '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/4.webp',
-      '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/5.webp'
+      '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/5.webp',
+      '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/6.webp',
+      '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/8.webp',
+      '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/9.webp',
+      '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/13.webp',
+      '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/14.webp',
+      '/venta/casas-quinta/CasaQuinta_Venta_20DeJunio_Piscina_1500m2/15.webp'
     ],
     description: 'Casa Quinta en Venta – 20 de Junio, La Matanza\nUbicación: Castañeda esquina Cosquín, 20 de Junio, La Matanza.\n\nUbicada en una excelente esquina con acceso por asfalto, esta cálida propiedad se desarrolla sobre un importante terreno parquizado de 1.500 m² con cerco perimetral y una añosa arboleda que brinda una agradable sombra natural.\n\nDimensiones y características principales:\n• Superficie del terreno: 1.500 m²\n• Superficie cubierta: 144,87 m²\n• Acceso por hall exterior y garaje techado.\n\nDistribución interior:\n• Amplio living-comedor.\n• Cocina independiente.\n• 3 habitaciones.\n• 2 baños completos.\n\nEspacio exterior y jardín:\n• Gran piscina de natación de aproximadamente 9,50 x 4,90 metros.\n• Quincho cerrado equipado con cocina, parrilla, horno de barro y un baño completo adicional.\n• Jardín completamente parquizado y arbolado.\n\nInformación destacada:\n• ¡Apto crédito hipotecario! (Posee planos registrados, consultar detalles).\n• IMPORTANTE: Se toma propiedad en parte de pago en las localidades de San Bernardo o Mar del Plata.\n\nIVANA MOLINA & ASOC. BIENES RAÍCES\nMAT 1048 – CDMDLM',
     beds: 3,
