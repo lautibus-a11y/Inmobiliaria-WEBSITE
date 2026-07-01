@@ -14,7 +14,6 @@ interface Message {
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome-1',
@@ -43,7 +42,7 @@ export default function Chatbot() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isTyping, isOpen, isMinimized]);
+  }, [messages, isTyping, isOpen]);
 
   const handleSend = (text: string) => {
     if (!text.trim()) return;
@@ -113,13 +112,10 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95, pointerEvents: 'none' }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className={`fixed right-4 sm:right-6 bottom-24 z-[70] w-[calc(100vw-32px)] sm:w-[380px] bg-neutral-950 border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right ${isMinimized ? 'h-[60px]' : 'h-[550px] max-h-[70vh]'}`}
+            className="fixed z-[70] bg-neutral-950 border border-white/10 shadow-2xl shadow-black/50 overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right right-4 sm:right-6 bottom-24 w-[calc(100vw-32px)] sm:w-[380px] rounded-2xl h-[450px] max-h-[60dvh] sm:h-[550px] sm:max-h-[70vh]"
           >
             {/* Header */}
-            <div 
-              className="bg-neutral-900 border-b border-white/10 p-4 flex items-center justify-between cursor-pointer"
-              onClick={() => setIsMinimized(!isMinimized)}
-            >
+            <div className="bg-neutral-900 border-b border-white/10 p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-neutral-800 border border-white/20 flex items-center justify-center">
                   <Bot size={16} className="text-white" />
@@ -133,13 +129,7 @@ export default function Chatbot() {
               </div>
               <div className="flex items-center gap-2">
                 <button 
-                  onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized); }}
-                  className="text-neutral-400 hover:text-white transition-colors p-1"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                </button>
-                <button 
-                  onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
+                  onClick={() => setIsOpen(false)}
                   className="text-neutral-400 hover:text-white transition-colors p-1"
                 >
                   <X size={16} />
@@ -148,8 +138,7 @@ export default function Chatbot() {
             </div>
 
             {/* Messages Area */}
-            {!isMinimized && (
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth" ref={chatContainerRef} style={{ scrollbarWidth: 'thin' }}>
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth" ref={chatContainerRef} style={{ scrollbarWidth: 'thin' }}>
                 {messages.map((msg) => (
                   <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} gap-2`}>
                     {msg.sender === 'bot' && (
@@ -198,9 +187,9 @@ export default function Chatbot() {
                           </a>
                           <div className="bg-neutral-900 border border-white/10 p-3 rounded-xl mt-1 flex flex-col gap-2">
                             <span className="text-[10px] text-neutral-400 font-mono uppercase mb-1">Dejanos tus datos</span>
-                            <input type="text" placeholder="Tu Nombre" className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-xs text-white" />
-                            <input type="tel" placeholder="Tu Teléfono" className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-xs text-white" />
-                            <input type="email" placeholder="Tu Email" className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-xs text-white" />
+                            <input type="text" placeholder="Tu Nombre" className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-[16px] sm:text-xs text-white" />
+                            <input type="tel" placeholder="Tu Teléfono" className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-[16px] sm:text-xs text-white" />
+                            <input type="email" placeholder="Tu Email" className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-[16px] sm:text-xs text-white" />
                             <button className="bg-white text-neutral-900 text-xs py-2 rounded-lg font-semibold mt-1 hover:bg-neutral-200" onClick={() => {
                               setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'bot', text: '¡Tus datos fueron enviados con éxito! Un asesor se contactará con vos a la brevedad.' }]);
                             }}>
@@ -228,10 +217,9 @@ export default function Chatbot() {
                 )}
                 <div ref={messagesEndRef} />
               </div>
-            )}
 
-            {/* Quick Replies (only show if no messages besides welcome or if last message from user was long ago, but simpler: show if messages length is small) */}
-            {!isMinimized && messages.length < 3 && !isTyping && (
+            {/* Quick Replies */}
+            {messages.length < 3 && !isTyping && (
               <div className="px-4 pb-2 flex flex-wrap gap-2">
                 {quickReplies.map((reply, idx) => (
                   <button
@@ -246,14 +234,13 @@ export default function Chatbot() {
             )}
 
             {/* Input Area */}
-            {!isMinimized && (
-              <form onSubmit={handleSubmit} className="p-3 bg-neutral-900 border-t border-white/10 flex items-end gap-2">
+            <form onSubmit={handleSubmit} className="p-3 bg-neutral-900 border-t border-white/10 flex items-end gap-2">
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Escribí tu consulta..."
-                  className="flex-1 bg-neutral-950 border border-white/10 rounded-xl py-2.5 px-4 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white/30 transition-colors"
+                  className="flex-1 bg-neutral-950 border border-white/10 rounded-xl py-2.5 px-4 text-[16px] sm:text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white/30 transition-colors"
                 />
                 <button
                   type="submit"
@@ -263,7 +250,6 @@ export default function Chatbot() {
                   <Send size={14} className="ml-1" />
                 </button>
               </form>
-            )}
           </motion.div>
         )}
       </AnimatePresence>
