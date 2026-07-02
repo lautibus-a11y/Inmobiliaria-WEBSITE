@@ -50,6 +50,11 @@ function CountingNum({ value, suffix, prefix }: { value: number; suffix?: string
   );
 }
 
+// Global configuration flag to toggle mobile animation optimization.
+// If set to true, mobile devices use high-performance, GPU-composited CSS animations (0 JS scroll overhead).
+// If set to false, mobile devices fall back to standard Framer Motion JS animations.
+const OPTIMIZE_MOBILE_ANIMATIONS = true;
+
 export default function AboutUs() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -71,8 +76,10 @@ export default function AboutUs() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  // CSS animation hook for mobile title block
+  // CSS animation hooks for mobile sections (compositor thread)
   const [mobileTitleRef, mobileTitleVisible] = useOnScreen('0px 0px -30px 0px');
+  const [statsRef, statsVisible] = useOnScreen('0px 0px -20px 0px');
+  const [serviciosRef, serviciosVisible] = useOnScreen('0px 0px -20px 0px');
 
   // Parallax effects for the double-stacked images
   const imgY1 = useTransform(scrollYProgress, [0, 1], [0, -40]);
@@ -220,27 +227,46 @@ export default function AboutUs() {
 
       {/* 3. PERFORMANCE STATS COUNTERS */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-24">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((st) => (
-            <motion.div
-              key={st.id}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-              transition={{ duration: 0.7 }}
-              className="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg text-center relative hover:bg-white/10 transition-colors"
-            >
-              {/* Top active hover circle badge */}
-              <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-white/20" />
-
-              <CountingNum value={st.value} suffix={st.suffix} prefix={st.prefix} />
-              
-              <span className="text-[10px] md:text-xs font-sans tracking-widest text-neutral-400 uppercase font-medium">
-                {st.label}
-              </span>
-            </motion.div>
-          ))}
-        </div>
+        {isMobile && OPTIMIZE_MOBILE_ANIMATIONS ? (
+          <div
+            ref={statsRef}
+            className={`grid grid-cols-2 lg:grid-cols-4 gap-8 m-reveal-cards${statsVisible ? ' in-view' : ''}`}
+          >
+            {stats.map((st, idx) => (
+              <div
+                key={st.id}
+                className={`p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg text-center relative hover:bg-white/10 transition-colors m-d${idx + 1}`}
+              >
+                {/* Top active hover circle badge */}
+                <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-white/20" />
+                <CountingNum value={st.value} suffix={st.suffix} prefix={st.prefix} />
+                <span className="text-[10px] md:text-xs font-sans tracking-widest text-neutral-400 uppercase font-medium">
+                  {st.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((st) => (
+              <motion.div
+                key={st.id}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
+                transition={{ duration: 0.7 }}
+                className="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg text-center relative hover:bg-white/10 transition-colors"
+              >
+                {/* Top active hover circle badge */}
+                <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-white/20" />
+                <CountingNum value={st.value} suffix={st.suffix} prefix={st.prefix} />
+                <span className="text-[10px] md:text-xs font-sans tracking-widest text-neutral-400 uppercase font-medium">
+                  {st.label}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* 4. SERVICIOS SECTION */}
@@ -257,40 +283,76 @@ export default function AboutUs() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {servicios.map((srv, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group rounded-3xl p-6 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between h-[280px]"
-            >
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-neutral-900 border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-500">
-                  <srv.icon size={20} strokeWidth={1.5} />
-                </div>
-                <h4 className="text-lg font-display font-semibold tracking-tight text-white mb-3">
-                  {srv.title}
-                </h4>
-                <p className="text-xs font-sans font-light text-neutral-400 line-clamp-3 leading-relaxed">
-                  {srv.desc}
-                </p>
-              </div>
-              
-              <a
-                href={`https://wa.me/5491168091223?text=${encodeURIComponent(`Hola Ivana Molina Bienes Raíces. Me comunico desde su sitio web porque estoy interesado en el servicio de ${srv.title}. Quisiera recibir más información.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-white/70 group-hover:text-white transition-colors mt-6 w-max"
+        {isMobile && OPTIMIZE_MOBILE_ANIMATIONS ? (
+          <div
+            ref={serviciosRef}
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 m-reveal-cards${serviciosVisible ? ' in-view' : ''}`}
+          >
+            {servicios.map((srv, idx) => (
+              <div
+                key={idx}
+                className={`group rounded-3xl p-6 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between h-[280px] m-d${idx + 1}`}
               >
-                Consultar ahora 
-                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-            </motion.div>
-          ))}
-        </div>
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-neutral-900 border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-500">
+                    <srv.icon size={20} strokeWidth={1.5} />
+                  </div>
+                  <h4 className="text-lg font-display font-semibold tracking-tight text-white mb-3">
+                    {srv.title}
+                  </h4>
+                  <p className="text-xs font-sans font-light text-neutral-400 line-clamp-3 leading-relaxed">
+                    {srv.desc}
+                  </p>
+                </div>
+                
+                <a
+                  href={`https://wa.me/5491168091223?text=${encodeURIComponent(`Hola Ivana Molina Bienes Raíces. Me comunico desde su sitio web porque estoy interesado en el servicio de ${srv.title}. Quisiera recibir más información.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-white/70 group-hover:text-white transition-colors mt-6 w-max"
+                >
+                  Consultar ahora 
+                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {servicios.map((srv, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="group rounded-3xl p-6 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between h-[280px]"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-neutral-900 border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-500">
+                    <srv.icon size={20} strokeWidth={1.5} />
+                  </div>
+                  <h4 className="text-lg font-display font-semibold tracking-tight text-white mb-3">
+                    {srv.title}
+                  </h4>
+                  <p className="text-xs font-sans font-light text-neutral-400 line-clamp-3 leading-relaxed">
+                    {srv.desc}
+                  </p>
+                </div>
+                
+                <a
+                  href={`https://wa.me/5491168091223?text=${encodeURIComponent(`Hola Ivana Molina Bienes Raíces. Me comunico desde su sitio web porque estoy interesado en el servicio de ${srv.title}. Quisiera recibir más información.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-white/70 group-hover:text-white transition-colors mt-6 w-max"
+                >
+                  Consultar ahora 
+                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </a>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </motion.section>
   );

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight, ArrowDown, ArrowUp } from 'lucide-react';
 import { Property } from '../types';
@@ -27,6 +27,8 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
   // CSS animation hooks for mobile (compositor thread)
   const [titleRef, titleVisible] = useOnScreen('0px 0px -30px 0px');
   const [gridRef, gridVisible] = useOnScreen('0px 0px -20px 0px');
+
+  const lastCardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -227,9 +229,10 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
             ref={gridRef}
             className={`grid grid-cols-1 gap-5 m-reveal-cards${gridVisible ? ' in-view' : ''}`}
           >
-            {firstBatch.map((property) => (
+            {firstBatch.map((property, idx) => (
               <div
                 key={property.id}
+                ref={idx === firstBatch.length - 1 ? lastCardRef : undefined}
                 className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[420px] cursor-pointer"
                 onClick={() => onSelectProperty(property)}
               >
@@ -358,7 +361,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
             >
               <AnimatePresence mode="popLayout">
-                {firstBatch.map((property) => (
+                {firstBatch.map((property, idx) => (
                   <motion.div
                     layout="position"
                     initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
@@ -366,6 +369,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                     exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
                     transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
                     key={property.id}
+                    ref={idx === firstBatch.length - 1 ? lastCardRef : undefined}
                     className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[450px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-neutral-300/60 hover:-translate-y-1 hover:transition-transform"
                     onClick={() => onSelectProperty(property)}
                   >
@@ -519,6 +523,11 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
               onClick={() => {
                 setIsExpanded(false);
                 setVisibleCount(8);
+                // After a short delay (accordion starts closing), scroll the last
+                // visible card into view — works like a true accordion collapse.
+                setTimeout(() => {
+                  lastCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }, 80);
               }}
               className="group flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-neutral-900 border border-neutral-900 text-white font-medium text-sm transition-all hover:bg-neutral-800 hover:shadow-sm"
             >
