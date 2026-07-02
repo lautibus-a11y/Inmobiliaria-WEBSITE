@@ -81,17 +81,6 @@ export default function Testimonials() {
         </div>
       </div>
 
-      {/* Styled animation keyframes inside an embedded block */}
-      <style>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-33.33%);
-          }
-        }
-      `}</style>
     </motion.section>
   );
 }

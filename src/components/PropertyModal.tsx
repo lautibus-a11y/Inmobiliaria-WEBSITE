@@ -15,14 +15,16 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Reset media state when a different property is selected
+  // This pattern is intentional: we derive the reset from property.id change
+  /* eslint-disable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
   useEffect(() => {
     if (property) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCurrentImgIndex(0);
       setMediaType('photos');
     }
   }, [property?.id]);
+  /* eslint-enable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
 
   if (!property) return null;
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'motion/react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Home } from 'lucide-react';
 
 interface HeroProps {
   isAppLoaded?: boolean;
@@ -196,13 +196,16 @@ export default function Hero({ isAppLoaded = true }: HeroProps) {
         >
           <a
             href="#todas-propiedades"
-            className="w-full sm:w-auto text-center px-8 py-4 rounded-xl border border-white bg-white text-neutral-950 font-semibold text-xs tracking-widest uppercase hover:bg-neutral-200 hover:border-neutral-200 transition-colors cursor-pointer shadow-lg interactive-hover"
+            className="group flex items-center justify-center gap-3 w-full sm:w-[240px] h-[54px] rounded-xl border border-white bg-white text-neutral-950 font-semibold text-xs tracking-widest uppercase hover:bg-neutral-200 hover:border-neutral-200 transition-colors cursor-pointer shadow-lg interactive-hover"
           >
-            Ver Catálogo
+            <span>Ver Catálogo</span>
+            <span className="w-8 h-8 rounded-full bg-neutral-950 flex items-center justify-center transition-transform group-hover:scale-105 shrink-0">
+              <Home size={16} strokeWidth={2.5} className="text-white" />
+            </span>
           </a>
           <a
             href="#contacto"
-            className="w-full sm:w-auto text-center px-8 py-4 rounded-xl border border-white/30 bg-white/10 backdrop-blur-md text-white font-semibold text-xs tracking-widest uppercase hover:bg-white hover:text-neutral-950 hover:border-white transition-colors cursor-pointer interactive-hover"
+            className="flex items-center justify-center w-full sm:w-[240px] h-[54px] rounded-xl border border-white/30 bg-white/10 backdrop-blur-md text-white font-semibold text-xs tracking-widest uppercase hover:bg-white hover:text-neutral-950 hover:border-white transition-colors cursor-pointer interactive-hover"
           >
             Agendar Reunión
           </a>
