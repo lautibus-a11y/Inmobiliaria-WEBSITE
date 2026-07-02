@@ -78,7 +78,6 @@ export default function AboutUs() {
 
   // CSS animation hooks for mobile sections (compositor thread)
   const [mobileTitleRef, mobileTitleVisible] = useOnScreen('0px 0px -30px 0px');
-  const [statsRef, statsVisible] = useOnScreen('0px 0px -20px 0px');
   const [serviciosRef, serviciosVisible] = useOnScreen('0px 0px -20px 0px');
 
   // Parallax effects for the double-stacked images
@@ -227,46 +226,27 @@ export default function AboutUs() {
 
       {/* 3. PERFORMANCE STATS COUNTERS */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-24">
-        {isMobile && OPTIMIZE_MOBILE_ANIMATIONS ? (
-          <div
-            ref={statsRef}
-            className={`grid grid-cols-2 lg:grid-cols-4 gap-8 m-reveal-cards${statsVisible ? ' in-view' : ''}`}
-          >
-            {stats.map((st, idx) => (
-              <div
-                key={st.id}
-                className={`p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg text-center relative hover:bg-white/10 transition-colors m-d${idx + 1}`}
-              >
-                {/* Top active hover circle badge */}
-                <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-white/20" />
-                <CountingNum value={st.value} suffix={st.suffix} prefix={st.prefix} />
-                <span className="text-[10px] md:text-xs font-sans tracking-widest text-neutral-400 uppercase font-medium">
-                  {st.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((st) => (
-              <motion.div
-                key={st.id}
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-                transition={{ duration: 0.7 }}
-                className="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg text-center relative hover:bg-white/10 transition-colors"
-              >
-                {/* Top active hover circle badge */}
-                <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-white/20" />
-                <CountingNum value={st.value} suffix={st.suffix} prefix={st.prefix} />
-                <span className="text-[10px] md:text-xs font-sans tracking-widest text-neutral-400 uppercase font-medium">
-                  {st.label}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {stats.map((st) => (
+            <motion.div
+              key={st.id}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
+              transition={{ duration: 0.7 }}
+              className="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg text-center relative hover:bg-white/10 transition-colors"
+            >
+              {/* Top active hover circle badge */}
+              <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-white/20" />
+
+              <CountingNum value={st.value} suffix={st.suffix} prefix={st.prefix} />
+              
+              <span className="text-[10px] md:text-xs font-sans tracking-widest text-neutral-400 uppercase font-medium">
+                {st.label}
+              </span>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {/* 4. SERVICIOS SECTION */}

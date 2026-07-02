@@ -522,12 +522,15 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
             <button
               onClick={() => {
                 setIsExpanded(false);
-                setVisibleCount(8);
                 // After a short delay (accordion starts closing), scroll the last
                 // visible card into view — works like a true accordion collapse.
                 setTimeout(() => {
                   lastCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
                 }, 80);
+                // Delay pruning the DOM until the 500ms collapse animation finishes
+                setTimeout(() => {
+                  setVisibleCount(8);
+                }, 520);
               }}
               className="group flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-neutral-900 border border-neutral-900 text-white font-medium text-sm transition-all hover:bg-neutral-800 hover:shadow-sm"
             >
