@@ -1,4 +1,5 @@
 import { properties } from '../data';
+import { Property } from '../types';
 import chatbotData from '../data/chatbotData.json';
 
 // Utility to normalize strings (remove accents and make lowercase)
@@ -8,7 +9,7 @@ const normalize = (str: string) => {
 
 export interface ChatbotResponse {
   text: string;
-  properties?: any[];
+  properties?: Property[];
 }
 
 export function processChatbotMessage(message: string): ChatbotResponse {
@@ -33,7 +34,7 @@ export function processChatbotMessage(message: string): ChatbotResponse {
   // 3. Check for properties filtering
   let filteredProps = properties;
   let isSearchingProperties = false;
-  let searchIntent = [];
+  const searchIntent: string[] = [];
 
   // Transaction type
   if (normMessage.includes('alquiler') || normMessage.includes('alquilar')) {
@@ -64,7 +65,7 @@ export function processChatbotMessage(message: string): ChatbotResponse {
     isSearchingProperties = true;
     searchIntent.push('quintas');
   } else if (normMessage.includes('local') || normMessage.includes('comercial')) {
-    filteredProps = filteredProps.filter(p => p.category === ('locales' as any));
+    filteredProps = filteredProps.filter(p => p.category === ('locales' as unknown as Property['category']));
     isSearchingProperties = true;
     searchIntent.push('locales comerciales');
   }

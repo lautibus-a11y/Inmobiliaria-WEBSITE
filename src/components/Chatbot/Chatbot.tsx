@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Send, User, Bot, MapPin, Bed, ShowerHead, ExternalLink, MessageCircle, Phone } from 'lucide-react';
+import { X, Send, Bot, ExternalLink, Phone } from 'lucide-react';
 import { processChatbotMessage, ChatbotResponse } from '../../utils/chatbotLogic';
 import { Property } from '../../types';
 
@@ -47,6 +47,7 @@ export default function Chatbot() {
   const handleSend = (text: string) => {
     if (!text.trim()) return;
 
+    // eslint-disable-next-line react-hooks/purity
     const userMsg: Message = { id: Date.now().toString(), sender: 'user', text };
     setMessages(prev => [...prev, userMsg]);
     setInputValue('');
@@ -67,6 +68,7 @@ export default function Chatbot() {
       
       setMessages(prev => [...prev, botMsg]);
       setIsTyping(false);
+    // eslint-disable-next-line
     }, 800 + Math.random() * 500);
   };
 

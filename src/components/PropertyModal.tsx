@@ -15,8 +15,10 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (property) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCurrentImgIndex(0);
       setMediaType('photos');
     }

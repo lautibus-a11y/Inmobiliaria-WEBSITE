@@ -164,7 +164,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
             </div>
             <select
               value={priceSort}
-              onChange={(e) => setPriceSort(e.target.value as any)}
+              onChange={(e) => setPriceSort(e.target.value as 'default' | 'asc' | 'desc')}
               className="bg-white border border-neutral-200/80 text-xs rounded-xl py-2 px-3 text-neutral-800 focus:outline-none focus:border-neutral-400 [&_option]:bg-white [&_option]:text-neutral-800"
             >
               <option value="default">Relevancia</option>
