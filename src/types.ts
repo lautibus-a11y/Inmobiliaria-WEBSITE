@@ -7,7 +7,7 @@ export interface Property {
   location: string;
   streets?: string;
   mercadoLibreLink?: string;
-  category: 'casas' | 'departamentos' | 'terrenos' | 'casas-quinta';
+  category: 'casas' | 'departamentos' | 'terrenos' | 'casas-quinta' | 'locales';
   transactionType: 'venta' | 'alquiler';
   image: string;
   images?: string[];

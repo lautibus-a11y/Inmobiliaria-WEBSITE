@@ -9,7 +9,7 @@ interface AllPropertiesProps {
   onSelectProperty: (property: Property) => void;
 }
 
-type CategoryType = 'todas' | 'casas' | 'departamentos' | 'terrenos' | 'casas-quinta';
+type CategoryType = 'todas' | 'casas' | 'departamentos' | 'terrenos' | 'casas-quinta' | 'locales';
 type TransactionType = 'todas' | 'venta' | 'alquiler';
 
 export default function AllProperties({ onSelectProperty }: AllPropertiesProps) {
@@ -56,6 +56,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
     { label: 'Departamentos', value: 'departamentos' },
     { label: 'Terrenos', value: 'terrenos' },
     { label: 'Casas Quinta', value: 'casas-quinta' },
+    { label: 'Locales', value: 'locales' },
   ];
 
   // Filtering based on standard selections
