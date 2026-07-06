@@ -142,7 +142,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
             </h2>
           </div>
           <p className="text-sm text-neutral-600 font-sans leading-relaxed">
-            Una cuidada selección de residencias que combinan un diseño excepcional y los más altos estándares de calidad.
+            Tu vida de campo, con el confort de hoy. Encontrá tu lugar en una zona residencial de quintas pensada para el descanso y la naturaleza.
           </p>
         </div>
       ) : (
@@ -176,7 +176,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
             transition={{ duration: 0.35, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-sm text-neutral-600 max-w-md font-sans leading-relaxed"
           >
-            Una cuidada selección de residencias que combinan un diseño excepcional y los más altos estándares de calidad.
+            Tu vida de campo, con el confort de hoy. Encontrá tu lugar en una zona residencial de quintas pensada para el descanso y la naturaleza.
           </motion.p>
         </div>
       )}

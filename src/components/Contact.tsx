@@ -98,8 +98,8 @@ export default function Contact() {
             {/* Google Maps Embed Classic with lila border */}
             <div className="relative w-full h-[400px] md:h-[450px] rounded-3xl overflow-hidden border border-neutral-200/60 shadow-xl shadow-black/5 mb-6">
               <iframe
-                title="Google Maps Ivana Molina Propiedades"
-                src="https://maps.google.com/maps?q=Pablo%20Ceretti%20739,%2020%20de%20Junio,%20La%20Matanza&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                title="Google Maps IVANA MOLINA & ASOC. BIENES RAICES"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1637.2885973344607!2d-58.70617307521019!3d-34.783168285519896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc14eb449557b%3A0xc6c76e2bcbc3a19b!2sIvana%20Molina%20Bienes%20Raices!5e0!3m2!1sen!2sar!4v1709214758963!5m2!1sen!2sar"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -153,15 +153,15 @@ export default function Contact() {
                   <MapPin size={16} />
                 </div>
                 <div>
-                  <span className="text-[9px] font-mono text-neutral-500 block">UBICACIÓN DE LA OFICINA</span>
-                  <p className="text-xs font-sans font-medium tracking-tight text-neutral-800">Pablo Ceretti 739, 20 de Junio, La Matanza</p>
+                  <span className="text-[9px] font-mono text-neutral-500 block">NUESTRA OFICINA</span>
+                  <p className="text-xs font-sans font-medium tracking-tight text-neutral-800">PABLO CERETTI 739, 20 DE JUNIO.- ÚNICA OFICINA</p>
                 </div>
               </div>
             </div>
 
             <div className="mt-4 flex flex-col sm:flex-row gap-4">
               <a
-                href={`https://wa.me/5491168091223?text=${encodeURIComponent('Hola Ivana Molina Bienes Raíces. Me comunico desde su sitio web y quisiera recibir más información.')}`}
+                href={`https://wa.me/5491168091223?text=${encodeURIComponent('Hola IVANA MOLINA & ASOC. BIENES RAICES. Me comunico desde su sitio web y quisiera recibir más información.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 p-4 rounded-2xl bg-neutral-900 text-white font-semibold text-xs tracking-widest uppercase hover:bg-neutral-800 transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-black/10 interactive-hover"

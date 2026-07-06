@@ -10,7 +10,6 @@ const FeaturedProperties = lazy(() => import('./components/FeaturedProperties'))
 const AboutUs = lazy(() => import('./components/AboutUs'));
 const MostWanted = lazy(() => import('./components/MostWanted'));
 const AllProperties = lazy(() => import('./components/AllProperties'));
-const Testimonials = lazy(() => import('./components/Testimonials'));
 const CinematicCTA = lazy(() => import('./components/CinematicCTA'));
 const Contact = lazy(() => import('./components/Contact'));
 const Footer = lazy(() => import('./components/Footer'));
@@ -73,7 +72,6 @@ export default function App() {
     { label: 'Nosotros', href: '#nosotros' },
     { label: 'Servicios', href: '#servicios' },
     { label: 'Catálogo', href: '#todas-propiedades' },
-    { label: 'Testimonios', href: '#testimonios' },
   ];
 
   const handleOpenProperty = (property: Property) => {
@@ -116,13 +114,13 @@ export default function App() {
           <a href="#" className="flex items-center gap-3 z-50 select-none group">
             <img
               src="/iavana-molina-favion-cabecera.webp"
-              alt="Ivana Molina Propiedades"
+              alt="IVANA MOLINA & ASOC. BIENES RAICES"
               className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
             />
-            <span className={`text-[11px] sm:text-sm md:text-base font-display tracking-[0.12em] sm:tracking-[0.18em] font-bold uppercase group-hover:text-white/70 transition-colors ${
+            <span className={`text-[9px] sm:text-[11px] md:text-xs font-display tracking-[0.12em] sm:tracking-[0.18em] font-bold uppercase group-hover:text-white/70 transition-colors ${
               isOverLightSection ? 'text-neutral-900' : 'text-white'
             }`}>
-              Ivana Molina
+              IVANA MOLINA & ASOC. BIENES RAICES
             </span>
           </a>
 
@@ -250,8 +248,6 @@ export default function App() {
           {/* Tabs filtered Properties section */}
           <AllProperties onSelectProperty={handleOpenProperty} />
 
-          {/* Client testimonial infinite marquee track */}
-          <Testimonials />
 
           {/* Cinematic premium ScrollTrigger CTA */}
           <CinematicCTA />

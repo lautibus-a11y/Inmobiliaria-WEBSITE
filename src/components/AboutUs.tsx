@@ -218,36 +218,13 @@ export default function AboutUs() {
             transition={{ duration: 0.32, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="flex flex-col gap-4 text-xs font-mono text-neutral-300 border-l border-white/20 pl-5"
           >
-            <p>✦ Privacidad absoluta y confidencialidad en cada etapa.</p>
-            <p>✦ Asesoramiento integral en transacciones internacionales.</p>
+            <p>✦ Transparencia y honestidad en cada etapa del camino.</p>
+            <p>✦ Acompañamiento y soluciones a la medida de tus necesidades.</p>
           </motion.div>
         </div>
       </div>
 
-      {/* 3. PERFORMANCE STATS COUNTERS */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-24">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((st) => (
-            <motion.div
-              key={st.id}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
-              transition={{ duration: 0.7 }}
-              className="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg text-center relative hover:bg-white/10 transition-colors"
-            >
-              {/* Top active hover circle badge */}
-              <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-white/20" />
 
-              <CountingNum value={st.value} suffix={st.suffix} prefix={st.prefix} />
-              
-              <span className="text-[10px] md:text-xs font-sans tracking-widest text-neutral-400 uppercase font-medium">
-                {st.label}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
 
       {/* 4. SERVICIOS SECTION */}
       <div id="servicios" className="max-w-7xl mx-auto px-6 md:px-12 pt-28 -mt-16">

@@ -57,9 +57,17 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
           filter: { duration: isExiting ? 0.6 : 1.5, ease: isExiting ? 'easeIn' : 'easeOut' }
         }}
         src="/cinematic-reveal-logo-convertido-de-jpeg.webp" 
-        alt="Ivana Molina Propiedades" 
+        alt="IVANA MOLINA & ASOC. BIENES RAICES" 
         className="w-[85vw] sm:w-[60vw] md:w-[45vw] max-w-[500px] h-auto object-contain"
       />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isExiting ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ delay: 0.8, duration: 1 }}
+        className="absolute bottom-8 text-[9px] md:text-[10px] font-mono tracking-widest text-neutral-400 uppercase text-center w-full"
+      >
+        Desarrollado por Broadcastweb desing © 2026
+      </motion.div>
     </motion.div>
   );
 }

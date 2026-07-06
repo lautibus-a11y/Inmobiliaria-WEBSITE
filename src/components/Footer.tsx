@@ -16,14 +16,14 @@ export default function Footer() {
             <div className="flex items-center gap-2.5 mb-4 select-none group cursor-pointer">
               <img
                 src="/iavana-molina-favion-cabecera.webp"
-                alt="Ivana Molina Propiedades"
+                alt="IVANA MOLINA & ASOC. BIENES RAICES"
                 loading="lazy"
                 className="h-8 md:h-9 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
               />
-              <span className="text-lg font-display tracking-[0.2em] font-bold text-white uppercase group-hover:text-white/80 transition-colors">IVANA MOLINA</span>
+              <span className="text-lg font-display tracking-[0.2em] font-bold text-white uppercase group-hover:text-white/80 transition-colors">IVANA MOLINA & ASOC. BIENES RAICES</span>
             </div>
             <p className="text-xs text-gray-400 leading-relaxed font-sans font-light">
-              Asesoramiento exclusivo y transacciones confidenciales en el mercado inmobiliario de alta categoría.
+              Transacciones confidenciales en el mercado inmobiliario de alta categoría.
             </p>
           </div>
 
@@ -66,16 +66,16 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-mono tracking-widest text-white/50 uppercase mb-4 font-semibold">Nuestras Oficinas</h4>
+            <h4 className="text-xs font-mono tracking-widest text-white/50 uppercase mb-4 font-semibold">Nuestra Oficina</h4>
             <p className="text-xs text-gray-400 font-sans leading-relaxed mb-1 font-light">
-              Av. del Libertador 2400,
+              Pablo Ceretti 739,
             </p>
             <p className="text-xs text-gray-400 font-sans leading-relaxed mb-4 font-light">
-              Buenos Aires, Argentina.
+              20 de Junio, La Matanza.
             </p>
             <div className="flex gap-3 text-white/60">
-              <span className="text-[10px] font-mono whitespace-nowrap bg-white/10 border border-white/20 px-2 py-0.5 rounded text-white/70">BUENOS AIRES</span>
-              <span className="text-[10px] font-mono whitespace-nowrap bg-white/5 border border-white/10 px-2 py-0.5 rounded text-gray-400">EDIFICIO LIBERTADOR</span>
+              <span className="text-[10px] font-mono whitespace-nowrap bg-white/10 border border-white/20 px-2 py-0.5 rounded text-white/70">ZONA OESTE</span>
+              <span className="text-[10px] font-mono whitespace-nowrap bg-white/5 border border-white/10 px-2 py-0.5 rounded text-gray-400">ÚNICA OFICINA</span>
             </div>
           </div>
 
@@ -83,7 +83,7 @@ export default function Footer() {
 
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono text-gray-400">
           <div>
-            <p>© {currentYear} Ivana Molina Propiedades de Categoría. Todos los derechos reservados.</p>
+            <p>Desarrollado por Broadcastweb desing © 2026</p>
           </div>
           <div className="flex gap-4 items-center">
             <span className="flex items-center gap-1">
