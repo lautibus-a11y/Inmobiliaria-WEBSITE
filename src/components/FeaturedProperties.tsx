@@ -56,6 +56,15 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
             ✦ {property.category}
           </span>
         </div>
+        {property.status && (
+          <div className="absolute top-12 left-4">
+            <span className={`text-[10px] px-3 py-1 rounded-full border uppercase font-mono tracking-wider shadow-xs font-semibold ${
+              property.status === 'alquilada' ? 'bg-red-500/95 text-white border-red-600/50' : 'bg-white/95 text-neutral-900 border-neutral-200'
+            }`}>
+              {property.status}
+            </span>
+          </div>
+        )}
         <div className="absolute bottom-4 right-4">
           <span className="text-xs px-3 py-1.5 bg-white border border-neutral-200 text-neutral-900 rounded-lg font-mono font-semibold shadow-md">
             {property.price}

@@ -248,6 +248,13 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                   <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-neutral-600 font-semibold shadow-xs">
                     {property.category}
                   </span>
+                  {property.status && (
+                    <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
+                      property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                    }`}>
+                      {property.status}
+                    </span>
+                  )}
                   <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
                     {property.price}
                   </span>
@@ -311,6 +318,13 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-neutral-600 font-semibold shadow-xs">
                         {property.category}
                       </span>
+                      {property.status && (
+                        <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
+                          property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                        }`}>
+                          {property.status}
+                        </span>
+                      )}
                       <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
                         {property.price}
                       </span>
@@ -385,6 +399,13 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-neutral-600 font-semibold shadow-xs">
                         {property.category}
                       </span>
+                      {property.status && (
+                        <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
+                          property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                        }`}>
+                          {property.status}
+                        </span>
+                      )}
                       <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
                         {property.price}
                       </span>
@@ -456,6 +477,13 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                         <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-neutral-600 font-semibold shadow-xs">
                           {property.category}
                         </span>
+                        {property.status && (
+                          <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
+                            property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                          }`}>
+                            {property.status}
+                          </span>
+                        )}
                         <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
                           {property.price}
                         </span>

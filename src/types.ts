@@ -19,6 +19,7 @@ export interface Property {
   coordinates: { x: number; y: number }; // Percentage coordinates on our elegant custom map [0-100]
   isFeatured: boolean;
   isMostWanted: boolean;
+  status?: 'alquilada' | 'vendida' | 'reservada';
 }
 
 
