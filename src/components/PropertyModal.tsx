@@ -13,6 +13,9 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
   const shouldReduceMotion = useReducedMotion();
   const [mediaType, setMediaType] = useState<'photos' | 'video'>('photos');
 
+  // To activate the QR feature, set this to true
+  const ENABLE_QR_DOWNLOAD = false;
+
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
@@ -314,25 +317,28 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
               )}
 
               {/* TODO: REMOVE THIS BUTTON ONCE ALL QRs ARE DOWNLOADED - Requested by user */}
-              <div className="flex flex-col gap-2 mt-2 pt-4 border-t border-white/5">
-                <div style={{ display: 'none' }}>
-                  <QRCodeCanvas
-                    id={`qr-${property.id}`}
-                    value={`${window.location.origin}/?prop=${property.id}`}
-                    size={1024}
-                    level="H"
-                    includeMargin={true}
-                  />
+              {/* TODO: REMOVE THIS BUTTON ONCE ALL QRs ARE DOWNLOADED - Requested by user */}
+              {ENABLE_QR_DOWNLOAD && (
+                <div className="flex flex-col gap-2 mt-2 pt-4 border-t border-white/5">
+                  <div style={{ display: 'none' }}>
+                    <QRCodeCanvas
+                      id={`qr-${property.id}`}
+                      value={`${window.location.origin}/?prop=${property.id}`}
+                      size={1024}
+                      level="H"
+                      includeMargin={true}
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={downloadQR}
+                    className="w-full py-3 rounded-xl bg-purple-600/20 border border-purple-500/50 text-purple-200 font-bold text-xs tracking-widest uppercase hover:bg-purple-600/40 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg"
+                  >
+                    <QrCode size={16} />
+                    Descargar QR (PNG)
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={downloadQR}
-                  className="w-full py-3 rounded-xl bg-purple-600/20 border border-purple-500/50 text-purple-200 font-bold text-xs tracking-widest uppercase hover:bg-purple-600/40 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg"
-                >
-                  <QrCode size={16} />
-                  Descargar QR (PNG)
-                </button>
-              </div>
+              )}
             </div>
           </div>
         </motion.div>
