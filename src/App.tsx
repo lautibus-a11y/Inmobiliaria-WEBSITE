@@ -26,6 +26,21 @@ export default function App() {
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [isAppLoaded, setIsAppLoaded] = useState(false);
 
+  // Check for property in URL on load
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const propId = params.get('prop');
+    
+    if (propId) {
+      import('./data').then(({ properties }) => {
+        const found = properties.find((p) => p.id === propId);
+        if (found) {
+          setSelectedProperty(found);
+        }
+      });
+    }
+  }, []);
+
   // Monitor scroll for float styles & use IntersectionObserver to detect section theme without reflows
   useEffect(() => {
     const handleScroll = () => {

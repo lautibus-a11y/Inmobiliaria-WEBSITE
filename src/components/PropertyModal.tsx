@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { QRCodeCanvas } from 'qrcode.react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { X, Bed, ShowerHead, Eye } from 'lucide-react';
+import { X, Bed, ShowerHead, Eye, QrCode } from 'lucide-react';
 import { Property } from '../types';
 
 interface PropertyModalProps {
@@ -32,6 +33,19 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
   // Assignment of video tour
   const videoSrc = '/video-tour-3d/videotour.mp4';
+
+  const downloadQR = () => {
+    if (!property) return;
+    const canvas = document.getElementById(`qr-${property.id}`) as HTMLCanvasElement;
+    if (!canvas) return;
+    const pngUrl = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+    const downloadLink = document.createElement('a');
+    downloadLink.href = pngUrl;
+    downloadLink.download = `QR-${property.title.replace(/\s+/g, '-')}.png`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
 
   // Touch handlers for swipe gesture on mobile
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -298,6 +312,27 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                   Ver en Mercado Libre
                 </a>
               )}
+
+              {/* TODO: REMOVE THIS BUTTON ONCE ALL QRs ARE DOWNLOADED - Requested by user */}
+              <div className="flex flex-col gap-2 mt-2 pt-4 border-t border-white/5">
+                <div style={{ display: 'none' }}>
+                  <QRCodeCanvas
+                    id={`qr-${property.id}`}
+                    value={`${window.location.origin}/?prop=${property.id}`}
+                    size={1024}
+                    level="H"
+                    includeMargin={true}
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={downloadQR}
+                  className="w-full py-3 rounded-xl bg-purple-600/20 border border-purple-500/50 text-purple-200 font-bold text-xs tracking-widest uppercase hover:bg-purple-600/40 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg"
+                >
+                  <QrCode size={16} />
+                  Descargar QR (PNG)
+                </button>
+              </div>
             </div>
           </div>
         </motion.div>
