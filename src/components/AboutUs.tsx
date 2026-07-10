@@ -1,54 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useInView, useReducedMotion } from 'motion/react';
-import { stats } from '../data';
+import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
+
 import { ArrowRight, Calculator, Key, Building2, Briefcase } from 'lucide-react';
 import { useOnScreen } from '../hooks/useOnScreen';
 
-// Helper component for counting numbers smoothly
-function CountingNum({ value, suffix, prefix }: { value: number; suffix?: string; prefix?: string }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    if (!isInView) return;
-
-    const start = 0;
-    const end = value;
-    const duration = 2000; // 2 seconds
-    const startTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Ease out circle / quadratic easing
-      const easeProgress = 1 - Math.pow(1 - progress, 3);
-      const currentVal = easeProgress * (end - start) + start;
-      
-      setCount(currentVal);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(end);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [isInView, value]);
-
-  // Handle floats vs integers, e.g., 99.4%
-  const formattedCount = Number.isInteger(value) ? Math.floor(count) : count.toFixed(1);
-
-  return (
-    <span ref={ref} className="font-mono font-bold text-3xl md:text-5xl tracking-tight text-white block mb-1">
-      {prefix}
-      {formattedCount}
-      {suffix}
-    </span>
-  );
-}
 
 // Global configuration flag to toggle mobile animation optimization.
 // If set to true, mobile devices use high-performance, GPU-composited CSS animations (0 JS scroll overhead).
@@ -159,9 +115,8 @@ export default function AboutUs() {
           >
             <div className="absolute inset-0 bg-black/10 z-10" />
             <img
-              src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=700&q=80"
-              alt="Luxury Interior Luxury Living"
-              referrerPolicy="no-referrer"
+              src="/sobre-nosotros/seccion-sobre-nosotros.webp"
+              alt="Sobre nosotros - Ivana Molina Bienes Raíces"
               loading="lazy"
               className="w-full h-full object-cover filter brightness-[0.7] saturate-[0.85]"
             />

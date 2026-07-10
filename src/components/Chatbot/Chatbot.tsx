@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Send, Bot, ExternalLink, Phone } from 'lucide-react';
 import { processChatbotMessage, ChatbotResponse } from '../../utils/chatbotLogic';
@@ -11,6 +11,15 @@ interface Message {
   properties?: Property[];
   isFallback?: boolean;
 }
+
+// Quick replies moved outside component to prevent recreation on every render
+const quickReplies = [
+  "¿Cuáles son los horarios?",
+  "Quiero ver propiedades aptas crédito",
+  "¿Qué casas hay en venta?",
+  "¿Cómo coordino una visita?",
+  "Solicitar una tasación"
+];
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,15 +35,6 @@ export default function Chatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Quick replies
-  const quickReplies = [
-    "¿Cuáles son los horarios?",
-    "Quiero ver propiedades aptas crédito",
-    "¿Qué casas hay en venta?",
-    "¿Cómo coordino una visita?",
-    "Solicitar una tasación"
-  ];
-
   // Auto-scroll
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -44,10 +44,9 @@ export default function Chatbot() {
     scrollToBottom();
   }, [messages, isTyping, isOpen]);
 
-  const handleSend = (text: string) => {
+  const handleSend = useCallback((text: string) => {
     if (!text.trim()) return;
 
-    // eslint-disable-next-line react-hooks/purity
     const userMsg: Message = { id: Date.now().toString(), sender: 'user', text };
     setMessages(prev => [...prev, userMsg]);
     setInputValue('');
@@ -68,9 +67,8 @@ export default function Chatbot() {
       
       setMessages(prev => [...prev, botMsg]);
       setIsTyping(false);
-    // eslint-disable-next-line
     }, 800 + Math.random() * 500);
-  };
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -150,13 +148,17 @@ export default function Chatbot() {
                     )}
                     
                     <div className={`max-w-[85%] flex flex-col gap-2 ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
-                      <div className={`p-3 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+                      <div className={`p-3 rounded-2xl text-xs sm:text-sm leading-relaxed whitespace-pre-wrap ${
                         msg.sender === 'user' 
                           ? 'bg-neutral-200 text-neutral-900 rounded-tr-sm' 
                           : 'bg-neutral-800/80 text-white rounded-tl-sm border border-white/5'
-                      }`}>
-                        {msg.text}
-                      </div>
+                      }`}
+                        dangerouslySetInnerHTML={{ 
+                          __html: msg.text
+                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                            .replace(/\n\*\s/g, '<br/>• ') 
+                        }}
+                      />
 
                       {/* Display matched properties inline */}
                       {msg.properties && msg.properties.length > 0 && (

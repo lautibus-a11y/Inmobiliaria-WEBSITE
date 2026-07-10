@@ -2,48 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'motion/react';
 import { Sparkles, Home } from 'lucide-react';
 
-interface HeroProps {
-  isAppLoaded?: boolean;
-}
-
-export default function Hero({ isAppLoaded = true }: HeroProps) {
+export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
-  const [currentVideo, setCurrentVideo] = useState(0);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-
-  const videos = [
-    "/videos-hero/videoheronuevovanatesdelosotros2.mp4",
-    "/videos-hero/videohero1.mp4",
-    "/videos-hero/videohero2.mp4"
-  ];
-
-  const handleVideoEnd = (index: number) => {
-    // Loop de vuelta al primer video cuando termine el último (0 -> 1 -> 2 -> 0...)
-    const nextVideoIndex = (index + 1) % videos.length;
-    setCurrentVideo(nextVideoIndex);
-    const nextVideo = videoRefs.current[nextVideoIndex];
-    if (nextVideo) {
-      nextVideo.currentTime = 0;
-      nextVideo.play().catch(e => console.error("Video play error", e));
-    }
-  };
-
-  useEffect(() => {
-    // Only play the video from the beginning once the app is fully loaded
-    if (isAppLoaded) {
-      const firstVideo = videoRefs.current[0];
-      if (firstVideo) {
-        firstVideo.currentTime = 0;
-        firstVideo.play().catch(e => console.error("Video play error", e));
-      }
-    } else {
-      // Pause videos during the loading screen
-      videoRefs.current.forEach(v => v?.pause());
-    }
-  }, [isAppLoaded]);
+  const videoSrc = "/videos-hero/Video-Hero-Nuevo.mp4";
 
   useEffect(() => {
     const checkMobile = () => {
@@ -113,24 +77,15 @@ export default function Hero({ isAppLoaded = true }: HeroProps) {
           }}
           className="relative w-full h-full"
         >
-          {videos.map((src, index) => (
-            <video
-              key={src}
-              ref={(el) => {
-                videoRefs.current[index] = el;
-              }}
-              src={src}
-              muted
-              playsInline
-              onEnded={() => handleVideoEnd(index)}
-              preload="auto"
-              style={{
-                opacity: currentVideo === index ? 1 : 0,
-                transition: "opacity 1.5s ease-in-out",
-              }}
-              className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.85] saturate-[0.85] contrast-[0.95]"
-            />
-          ))}
+          <video
+            src={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.85] saturate-[0.85] contrast-[0.95]"
+          />
         </motion.div>
       </motion.div>
 

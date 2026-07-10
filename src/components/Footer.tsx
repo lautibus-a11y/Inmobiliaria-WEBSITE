@@ -83,7 +83,7 @@ export default function Footer() {
 
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono text-gray-400">
           <div>
-            <p>Desarrollado por Broadcastweb desing © 2026</p>
+            <p>Desarrollado por Broadcastweb desing © {currentYear}</p>
           </div>
           <div className="flex gap-4 items-center">
             <span className="flex items-center gap-1">

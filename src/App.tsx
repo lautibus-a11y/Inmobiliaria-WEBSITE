@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, Shield } from 'lucide-react';
 
@@ -17,6 +17,13 @@ const PropertyModal = lazy(() => import('./components/PropertyModal'));
 const Chatbot = lazy(() => import('./components/Chatbot/Chatbot'));
 // Type references
 import { Property } from './types';
+
+const navLinks = [
+  { label: 'Destacadas', href: '#propiedades-destacadas' },
+  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Servicios', href: '#servicios' },
+  { label: 'Catálogo', href: '#todas-propiedades' },
+];
 
 export default function App() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
@@ -82,20 +89,13 @@ export default function App() {
     };
   }, []);
 
-  const navLinks = [
-    { label: 'Destacadas', href: '#propiedades-destacadas' },
-    { label: 'Nosotros', href: '#nosotros' },
-    { label: 'Servicios', href: '#servicios' },
-    { label: 'Catálogo', href: '#todas-propiedades' },
-  ];
-
-  const handleOpenProperty = (property: Property) => {
+  const handleOpenProperty = useCallback((property: Property) => {
     setSelectedProperty(property);
-  };
+  }, []);
 
-  const handleCloseProperty = () => {
+  const handleCloseProperty = useCallback(() => {
     setSelectedProperty(null);
-  };
+  }, []);
 
   return (
     <div className="relative w-full min-h-screen bg-[#030303] text-white font-sans selection:bg-white/20 selection:text-white">
