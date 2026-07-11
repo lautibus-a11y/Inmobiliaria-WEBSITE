@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight, ArrowDown, ArrowUp } from 'lucide-react';
+import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight, ArrowDown, ArrowUp, PawPrint } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
 import { useOnScreen } from '../hooks/useOnScreen';
@@ -240,7 +240,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                 <div className="relative h-44 overflow-hidden bg-neutral-900">
                   <img
                     src={property.image}
-                    alt={property.title}
+                    alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
                     referrerPolicy="no-referrer"
                     loading="lazy"
                     className="w-full h-full object-cover"
@@ -281,6 +281,9 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                         <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} B</span></div>
                       )}
                       <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                      {property.category !== 'locales' && (
+                        <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                      )}
                     </div>
                     <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
                       <ArrowUpRight size={12} />
@@ -310,7 +313,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                     <div className="relative h-44 overflow-hidden bg-neutral-900">
                       <img
                         src={property.image}
-                        alt={property.title}
+                        alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
                         referrerPolicy="no-referrer"
                         loading="lazy"
                         className="w-full h-full object-cover"
@@ -351,6 +354,9 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                             <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} B</span></div>
                           )}
                           <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                          {property.category !== 'locales' && (
+                            <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                          )}
                         </div>
                         <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
                           <ArrowUpRight size={12} />
@@ -391,7 +397,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                     <div className="relative h-48 overflow-hidden bg-neutral-900">
                       <img
                         src={property.image}
-                        alt={property.title}
+                        alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
                         referrerPolicy="no-referrer"
                         loading="lazy"
                         className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
@@ -432,6 +438,9 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                             <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} B</span></div>
                           )}
                           <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                          {property.category !== 'locales' && (
+                            <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                          )}
                         </div>
                         <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
                           <ArrowUpRight size={12} />
@@ -469,7 +478,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       <div className="relative h-48 overflow-hidden bg-neutral-900">
                         <img
                           src={property.image}
-                          alt={property.title}
+                          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
                           referrerPolicy="no-referrer"
                           loading="lazy"
                           className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
@@ -510,6 +519,9 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                               <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} B</span></div>
                             )}
                             <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                            {property.category !== 'locales' && (
+                              <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                            )}
                           </div>
                           <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
                             <ArrowUpRight size={12} />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { MapPin, Bed, ShowerHead, Grid, ArrowUpRight } from 'lucide-react';
+import { MapPin, Bed, ShowerHead, Grid, ArrowUpRight, PawPrint } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
 import { useOnScreen } from '../hooks/useOnScreen';
@@ -45,7 +45,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
       <div className="relative h-64 overflow-hidden">
         <img
           src={property.image}
-          alt={property.title}
+          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
           referrerPolicy="no-referrer"
           loading="lazy"
           className="w-full h-full object-cover"
@@ -104,6 +104,11 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
               <Grid size={13} className="text-neutral-500" />
               <span className="text-[11px] font-mono text-neutral-500 whitespace-nowrap">{property.area}</span>
             </div>
+            {property.category !== 'locales' && (
+              <div className="flex items-center gap-1" title="Pet Friendly">
+                <PawPrint size={14} className="text-neutral-500" />
+              </div>
+            )}
           </div>
           <span className="w-8 h-8 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-600 group-hover:bg-neutral-950 group-hover:text-white transition-colors duration-300">
             <ArrowUpRight size={14} />

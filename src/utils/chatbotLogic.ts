@@ -34,8 +34,8 @@ export function processChatbotMessage(message: string): ChatbotResponse {
   // 2.5 Detección de Preguntas Frecuentes y Calificación
   
   // Mascotas
-  if (normMessage.match(/mascota|perro|gato/)) {
-    return { text: "**¿Tienen mascotas?**\n\n* Sí\n* No\n\n> Aclaración: Muchos propietarios no aceptan mascotas, por eso necesitamos conocer esta información para ofrecerte las opciones adecuadas." };
+  if (normMessage.match(/mascota|perro|gato|pet friendly/)) {
+    return { text: "¡Casi todas nuestras propiedades son Pet Friendly! 🐾 Todas nuestras casas, quintas, departamentos y terrenos aceptan mascotas. La única excepción son los locales comerciales." };
   }
 
   // Presupuesto compra
@@ -70,12 +70,12 @@ export function processChatbotMessage(message: string): ChatbotResponse {
 
   // Intención general de Compra
   if (normMessage.match(/comprar|compro|venta|vender/)) {
-    return { text: "**¿Estás buscando comprar una casa o un terreno/lote?**\n\n* Casa\n* Terreno/Lote\n* Departamento\n* PH\n* Local comercial\n* Otra propiedad" };
+    return { text: "**¿Estás buscando comprar una propiedad? ¿Qué tipo de propiedad?**\n\n* Casa\n* Quinta / Casa-quinta\n* Terreno/Lote\n* Departamento\n* Local comercial\n* Otra propiedad" };
   }
 
   // Intención general de Alquiler o Búsqueda
   if (normMessage.match(/alquilar|alquiler|propiedades tienen|busco|quiero/)) {
-    return { text: "**¿Qué tipo de propiedad buscás y para cuántos integrantes sería la familia?**\n\n**Tipo de propiedad:**\n* Casa\n* Departamento\n* PH\n* Local comercial\n* Terreno\n* Otro\n\n**Cantidad de integrantes:**\n* 1 persona\n* 2 personas\n* 3 personas\n* 4 personas\n* 5 o más personas" };
+    return { text: "**¿Qué tipo de propiedad buscás y para cuántos integrantes sería la familia?**\n\n**Tipo de propiedad:**\n* Casa\n* Quinta / Casa-quinta\n* Departamento\n* Local comercial\n* Terreno\n* Otro\n\n**Cantidad de integrantes:**\n* 1 persona\n* 2 persona\n* 3 personas\n* 4 personas\n* 5 o más personas" };
   }
 
   // 3. Check for properties filtering
@@ -95,7 +95,11 @@ export function processChatbotMessage(message: string): ChatbotResponse {
   }
 
   // Category
-  if (normMessage.includes('casa')) {
+  if (normMessage.includes('quinta')) {
+    filteredProps = filteredProps.filter(p => p.category === 'casas-quinta');
+    isSearchingProperties = true;
+    searchIntent.push('quintas');
+  } else if (normMessage.includes('casa')) {
     filteredProps = filteredProps.filter(p => p.category === 'casas');
     isSearchingProperties = true;
     searchIntent.push('casas');
@@ -107,10 +111,6 @@ export function processChatbotMessage(message: string): ChatbotResponse {
     filteredProps = filteredProps.filter(p => p.category === 'terrenos');
     isSearchingProperties = true;
     searchIntent.push('terrenos');
-  } else if (normMessage.includes('quinta')) {
-    filteredProps = filteredProps.filter(p => p.category === 'casas-quinta');
-    isSearchingProperties = true;
-    searchIntent.push('quintas');
   } else if (normMessage.includes('local') || normMessage.includes('comercial')) {
     filteredProps = filteredProps.filter(p => p.category === ('locales' as unknown as Property['category']));
     isSearchingProperties = true;

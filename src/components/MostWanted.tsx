@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, PawPrint } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
 
@@ -132,7 +132,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
               <div className="absolute inset-0">
                 <img
                   src={property.image}
-                  alt={property.title}
+          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -180,6 +180,11 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
                     <span className="text-neutral-400 uppercase text-[9px] block">Sup.</span>
                     <span className="text-neutral-800 font-semibold">{property.area}</span>
                   </div>
+                  {property.category !== 'locales' && (
+                    <div className="border-l border-neutral-100 pl-5 flex items-center justify-center h-full" title="Pet Friendly">
+                      <PawPrint size={16} className="text-neutral-800" />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

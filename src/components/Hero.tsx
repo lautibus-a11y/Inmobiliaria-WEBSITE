@@ -42,9 +42,9 @@ export default function Hero() {
 
 
   // Split lines for majestic cinematic entry animation
-  const subtitleLine = "Propiedades exclusivas en 20 de Junio y Zona Oeste";
-  const titleLine1 = "Inversión segura";
-  const titleLine2 = "con un valor atemporal.";
+  const titleLine1 = "Propiedades en";
+  const titleLine2 = "20 de Junio";
+  const titleLine3 = "y Zona Oeste";
 
   return (
     <div
@@ -99,21 +99,8 @@ export default function Hero() {
         }}
         className="absolute inset-0 z-20 flex flex-col justify-end text-left px-6 md:px-12 pb-24 md:pb-32 max-w-7xl mx-auto"
       >
-        {/* Simple Label Fade */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="flex items-center justify-start gap-2 mb-6"
-        >
-          <Sparkles size={14} className="text-white/60" />
-          <span className="text-xs md:text-sm font-mono text-white/60 font-semibold pl-2 inline-block tracking-[0.45em]">
-            {subtitleLine}
-          </span>
-        </motion.div>
-
         {/* Lightweight Animated Title */}
-        <h1 className="text-3xl sm:text-5xl md:text-7xl font-display font-bold tracking-tight text-white select-none whitespace-pre-line leading-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-bold tracking-tight text-white select-none whitespace-pre-line leading-[1.1] md:leading-tight">
           <div className="block pb-1">
             {titleLine1.split(' ').map((word, idx) => (
               <motion.span
@@ -121,20 +108,33 @@ export default function Hero() {
                 initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.32, delay: 0.15 + idx * 0.07, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="inline-block mr-3"
+                className="inline-block mr-2 md:mr-3"
               >
                 {word}
               </motion.span>
             ))}
           </div>
-          <div className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-300">
+          <div className="block pb-1">
             {titleLine2.split(' ').map((word, idx) => (
               <motion.span
                 key={`tl2-${idx}`}
                 initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.32, delay: 0.3 + idx * 0.07, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="inline-block mr-3"
+                transition={{ duration: 0.32, delay: 0.25 + idx * 0.07, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="inline-block mr-2 md:mr-3"
+              >
+                {word}
+              </motion.span>
+            ))}
+          </div>
+          <div className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-400">
+            {titleLine3.split(' ').map((word, idx) => (
+              <motion.span
+                key={`tl3-${idx}`}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.32, delay: 0.35 + idx * 0.07, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="inline-block mr-2 md:mr-3"
               >
                 {word}
               </motion.span>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { X, Bed, ShowerHead, Eye, QrCode } from 'lucide-react';
+import { X, Bed, ShowerHead, Eye, QrCode, PawPrint } from 'lucide-react';
 import { Property } from '../types';
 
 interface PropertyModalProps {
@@ -29,6 +29,48 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
     }
   }, [property?.id]);
   /* eslint-enable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
+
+  // Dynamic SEO metadata when a property is viewed
+  useEffect(() => {
+    if (!property) return;
+
+    const originalTitle = document.title;
+    const ogTitle = document.getElementById('og-title') as HTMLMetaElement;
+    const ogDescription = document.getElementById('og-description') as HTMLMetaElement;
+    const ogImage = document.getElementById('og-image') as HTMLMetaElement;
+    const twTitle = document.getElementById('tw-title') as HTMLMetaElement;
+    const twDescription = document.getElementById('tw-description') as HTMLMetaElement;
+    const twImage = document.getElementById('tw-image') as HTMLMetaElement;
+
+    const origOgTitle = ogTitle?.content;
+    const origOgDescription = ogDescription?.content;
+    const origOgImage = ogImage?.content;
+    const origTwTitle = twTitle?.content;
+    const origTwDescription = twDescription?.content;
+    const origTwImage = twImage?.content;
+
+    const propertyImg = property.images && property.images.length > 0 ? property.images[0] : property.image;
+    const newTitle = `${property.title} | Ivana Molina Bienes Raíces`;
+    const newDesc = `${property.category === 'casas-quinta' ? 'Casa Quinta' : 'Propiedad'} en ${property.location}. ${property.description.substring(0, 120)}...`;
+
+    document.title = newTitle;
+    if (ogTitle) ogTitle.content = newTitle;
+    if (ogDescription) ogDescription.content = newDesc;
+    if (ogImage) ogImage.content = propertyImg || '/iavana-molina-favion-cabecera.webp';
+    if (twTitle) twTitle.content = newTitle;
+    if (twDescription) twDescription.content = newDesc;
+    if (twImage) twImage.content = propertyImg || '/iavana-molina-favion-cabecera.webp';
+
+    return () => {
+      document.title = originalTitle;
+      if (ogTitle) ogTitle.content = origOgTitle || '';
+      if (ogDescription) ogDescription.content = origOgDescription || '';
+      if (ogImage) ogImage.content = origOgImage || '';
+      if (twTitle) twTitle.content = origTwTitle || '';
+      if (twDescription) twDescription.content = origTwDescription || '';
+      if (twImage) twImage.content = origTwImage || '';
+    };
+  }, [property]);
 
   if (!property) return null;
 
@@ -254,7 +296,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
               </div>
 
               {/* Specs Grid */}
-              <div className="grid grid-cols-3 gap-3 border-y border-white/5 py-4">
+              <div className="grid grid-cols-4 gap-3 border-y border-white/5 py-4">
                 <div className="text-center">
                   <span className="text-gray-400 text-[10px] font-mono block mb-1 uppercase">Dormitorios</span>
                   <div className="flex items-center justify-center gap-1.5 text-white">
@@ -269,12 +311,26 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                     <span className="font-mono text-xs font-medium">{property.baths || '—'}</span>
                   </div>
                 </div>
-                <div className="text-center">
+                <div className="text-center border-r border-white/5">
                   <span className="text-gray-400 text-[10px] font-mono block mb-1 uppercase">Superficie</span>
                   <div className="flex items-center justify-center gap-1.5 text-white">
                     <Eye size={15} className="text-white/60" />
                     <span className="font-mono text-[11px] font-medium whitespace-nowrap">{property.area}</span>
                   </div>
+                </div>
+                <div className="text-center">
+                  <span className="text-gray-400 text-[10px] font-mono block mb-1 uppercase">Mascotas</span>
+                  {property.category !== 'locales' ? (
+                    <div className="flex items-center justify-center gap-1.5 text-white">
+                      <PawPrint size={15} className="text-white/60" />
+                      <span className="font-mono text-xs font-medium">Sí</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center gap-1.5 text-white/50">
+                      <PawPrint size={15} className="text-white/30" />
+                      <span className="font-mono text-xs font-medium">No</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
