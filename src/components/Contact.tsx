@@ -261,7 +261,7 @@ export default function Contact() {
                       </label>
                       <input
                         type="tel"
-                        placeholder="ej. +54 9 11 7202-3171"
+                        placeholder="ej. +54 9 11 6809-1223"
                         value={formData.telephone}
                         onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
                         className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-neutral-400 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans shadow-xs"

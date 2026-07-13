@@ -234,7 +234,7 @@ export default function App() {
               </p>
               <p className="flex items-center gap-2">
                 <Phone size={14} className="text-white/60" />
-                <span>+54 11 7202-3171</span>
+                <span>+54 11 6809-1223</span>
               </p>
             </div>
           </motion.div>
