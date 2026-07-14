@@ -26,6 +26,7 @@ export const properties: Property[] = [
     coordinates: { x: 35, y: 40 },
     isFeatured: true,
     isMostWanted: true,
+    status: 'reservada',
   },
   {
     id: 'prop-2',

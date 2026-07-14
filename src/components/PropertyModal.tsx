@@ -251,9 +251,18 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                   </div>
                 )}
                 
-                <span className="px-3 py-1 bg-white/10 border border-white/20 text-white/80 text-xs tracking-widest uppercase font-mono rounded-full mb-3 inline-block font-semibold">
-                  {property.category === 'casas-quinta' ? 'Casas Quinta' : property.category}
-                </span>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="px-3 py-1 bg-white/10 border border-white/20 text-white/80 text-xs tracking-widest uppercase font-mono rounded-full inline-block font-semibold">
+                    {property.category === 'casas-quinta' ? 'Casas Quinta' : property.category}
+                  </span>
+                  {property.status && (
+                    <span className={`px-3 py-1 border text-xs tracking-widest uppercase font-mono rounded-full inline-block font-semibold ${
+                      property.status === 'alquilada' ? 'bg-red-500/90 text-white border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border-orange-600/50' : 'bg-white/90 text-neutral-900 border-neutral-200'
+                    }`}>
+                      {property.status}
+                    </span>
+                  )}
+                </div>
                 <h1 className="text-2xl md:text-3xl font-display font-bold tracking-tight mb-1 text-white">
                   {property.title}
                 </h1>

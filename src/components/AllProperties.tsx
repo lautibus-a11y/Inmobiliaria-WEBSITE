@@ -250,7 +250,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                   </span>
                   {property.status && (
                     <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
-                      property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                      property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border border-orange-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
                     }`}>
                       {property.status}
                     </span>
@@ -323,7 +323,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       </span>
                       {property.status && (
                         <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
-                          property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                          property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border border-orange-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
                         }`}>
                           {property.status}
                         </span>
@@ -407,7 +407,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       </span>
                       {property.status && (
                         <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
-                          property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                          property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border border-orange-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
                         }`}>
                           {property.status}
                         </span>
@@ -488,7 +488,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                         </span>
                         {property.status && (
                           <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
-                            property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                            property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border border-orange-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
                           }`}>
                             {property.status}
                           </span>

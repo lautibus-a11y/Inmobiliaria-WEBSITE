@@ -140,11 +140,18 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/45 via-transparent to-transparent z-10" />
               </div>
 
-              {/* Exclusivo Badge */}
-              <div className="absolute top-5 left-5 z-20">
+              {/* Badges */}
+              <div className="absolute top-5 left-5 z-20 flex flex-col gap-2 items-start">
                 <span className="text-[10px] px-3 py-1.5 bg-white/95 rounded-lg border border-neutral-200/60 text-neutral-600 uppercase font-mono tracking-wider font-semibold shadow-xs">
                   Exclusivo
                 </span>
+                {property.status && (
+                  <span className={`text-[10px] px-3 py-1.5 rounded-lg border uppercase font-mono tracking-wider shadow-xs font-semibold ${
+                    property.status === 'alquilada' ? 'bg-red-500/95 text-white border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/95 text-white border-orange-600/50' : 'bg-white/95 text-neutral-900 border-neutral-200'
+                  }`}>
+                    {property.status}
+                  </span>
+                )}
               </div>
 
               {/* Price Tag */}
