@@ -2,6 +2,36 @@ import { Property, Testimonial, Stat } from './types';
 
 export const properties: Property[] = [
   {
+    id: 'prop-cassafousth-terreno',
+    transactionType: 'venta',
+    title: 'Casaffousth al 600',
+    subtitle: 'Lote de 1.500 m² con arboleda añosa',
+    price: 'Consultar Precio',
+    priceNumeric: 0,
+    location: '20 de Junio',
+    streets: 'Casaffousth al 600',
+    category: 'terrenos',
+    image: '/venta/terrenos/Cassafousth-terreno/Cassafousth_PORTADA.webp',
+    images: [
+      '/venta/terrenos/Cassafousth-terreno/Cassafousth_PORTADA.webp',
+      '/venta/terrenos/Cassafousth-terreno/Cassafousth_2.webp',
+      '/venta/terrenos/Cassafousth-terreno/Cassafousth_3.webp',
+      '/venta/terrenos/Cassafousth-terreno/Cassafousth_5.webp',
+      '/venta/terrenos/Cassafousth-terreno/Cassafousth_6.webp',
+      '/venta/terrenos/Cassafousth-terreno/Cassafousth_7.webp',
+      '/venta/terrenos/Cassafousth-terreno/Cassafousth_8.webp',
+      '/venta/terrenos/Cassafousth-terreno/Cassafousth_9.webp'
+    ],
+    description: 'OPORTUNIDAD | Lote de 1.500 m² con arboleda añosa en 20 de Junio\n\nUbicación: Casaffousth al 600, 20 de Junio.\n\nUna excelente oportunidad para invertir o desarrollar tu próximo proyecto en una de las zonas más tranquilas y consolidadas de 20 de Junio. Ideal para vivienda permanente, casa de fin de semana o inversión.\n\nCaracterísticas destacadas:\nLote de 1.500 m², con una superficie totalmente aprovechable.\nConstrucción existente de aproximadamente 100 m², ideal para reciclar, remodelar o ampliar según tus necesidades.\nTerreno completamente parquizado, con una importante arboleda añosa que brinda privacidad, sombra natural y un entorno único.\nExcelente ubicación, en una zona residencial consolidada, de fácil acceso y con un entorno tranquilo.\n\nIVANA MOLINA & ASOC. BIENES RAÍCES\nMAT. 1048 CDMDLM',
+    beds: 0,
+    baths: 0,
+    area: '1.500 m²',
+    features: ['Lote de 1.500 m²', 'Arboleda añosa', 'Construcción a reciclar de 100 m²', 'Terreno parquizado', 'Zona residencial consolidada'],
+    coordinates: { x: 50, y: 50 },
+    isFeatured: true,
+    isMostWanted: true,
+  },
+  {
     id: 'prop-1',
     transactionType: 'venta',
     title: 'Manuel Antonio Castro',
