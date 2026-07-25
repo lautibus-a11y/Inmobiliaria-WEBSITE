@@ -25,7 +25,7 @@ export function processChatbotMessage(message: string): ChatbotResponse {
 
   // 2. Check for general info
   if (normMessage.includes('telefono') || normMessage.includes('whatsapp') || normMessage.includes('contacto') || normMessage.includes('llamar')) {
-    return { text: `Podés comunicarte con nosotros por teléfono o WhatsApp al ${chatbotData.generalInfo.phone} o por correo a ${chatbotData.generalInfo.email}.` };
+    return { text: `Podés comunicarte con nosotros por teléfono o WhatsApp al ${chatbotData.generalInfo.phone} o por correo a info@molinaivana.com.ar.` };
   }
   if (normMessage.includes('servicios') || normMessage.includes('ofrecen') || normMessage.includes('hacen')) {
     return { text: `Nuestros servicios incluyen: ${chatbotData.services.join(', ')}.` };
