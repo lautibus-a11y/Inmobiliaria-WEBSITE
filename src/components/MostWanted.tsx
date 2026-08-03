@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, PawPrint } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
@@ -13,7 +13,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const mostWantedList = properties.filter((p) => p.isMostWanted);
+  const mostWantedList = useMemo(() => properties.filter((p) => p.isMostWanted), []);
 
   const handleScroll = () => {
     const container = scrollContainerRef.current;

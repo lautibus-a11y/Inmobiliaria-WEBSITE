@@ -24,19 +24,6 @@ export interface Property {
 
 
 
-export interface Testimonial {
-  id: string;
-  name: string;
-  role: string;
-  text: string;
-  avatar: string;
-  rating: number;
-}
 
-export interface Stat {
-  id: string;
-  label: string;
-  value: number;
-  suffix?: string;
-  prefix?: string;
-}
+
+

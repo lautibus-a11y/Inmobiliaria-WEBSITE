@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { MapPin, Bed, ShowerHead, Grid, ArrowUpRight, PawPrint } from 'lucide-react';
 import { Property } from '../types';
@@ -26,7 +26,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
   const [cardsRef, cardsVisible] = useOnScreen('0px 0px -20px 0px');
 
   // Show 3 properties on mobile, 6 on desktop
-  const displayList = isMobile ? properties.slice(0, 3) : properties.slice(0, 6);
+  const displayList = useMemo(() => isMobile ? properties.slice(0, 3) : properties.slice(0, 6), [isMobile]);
 
   // ── Desktop animation variants (Framer Motion, powerful CPU available) ─────
   const containerVariants = {

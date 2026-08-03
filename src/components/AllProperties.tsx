@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight, ArrowDown, ArrowUp, PawPrint } from 'lucide-react';
 import { Property } from '../types';
@@ -60,18 +60,18 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
   ];
 
   // Filtering based on standard selections
-  const filteredList = properties.filter((p) => {
+  const filteredList = useMemo(() => properties.filter((p) => {
     const matchesTransaction = activeTransaction === 'todas' || p.transactionType === activeTransaction;
     const matchesCategory = activeCategory === 'todas' || p.category === activeCategory;
     return matchesTransaction && matchesCategory;
-  });
+  }), [activeTransaction, activeCategory]);
 
   // Sorting
-  const sortedList = [...filteredList].sort((a, b) => {
+  const sortedList = useMemo(() => [...filteredList].sort((a, b) => {
     if (priceSort === 'asc') return a.priceNumeric - b.priceNumeric;
     if (priceSort === 'desc') return b.priceNumeric - a.priceNumeric;
     return 0; // standard index order
-  });
+  }), [filteredList, priceSort]);
 
   const firstBatch = sortedList.slice(0, 8);
   const extraBatch = sortedList.slice(8, visibleCount);
