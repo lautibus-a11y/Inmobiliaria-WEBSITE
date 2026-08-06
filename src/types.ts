@@ -21,6 +21,7 @@ export interface Property {
   isMostWanted: boolean;
   status?: 'alquilada' | 'vendida' | 'reservada';
   videoUrl?: string;
+  videoUrls?: string[];
 }
 
 

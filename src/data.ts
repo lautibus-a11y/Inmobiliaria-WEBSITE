@@ -648,7 +648,11 @@ export const properties: Property[] = [
     coordinates: { x: 38, y: 42 },
     isFeatured: true,
     isMostWanted: true,
-    videoUrl: 'https://www.youtube.com/shorts/qh8MYMbKLE4',
+    videoUrl: 'https://www.youtube.com/shorts/ozFczNVKLYI',
+    videoUrls: [
+      'https://www.youtube.com/shorts/ozFczNVKLYI',
+      'https://www.youtube.com/shorts/qh8MYMbKLE4'
+    ],
   },
   {
     id: 'prop-copahue-depto',
@@ -681,7 +685,8 @@ export const properties: Property[] = [
     coordinates: { x: 38, y: 42 },
     isFeatured: true,
     isMostWanted: true,
-    videoUrl: 'https://www.youtube.com/shorts/ozFczNVKLYI',
+    videoUrl: 'https://www.youtube.com/shorts/qh8MYMbKLE4',
+    videoUrls: ['https://www.youtube.com/shorts/qh8MYMbKLE4'],
   },
   {
     id: 'prop-copahue-rosalia',
@@ -741,7 +746,8 @@ export const properties: Property[] = [
     coordinates: { x: 38, y: 42 },
     isFeatured: true,
     isMostWanted: true,
-    videoUrl: 'https://www.youtube.com/shorts/qh8MYMbKLE4',
+    videoUrl: 'https://www.youtube.com/shorts/ozFczNVKLYI',
+    videoUrls: ['https://www.youtube.com/shorts/ozFczNVKLYI'],
   },
   {
     id: 'prop-rosalia-alquiler',
@@ -801,7 +807,11 @@ export const properties: Property[] = [
     coordinates: { x: 38, y: 42 },
     isFeatured: false,
     isMostWanted: false,
-    videoUrl: 'https://www.youtube.com/shorts/qh8MYMbKLE4',
+    videoUrl: 'https://www.youtube.com/shorts/ozFczNVKLYI',
+    videoUrls: [
+      'https://www.youtube.com/shorts/ozFczNVKLYI',
+      'https://www.youtube.com/shorts/qh8MYMbKLE4'
+    ],
   },
   {
     id: 'prop-14',

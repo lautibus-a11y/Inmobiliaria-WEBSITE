@@ -34,6 +34,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
   const ENABLE_QR_DOWNLOAD = false;
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   // Reset media state when a different property is selected
@@ -42,6 +43,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
   useEffect(() => {
     if (property) {
       setCurrentImgIndex(0);
+      setCurrentVideoIndex(0);
       setMediaType('photos');
     }
   }, [property?.id]);
@@ -93,9 +95,16 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
   const imagesList = property.images && property.images.length > 0 ? property.images : [property.image];
 
-  // Assignment of video tour for property
-  const videoSrc = getEmbedVideoUrl(property.videoUrl);
-  const hasVideo = Boolean(videoSrc);
+  // Assignment of video tour(s) for property
+  const rawVideoUrls: string[] = property.videoUrls && property.videoUrls.length > 0
+    ? property.videoUrls
+    : property.videoUrl
+      ? [property.videoUrl]
+      : [];
+
+  const videoSources = rawVideoUrls.map((url) => getEmbedVideoUrl(url)).filter(Boolean) as string[];
+  const hasVideo = videoSources.length > 0;
+  const currentVideoSrc = videoSources[currentVideoIndex] || videoSources[0];
 
   const downloadQR = () => {
     if (!property) return;
@@ -169,11 +178,12 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
               onTouchEnd={handleTouchEnd}
             >
               {/* Media Display */}
-              {mediaType === 'video' && videoSrc ? (
+              {mediaType === 'video' && currentVideoSrc ? (
                 <div className="absolute inset-0 w-full h-full bg-black flex items-center justify-center z-10">
-                  {videoSrc.includes('youtube.com/embed') ? (
+                  {currentVideoSrc.includes('youtube.com/embed') ? (
                     <iframe
-                      src={videoSrc}
+                      key={currentVideoSrc}
+                      src={currentVideoSrc}
                       title={`Video Tour - ${property.title}`}
                       className="w-full h-full border-0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -181,7 +191,8 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                     />
                   ) : (
                     <video
-                      src={videoSrc}
+                      key={currentVideoSrc}
+                      src={currentVideoSrc}
                       autoPlay
                       controls
                       playsInline
@@ -208,7 +219,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-neutral-950/25 to-transparent z-10 pointer-events-none" />
               
               {/* Media Type Switcher Pill */}
-              <div className="absolute top-4 left-4 z-20 flex gap-1.5 p-1 bg-black/75 border border-white/10 rounded-xl backdrop-blur-md">
+              <div className="absolute top-4 left-4 z-30 flex flex-wrap gap-1.5 p-1 bg-black/85 border border-white/20 rounded-xl backdrop-blur-md max-w-[calc(100%-5rem)] shadow-lg">
                 <button
                   type="button"
                   onClick={() => setMediaType('photos')}
@@ -220,19 +231,51 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 >
                   Fotos
                 </button>
-                {hasVideo && (
+
+                {hasVideo && videoSources.length === 1 && (
                   <button
                     type="button"
-                    onClick={() => setMediaType('video')}
+                    onClick={() => {
+                      setMediaType('video');
+                      setCurrentVideoIndex(0);
+                    }}
                     className={`px-3 py-1.5 rounded-lg text-[9px] font-mono tracking-widest uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
                       mediaType === 'video'
-                        ? 'bg-white text-neutral-950 font-semibold'
+                        ? 'bg-emerald-500 text-black font-semibold'
                         : 'text-gray-400 hover:text-white'
                     }`}
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
                     Video Tour
                   </button>
+                )}
+
+                {hasVideo && videoSources.length > 1 && (
+                  <>
+                    {videoSources.map((_, idx) => {
+                      const isSelected = mediaType === 'video' && currentVideoIndex === idx;
+                      const label = idx === 0 ? 'Casa Principal' : 'Depto. Indep.';
+                      return (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setMediaType('video');
+                            setCurrentVideoIndex(idx);
+                          }}
+                          className={`px-3 py-1.5 rounded-lg text-[9px] font-mono tracking-widest uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
+                            isSelected
+                              ? 'bg-emerald-500 text-black font-bold shadow-md'
+                              : 'bg-white/10 text-gray-300 hover:text-white hover:bg-white/20'
+                          }`}
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full inline-block ${isSelected ? 'bg-black animate-pulse' : 'bg-emerald-400'}`} />
+                          Video: {label}
+                        </button>
+                      );
+                    })}
+                  </>
                 )}
               </div>
 
