@@ -65,6 +65,14 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
             </span>
           </div>
         )}
+        {property.videoUrl && (
+          <div className="absolute top-4 right-4 z-10">
+            <span className="text-[10px] px-2.5 py-1 bg-black/80 backdrop-blur-md rounded-full border border-white/20 text-white uppercase font-mono tracking-wider shadow-sm font-semibold flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Video Tour
+            </span>
+          </div>
+        )}
         <div className="absolute bottom-4 right-4">
           <span className="text-xs px-3 py-1.5 bg-white border border-neutral-200 text-neutral-900 rounded-lg font-mono font-semibold shadow-md">
             {property.price}

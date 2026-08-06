@@ -20,6 +20,7 @@ export interface Property {
   isFeatured: boolean;
   isMostWanted: boolean;
   status?: 'alquilada' | 'vendida' | 'reservada';
+  videoUrl?: string;
 }
 
 

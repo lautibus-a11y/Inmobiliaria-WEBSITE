@@ -152,6 +152,12 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
                     {property.status}
                   </span>
                 )}
+                {property.videoUrl && (
+                  <span className="text-[10px] px-2.5 py-1 bg-black/80 backdrop-blur-md rounded-lg border border-white/20 text-white uppercase font-mono tracking-wider shadow-xs font-semibold flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Video Tour
+                  </span>
+                )}
               </div>
 
               {/* Price Tag */}

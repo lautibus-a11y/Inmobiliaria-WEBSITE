@@ -255,6 +255,12 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       {property.status}
                     </span>
                   )}
+                  {property.videoUrl && (
+                    <span className="absolute bottom-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-black/80 backdrop-blur-md border border-white/20 px-2 py-1 rounded text-white font-semibold shadow-xs flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Video Tour
+                    </span>
+                  )}
                   <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
                     {property.price}
                   </span>
@@ -326,6 +332,12 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                           property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border border-orange-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
                         }`}>
                           {property.status}
+                        </span>
+                      )}
+                      {property.videoUrl && (
+                        <span className="absolute bottom-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-black/80 backdrop-blur-md border border-white/20 px-2 py-1 rounded text-white font-semibold shadow-xs flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          Video Tour
                         </span>
                       )}
                       <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
@@ -412,6 +424,12 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                           {property.status}
                         </span>
                       )}
+                      {property.videoUrl && (
+                        <span className="absolute bottom-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-black/80 backdrop-blur-md border border-white/20 px-2 py-1 rounded text-white font-semibold shadow-xs flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          Video Tour
+                        </span>
+                      )}
                       <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
                         {property.price}
                       </span>
@@ -491,6 +509,12 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                             property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border border-orange-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
                           }`}>
                             {property.status}
+                          </span>
+                        )}
+                        {property.videoUrl && (
+                          <span className="absolute bottom-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-black/80 backdrop-blur-md border border-white/20 px-2 py-1 rounded text-white font-semibold shadow-xs flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            Video Tour
                           </span>
                         )}
                         <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">

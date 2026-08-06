@@ -9,6 +9,23 @@ interface PropertyModalProps {
   onClose: () => void;
 }
 
+function getEmbedVideoUrl(url?: string): string | null {
+  if (!url) return null;
+  const shortsMatch = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/);
+  if (shortsMatch) {
+    return `https://www.youtube.com/embed/${shortsMatch[1]}?autoplay=1&rel=0`;
+  }
+  const watchMatch = url.match(/youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/);
+  if (watchMatch) {
+    return `https://www.youtube.com/embed/${watchMatch[1]}?autoplay=1&rel=0`;
+  }
+  const youtuBeMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+  if (youtuBeMatch) {
+    return `https://www.youtube.com/embed/${youtuBeMatch[1]}?autoplay=1&rel=0`;
+  }
+  return url;
+}
+
 export default function PropertyModal({ property, onClose }: PropertyModalProps) {
   const shouldReduceMotion = useReducedMotion();
   const [mediaType, setMediaType] = useState<'photos' | 'video'>('photos');
@@ -76,8 +93,9 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
   const imagesList = property.images && property.images.length > 0 ? property.images : [property.image];
 
-  // Assignment of video tour
-  const videoSrc = '/video-tour-3d/videotour.mp4';
+  // Assignment of video tour for property
+  const videoSrc = getEmbedVideoUrl(property.videoUrl);
+  const hasVideo = Boolean(videoSrc);
 
   const downloadQR = () => {
     if (!property) return;
@@ -151,15 +169,25 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
               onTouchEnd={handleTouchEnd}
             >
               {/* Media Display */}
-              {mediaType === 'video' ? (
-                <div className="absolute inset-0 w-full h-full bg-black">
-                  <video
-                    src={videoSrc}
-                    autoPlay
-                    controls
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
+              {mediaType === 'video' && videoSrc ? (
+                <div className="absolute inset-0 w-full h-full bg-black flex items-center justify-center z-10">
+                  {videoSrc.includes('youtube.com/embed') ? (
+                    <iframe
+                      src={videoSrc}
+                      title={`Video Tour - ${property.title}`}
+                      className="w-full h-full border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <video
+                      src={videoSrc}
+                      autoPlay
+                      controls
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </div>
               ) : (
                 <AnimatePresence mode="wait">
@@ -192,18 +220,20 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 >
                   Fotos
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setMediaType('video')}
-                  className={`px-3 py-1.5 rounded-lg text-[9px] font-mono tracking-widest uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
-                    mediaType === 'video'
-                      ? 'bg-white text-neutral-950 font-semibold'
-                      : 'text-gray-450 hover:text-white'
-                  }`}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse inline-block" />
-                  Video Tour
-                </button>
+                {hasVideo && (
+                  <button
+                    type="button"
+                    onClick={() => setMediaType('video')}
+                    className={`px-3 py-1.5 rounded-lg text-[9px] font-mono tracking-widest uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
+                      mediaType === 'video'
+                        ? 'bg-white text-neutral-950 font-semibold'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
+                    Video Tour
+                  </button>
+                )}
               </div>
 
               {/* Photo Counter Badge */}
