@@ -2,6 +2,36 @@ import { Property } from './types';
 
 export const properties: Property[] = [
   {
+    id: 'prop-castro-646',
+    transactionType: 'venta',
+    title: 'Casa Quinta en Venta – Castro al 600',
+    subtitle: 'Castro al 600 - 20 de Junio',
+    price: 'USD 78.000',
+    priceNumeric: 78000,
+    location: '20 de Junio',
+    streets: 'Castro al 600',
+    mercadoLibreLink: 'https://inmueble.mercadolibre.com.ar/MLA-1737735887-casa-quinta-en-venta-20-de-junio-terreno-1512-m2-_JM',
+    category: 'casas-quinta',
+    image: '/venta/casas-quinta/Castro-646/PORTADA.webp',
+    images: [
+      '/venta/casas-quinta/Castro-646/PORTADA.webp',
+      '/venta/casas-quinta/Castro-646/1_Diseño sin título.webp',
+      '/venta/casas-quinta/Castro-646/2_Diseño sin título.webp',
+      '/venta/casas-quinta/Castro-646/3_Diseño sin título.webp',
+      '/venta/casas-quinta/Castro-646/4_Diseño sin título.webp',
+      '/venta/casas-quinta/Castro-646/5_Diseño sin título.webp',
+      '/venta/casas-quinta/Castro-646/6_Diseño sin título.webp'
+    ],
+    description: 'En venta – Castro al 600 – 20 de Junio\n\nPropiedad emplazada sobre un amplio lote de 1512 m², con 27,50 metros de frente por 55 metros de fondo, ubicada sobre calle Castro al 600, a tan solo media cuadra del asfalto, en una zona tranquila y de fácil acceso dentro de la localidad de 20 de Junio.\n\nEl terreno se encuentra parquizado, con arboleda añosa y totalmente perimetrado, lo que le otorga privacidad y un entorno natural consolidado.\n\nSobre el lote se desarrollan dos edificaciones que suman aproximadamente 89 m² cubiertos, las cuales se encuentran a reciclar, ofreciendo la posibilidad de refacción o replanteo constructivo según las necesidades del comprador.\n\nSe trata de una excelente oportunidad para quienes buscan amplitud de terreno, entorno verde y buena ubicación, ideal tanto para uso residencial permanente o de fin de semana, así como también para proyectos de ampliación o nueva construcción.\n\nSuperficie del terreno: 1.512 m²\nFrente: 27,50 m\nFondo: 55 m\nSuperficie cubierta existente: 89 m² (a reciclar)\n\nIVANA MOLINA & ASOC. BIENES RAÍCES MAT 1048 - COLEGIO DE MARTILLEROS DE LA MATANZA',
+    beds: 1,
+    baths: 1,
+    area: '1512 m²',
+    features: ['Terreno 1512 m²', '89 m² cubiertos a reciclar', 'Arboleda añosa', 'Totalmente perimetrado', 'A media cuadra del asfalto'],
+    coordinates: { x: 50, y: 50 },
+    isFeatured: false,
+    isMostWanted: false
+  },
+  {
     id: 'prop-castex-del-carril',
     transactionType: 'venta',
     title: 'Propiedad Ideal para Reciclar y Desarrollar en Esquina',
