@@ -93,7 +93,9 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
   if (!property) return null;
 
-  const imagesList = property.images && property.images.length > 0 ? property.images : [property.image];
+  const imagesList = property.images && property.images.length > 0 
+    ? [property.image, ...property.images.filter(img => img !== property.image)] 
+    : [property.image];
 
   // Assignment of video tour(s) for property
   const rawVideoUrls: string[] = property.videoUrls && property.videoUrls.length > 0
