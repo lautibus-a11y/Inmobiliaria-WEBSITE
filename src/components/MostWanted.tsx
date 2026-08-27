@@ -15,25 +15,18 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
 
   const mostWantedList = useMemo(() => properties.filter((p) => p.isMostWanted), []);
 
-  const handleScroll = () => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const { scrollLeft, scrollWidth, clientWidth } = container;
-
-    // Calculate scroll progress percentage (0 to 100)
-    const maxScroll = scrollWidth - clientWidth;
-    const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
-    setScrollProgress(progress);
-
-    // Update navigation button states
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < maxScroll - 10);
-  };
-
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
+
+    const handleScroll = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      const maxScroll = scrollWidth - clientWidth;
+      const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+      setScrollProgress(progress);
+      setCanScrollLeft(scrollLeft > 10);
+      setCanScrollRight(scrollLeft < maxScroll - 10);
+    };
 
     container.addEventListener('scroll', handleScroll, { passive: true });
     // Run an initial check to set arrow states
@@ -120,7 +113,6 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
         <div
           ref={scrollContainerRef}
           className="overflow-x-auto flex gap-6 snap-x snap-mandatory no-scrollbar pb-8 pt-4 scroll-smooth"
-          style={{ WebkitOverflowScrolling: 'touch' }}
         >
           {mostWantedList.map((property) => (
             <div

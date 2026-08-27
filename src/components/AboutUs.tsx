@@ -6,10 +6,6 @@ import { useOnScreen } from '../hooks/useOnScreen';
 
 
 
-// Global configuration flag to toggle mobile animation optimization.
-// If set to true, mobile devices use high-performance, GPU-composited CSS animations (0 JS scroll overhead).
-// If set to false, mobile devices fall back to standard Framer Motion JS animations.
-const OPTIMIZE_MOBILE_ANIMATIONS = true;
 
 export default function AboutUs() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -137,7 +133,7 @@ export default function AboutUs() {
             <img
               src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80"
               alt="Mansion Design Architecture Close-up"
-              referrerPolicy="no-referrer"
+              referrerPolicy="no-referrer-when-downgrade"
               loading="lazy"
               className="w-full h-full object-cover filter brightness-[0.85]"
             />
@@ -195,7 +191,7 @@ export default function AboutUs() {
           </p>
         </div>
 
-        {isMobile && OPTIMIZE_MOBILE_ANIMATIONS ? (
+        {isMobile ? (
           <div
             ref={serviciosRef}
             className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 m-reveal-cards${serviciosVisible ? ' in-view' : ''}`}

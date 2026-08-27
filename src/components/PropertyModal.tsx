@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { QRCodeCanvas } from 'qrcode.react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { X, Bed, ShowerHead, Eye, QrCode, PawPrint } from 'lucide-react';
+import { X, Bed, ShowerHead, Eye, PawPrint } from 'lucide-react';
 import { Property } from '../types';
 
 interface PropertyModalProps {
@@ -29,9 +28,6 @@ function getEmbedVideoUrl(url?: string): string | null {
 export default function PropertyModal({ property, onClose }: PropertyModalProps) {
   const shouldReduceMotion = useReducedMotion();
   const [mediaType, setMediaType] = useState<'photos' | 'video'>('photos');
-
-  // To activate the QR feature, set this to true
-  const ENABLE_QR_DOWNLOAD = false;
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
@@ -89,7 +85,9 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
       if (twDescription) twDescription.content = origTwDescription || '';
       if (twImage) twImage.content = origTwImage || '';
     };
-  }, [property]);
+  // property?.id is intentional: avoids re-running when object reference changes but the ID hasn't
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [property?.id]);
 
   if (!property) return null;
 
@@ -107,19 +105,6 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
   const videoSources = rawVideoUrls.map((url) => getEmbedVideoUrl(url)).filter(Boolean) as string[];
   const hasVideo = videoSources.length > 0;
   const currentVideoSrc = videoSources[currentVideoIndex] || videoSources[0];
-
-  const downloadQR = () => {
-    if (!property) return;
-    const canvas = document.getElementById(`qr-${property.id}`) as HTMLCanvasElement;
-    if (!canvas) return;
-    const pngUrl = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-    const downloadLink = document.createElement('a');
-    downloadLink.href = pngUrl;
-    downloadLink.download = `QR-${property.title.replace(/\s+/g, '-')}.png`;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  };
 
   // Touch handlers for swipe gesture on mobile
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -145,7 +130,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6 overflow-y-auto">
+      <div key={property.id} className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6 overflow-y-auto">
         {/* Backdrop glass blur */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -373,7 +358,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
               {/* Description */}
               <div>
-                <p className="text-gray-455 text-xs font-mono tracking-widest uppercase mb-1">Descripción</p>
+                <p className="text-gray-400 text-xs font-mono tracking-widest uppercase mb-1">Descripción</p>
                 <p className="text-gray-300 text-xs md:text-sm leading-relaxed font-light font-sans whitespace-pre-line">
                   {property.description}
                 </p>
@@ -420,7 +405,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
               {/* Amenities */}
               <div>
-                <h3 className="text-[10px] font-mono tracking-widest uppercase text-gray-455 mb-2.5">Características del Inmueble</h3>
+                <h3 className="text-[10px] font-mono tracking-widest uppercase text-gray-400 mb-2.5">Características del Inmueble</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {property.features.map((feat, idx) => (
                     <span
@@ -456,29 +441,6 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 </a>
               )}
 
-              {/* TODO: REMOVE THIS BUTTON ONCE ALL QRs ARE DOWNLOADED - Requested by user */}
-              {/* TODO: REMOVE THIS BUTTON ONCE ALL QRs ARE DOWNLOADED - Requested by user */}
-              {ENABLE_QR_DOWNLOAD && (
-                <div className="flex flex-col gap-2 mt-2 pt-4 border-t border-white/5">
-                  <div style={{ display: 'none' }}>
-                    <QRCodeCanvas
-                      id={`qr-${property.id}`}
-                      value={`${window.location.origin}/?prop=${property.id}`}
-                      size={1024}
-                      level="H"
-                      includeMargin={true}
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    onClick={downloadQR}
-                    className="w-full py-3 rounded-xl bg-purple-600/20 border border-purple-500/50 text-purple-200 font-bold text-xs tracking-widest uppercase hover:bg-purple-600/40 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg"
-                  >
-                    <QrCode size={16} />
-                    Descargar QR (PNG)
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         </motion.div>

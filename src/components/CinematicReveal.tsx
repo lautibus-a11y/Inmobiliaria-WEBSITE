@@ -31,7 +31,9 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
       clearTimeout(timer);
       document.body.style.overflow = '';
     };
-  }, [onComplete, isMobileRef]);
+  // isMobileRef is a sync primitive computed at render time, not a reactive value
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onComplete]);
 
   return (
     <motion.div
@@ -66,7 +68,7 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
         transition={{ delay: 0.8, duration: 1 }}
         className="absolute bottom-8 text-[9px] md:text-[10px] font-mono tracking-widest text-neutral-400 uppercase text-center w-full"
       >
-        Desarrollado por Broadcastweb desing © 2026
+        Desarrollado por Broadcastweb design © 2026
       </motion.div>
     </motion.div>
   );

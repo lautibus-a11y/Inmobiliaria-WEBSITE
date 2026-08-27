@@ -21,6 +21,28 @@ const quickReplies = [
   "Solicitar una tasación"
 ];
 
+/**
+ * Parses simple markdown (**bold** and \n* bullets) into safe React nodes.
+ * Replaces dangerouslySetInnerHTML to eliminate XSS surface.
+ */
+function SafeMarkdown({ text }: { text: string }) {
+  // Split on **bold** markers and bullet line breaks
+  const segments = text.split(/(\*\*[^*]+\*\*|\n\* )/g);
+  return (
+    <>
+      {segments.map((seg, i) => {
+        if (seg.startsWith('**') && seg.endsWith('**')) {
+          return <strong key={i}>{seg.slice(2, -2)}</strong>;
+        }
+        if (seg === '\n* ') {
+          return <span key={i}><br />• </span>;
+        }
+        return <span key={i}>{seg}</span>;
+      })}
+    </>
+  );
+}
+
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -34,6 +56,11 @@ export default function Chatbot() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // Controlled state for the fallback contact form
+  const [fallbackName, setFallbackName] = useState('');
+  const [fallbackPhone, setFallbackPhone] = useState('');
+  const [fallbackEmail, setFallbackEmail] = useState('');
 
   // Auto-scroll
   const scrollToBottom = () => {
@@ -149,16 +176,13 @@ export default function Chatbot() {
                     
                     <div className={`max-w-[85%] flex flex-col gap-2 ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
                       <div className={`p-3 rounded-2xl text-xs sm:text-sm leading-relaxed whitespace-pre-wrap ${
-                        msg.sender === 'user' 
-                          ? 'bg-neutral-200 text-neutral-900 rounded-tr-sm' 
-                          : 'bg-neutral-800/80 text-white rounded-tl-sm border border-white/5'
-                      }`}
-                        dangerouslySetInnerHTML={{ 
-                          __html: msg.text
-                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                            .replace(/\n\*\s/g, '<br/>• ') 
-                        }}
-                      />
+                          msg.sender === 'user' 
+                            ? 'bg-neutral-200 text-neutral-900 rounded-tr-sm' 
+                            : 'bg-neutral-800/80 text-white rounded-tl-sm border border-white/5'
+                        }`}
+                      >
+                        <SafeMarkdown text={msg.text} />
+                      </div>
 
                       {/* Display matched properties inline */}
                       {msg.properties && msg.properties.length > 0 && (
@@ -190,13 +214,38 @@ export default function Chatbot() {
                             <Phone size={14} /> Hablar por WhatsApp
                           </a>
                           <div className="bg-neutral-900 border border-white/10 p-3 rounded-xl mt-1 flex flex-col gap-2">
-                            <span className="text-[10px] text-neutral-400 font-mono uppercase mb-1">Dejanos tus datos</span>
-                            <input type="text" placeholder="Tu Nombre" className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-[16px] sm:text-xs text-white" />
-                            <input type="tel" placeholder="Tu Teléfono" className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-[16px] sm:text-xs text-white" />
-                            <input type="email" placeholder="Tu Email" className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-[16px] sm:text-xs text-white" />
-                            <button className="bg-white text-neutral-900 text-xs py-2 rounded-lg font-semibold mt-1 hover:bg-neutral-200" onClick={() => {
-                              setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'bot', text: '¡Tus datos fueron enviados con éxito! Un asesor se contactará con vos a la brevedad.' }]);
-                            }}>
+                            <span className="text-[10px] text-neutral-400 font-mono uppercase mb-1">Dejános tus datos</span>
+                            <input
+                              type="text"
+                              placeholder="Tu Nombre"
+                              value={fallbackName}
+                              onChange={(e) => setFallbackName(e.target.value)}
+                              className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-[16px] sm:text-xs text-white"
+                            />
+                            <input
+                              type="tel"
+                              placeholder="Tu Teléfono"
+                              value={fallbackPhone}
+                              onChange={(e) => setFallbackPhone(e.target.value)}
+                              className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-[16px] sm:text-xs text-white"
+                            />
+                            <input
+                              type="email"
+                              placeholder="Tu Email"
+                              value={fallbackEmail}
+                              onChange={(e) => setFallbackEmail(e.target.value)}
+                              className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-[16px] sm:text-xs text-white"
+                            />
+                            <button
+                              className="bg-white text-neutral-900 text-xs py-2 rounded-lg font-semibold mt-1 hover:bg-neutral-200"
+                              onClick={() => {
+                                if (!fallbackName.trim()) return;
+                                setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'bot', text: `¡Gracias ${fallbackName}! Recibimos tus datos. Un asesor se contactará con vos a la brevedad.` }]);
+                                setFallbackName('');
+                                setFallbackPhone('');
+                                setFallbackEmail('');
+                              }}
+                            >
                               Enviar Datos
                             </button>
                           </div>

@@ -8,44 +8,16 @@ import { useOnScreen } from '../hooks/useOnScreen';
 interface FeaturedPropertiesProps {
   onSelectProperty: (property: Property) => void;
 }
-export default function FeaturedProperties({ onSelectProperty }: FeaturedPropertiesProps) {
-  // Initialize synchronously from window to avoid layout flash
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth < 768 : false
-  );
-  const shouldReduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  // CSS animation hooks (used on mobile only — compositor thread, zero JS cost)
-  const [headerRef, headerVisible] = useOnScreen('0px 0px -30px 0px');
-  const [cardsRef, cardsVisible] = useOnScreen('0px 0px -20px 0px');
-
-  // Show 3 properties on mobile, 6 on desktop
-  const displayList = useMemo(() => isMobile ? properties.slice(0, 3) : properties.slice(0, 6), [isMobile]);
-
-  // ── Desktop animation variants (Framer Motion, powerful CPU available) ─────
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
-  };
-  const cardVariants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
-  };
-
-  // ── Shared card inner content (no wrapper — used by both paths) ───────────
-  const CardInner = ({ property }: { property: Property }) => (
+// ── CardInner extracted outside FeaturedProperties to prevent recreation on every parent render ──
+function CardInner({ property }: { property: Property }) {
+  return (
     <>
       {/* Image */}
       <div className="relative h-64 overflow-hidden">
         <img
           src={property.image}
-          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
+          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} em ${property.location}`}
           referrerPolicy="no-referrer"
           loading="lazy"
           className="w-full h-full object-cover"
@@ -53,7 +25,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/15 to-transparent" />
         <div className="absolute top-4 left-4">
           <span className="text-[10px] px-3 py-1 bg-white/95 rounded-full border border-neutral-200 text-neutral-600 uppercase font-mono tracking-wider shadow-xs font-semibold">
-            ✦ {property.category}
+            ✶ {property.category}
           </span>
         </div>
         {property.status && (
@@ -125,6 +97,37 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
       </div>
     </>
   );
+}
+
+export default function FeaturedProperties({ onSelectProperty }: FeaturedPropertiesProps) {
+  // Initialize synchronously from window to avoid layout flash
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
+  const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // CSS animation hooks (used on mobile only — compositor thread, zero JS cost)
+  const [headerRef, headerVisible] = useOnScreen('0px 0px -30px 0px');
+  const [cardsRef, cardsVisible] = useOnScreen('0px 0px -20px 0px');
+
+  // Show 3 properties on mobile, 6 on desktop
+  const displayList = useMemo(() => isMobile ? properties.slice(0, 3) : properties.slice(0, 6), [isMobile]);
+
+  // ── Desktop animation variants (Framer Motion, powerful CPU available) ─────
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
+  };
+  const cardVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+  };
 
   return (
     <section
