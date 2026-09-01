@@ -21,8 +21,7 @@ const updates = {
   'prop-ceretti-1300': { price: 'USD 230.000', num: 230000 },
   'prop-rosalia-alquiler': { price: '$ 1.500.000', num: 1500000 },
   'prop-9': { price: '$ 850.000', num: 850000 },
-  'prop-12': { price: 'USD 1.500', num: 1500 },
-  'prop-ejercito-de-los-andes': { price: '$ 1.000.000', num: 1000000 }
+  'prop-12': { price: 'USD 1.500', num: 1500 }
 };
 
 let data = fs.readFileSync('src/data.ts', 'utf-8');
