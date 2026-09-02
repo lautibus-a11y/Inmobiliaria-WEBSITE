@@ -1,9 +1,10 @@
 import { useEffect, useState, useMemo } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { MapPin, Bed, ShowerHead, Grid, ArrowUpRight, PawPrint } from 'lucide-react';
+import { MapPin, Bed, ShowerHead, Grid, ArrowUpRight, PawPrint, FileText } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
 import { useOnScreen } from '../hooks/useOnScreen';
+import { getRequirementsUrl } from '../utils/requirements';
 
 interface FeaturedPropertiesProps {
   onSelectProperty: (property: Property) => void;
@@ -66,33 +67,52 @@ function CardInner({ property }: { property: Property }) {
             {property.description}
           </p>
         </div>
-        <div className="border-t border-neutral-100 pt-4 mt-4 flex items-center justify-between">
-          <div className="flex gap-4 items-center">
-            {property.beds > 0 && (
+        <div className="border-t border-neutral-100 pt-3.5 mt-3 flex flex-col gap-2.5">
+          {/* Row 1: SVGs Characteristics */}
+          <div className="flex items-center justify-between">
+            <div className="flex gap-3 sm:gap-4 items-center">
+              {property.beds > 0 && (
+                <div className="flex items-center gap-1">
+                  <Bed size={14} className="text-neutral-500" />
+                  <span className="text-[11px] font-mono text-neutral-500">{property.beds} Dorm</span>
+                </div>
+              )}
+              {property.baths > 0 && (
+                <div className="flex items-center gap-1">
+                  <ShowerHead size={14} className="text-neutral-500" />
+                  <span className="text-[11px] font-mono text-neutral-500">{property.baths} Baños</span>
+                </div>
+              )}
               <div className="flex items-center gap-1">
-                <Bed size={14} className="text-neutral-500" />
-                <span className="text-[11px] font-mono text-neutral-500">{property.beds} Dorm</span>
+                <Grid size={13} className="text-neutral-500" />
+                <span className="text-[11px] font-mono text-neutral-500 whitespace-nowrap">{property.area}</span>
               </div>
-            )}
-            {property.baths > 0 && (
-              <div className="flex items-center gap-1">
-                <ShowerHead size={14} className="text-neutral-500" />
-                <span className="text-[11px] font-mono text-neutral-500">{property.baths} Baños</span>
-              </div>
-            )}
-            <div className="flex items-center gap-1">
-              <Grid size={13} className="text-neutral-500" />
-              <span className="text-[11px] font-mono text-neutral-500 whitespace-nowrap">{property.area}</span>
+              {property.category !== 'locales' && (
+                <div className="flex items-center gap-1" title="Pet Friendly">
+                  <PawPrint size={14} className="text-neutral-500" />
+                </div>
+              )}
             </div>
-            {property.category !== 'locales' && (
-              <div className="flex items-center gap-1" title="Pet Friendly">
-                <PawPrint size={14} className="text-neutral-500" />
-              </div>
-            )}
+
+            <span className="w-7 h-7 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white transition-colors duration-300">
+              <ArrowUpRight size={13} />
+            </span>
           </div>
-          <span className="w-8 h-8 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-600 group-hover:bg-neutral-950 group-hover:text-white transition-colors duration-300">
-            <ArrowUpRight size={14} />
-          </span>
+
+          {/* Row 2: Underneath the SVGs - Button 'Ver requisitos' solo para alquiler */}
+          {property.transactionType === 'alquiler' && (
+            <a
+              href={getRequirementsUrl(property)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="w-full py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
+              title={`Ver requisitos de ${property.title}`}
+            >
+              <FileText size={12} />
+              <span>Ver requisitos</span>
+            </a>
+          )}
         </div>
       </div>
     </>

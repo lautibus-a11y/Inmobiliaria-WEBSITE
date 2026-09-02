@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { X, Bed, ShowerHead, Eye, PawPrint } from 'lucide-react';
+import { X, Bed, ShowerHead, Eye, PawPrint, FileText } from 'lucide-react';
 import { Property } from '../types';
+import { getRequirementsUrl } from '../utils/requirements';
 
 interface PropertyModalProps {
   property: Property | null;
@@ -425,10 +426,22 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 href={`https://wa.me/5491168091223?text=${encodeURIComponent(`Hola Ivana Molina Bienes Raíces. Me comunico desde su sitio web porque me interesa la propiedad: ${property.title}. Quisiera recibir más información y agendar una visita.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold text-xs tracking-widest uppercase hover:bg-white/20 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-black/20"
+                className="w-full py-3 rounded-xl bg-white text-neutral-950 font-bold text-xs tracking-widest uppercase hover:bg-neutral-200 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-black/20"
               >
                 Agendar una Visita
               </a>
+
+              {property.transactionType === 'alquiler' && (
+                <a
+                  href={getRequirementsUrl(property)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold text-xs tracking-widest uppercase hover:bg-white/20 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-black/20"
+                >
+                  <FileText size={14} />
+                  Ver Requisitos
+                </a>
+              )}
 
               {property.mercadoLibreLink && (
                 <a

@@ -22,6 +22,7 @@ export interface Property {
   status?: 'alquilada' | 'vendida' | 'reservada';
   videoUrl?: string;
   videoUrls?: string[];
+  requirementsSlug?: string;
 }
 
 

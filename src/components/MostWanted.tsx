@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, PawPrint } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, PawPrint, FileText } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
+import { getRequirementsUrl } from '../utils/requirements';
 
 interface MostWantedProps {
   onSelectProperty: (property: Property) => void;
@@ -117,7 +118,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
           {mostWantedList.map((property) => (
             <div
               key={property.id}
-              className="shrink-0 w-[82vw] sm:w-[50vw] md:w-[42vw] lg:w-[31vw] xl:w-[23vw] max-w-[420px] h-[460px] md:h-[480px] rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow relative cursor-pointer snap-center sm:snap-start group hover:border-neutral-300/60 transition-all duration-300"
+              className="shrink-0 w-[82vw] sm:w-[50vw] md:w-[42vw] lg:w-[31vw] xl:w-[23vw] max-w-[420px] h-[480px] md:h-[500px] rounded-3xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow relative cursor-pointer snap-center sm:snap-start group hover:border-neutral-300/60 transition-all duration-300"
               onClick={() => onSelectProperty(property)}
             >
               {/* Background Image */}
@@ -160,37 +161,56 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
               </div>
 
               {/* Bottom Info Panel */}
-              <div className="absolute bottom-5 left-5 right-5 z-20 p-5 rounded-2xl bg-white border border-neutral-200/80 premium-card-shadow text-neutral-900 hover:bg-neutral-50/98 transition-colors duration-300">
+              <div className="absolute bottom-4 left-4 right-4 z-20 p-4 sm:p-5 rounded-2xl bg-white border border-neutral-200/80 premium-card-shadow text-neutral-900 hover:bg-neutral-50/98 transition-colors duration-300">
                 <div className="flex items-center justify-between gap-3 mb-1">
-                  <h3 className="text-lg font-display font-medium tracking-tight leading-tight group-hover:text-neutral-600 transition-colors">
+                  <h3 className="text-base sm:text-lg font-display font-medium tracking-tight leading-tight group-hover:text-neutral-600 transition-colors">
                     {property.title}
                   </h3>
-                  <span className="shrink-0 w-8 h-8 rounded-xl bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-600 group-hover:bg-neutral-950 group-hover:text-white transition-all duration-300">
-                    <ArrowUpRight size={14} />
+                  <span className="shrink-0 w-7 h-7 rounded-xl bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-600 group-hover:bg-neutral-950 group-hover:text-white transition-all duration-300">
+                    <ArrowUpRight size={13} />
                   </span>
                 </div>
-                <p className="text-[11px] font-mono text-neutral-500 tracking-wider mb-2">
+                <p className="text-[11px] font-mono text-neutral-500 tracking-wider mb-2.5">
                   📍 {property.location}
                 </p>
-                <div className="border-t border-neutral-100 pt-3 flex gap-5 items-center text-xs font-mono">
-                  <div>
-                    <span className="text-neutral-400 uppercase text-[9px] block">Dorm.</span>
-                    <span className="text-neutral-800 font-semibold">{property.beds}</span>
-                  </div>
-                  <div className="border-l border-neutral-100 pl-5">
-                    <span className="text-neutral-400 uppercase text-[9px] block">Baños</span>
-                    <span className="text-neutral-800 font-semibold">{property.baths}</span>
-                  </div>
-                  <div className="border-l border-neutral-100 pl-5">
-                    <span className="text-neutral-400 uppercase text-[9px] block">Sup.</span>
-                    <span className="text-neutral-800 font-semibold">{property.area}</span>
-                  </div>
-                  {property.category !== 'locales' && (
-                    <div className="border-l border-neutral-100 pl-5 flex items-center justify-center h-full" title="Pet Friendly">
-                      <PawPrint size={16} className="text-neutral-800" />
+
+                {/* SVGs Row */}
+                <div className="border-t border-neutral-100 pt-2.5 flex items-center justify-between text-xs font-mono">
+                  <div className="flex gap-3 sm:gap-4 items-center">
+                    <div>
+                      <span className="text-neutral-400 uppercase text-[9px] block">Dorm.</span>
+                      <span className="text-neutral-800 font-semibold">{property.beds || '—'}</span>
                     </div>
-                  )}
+                    <div className="border-l border-neutral-100 pl-3 sm:pl-4">
+                      <span className="text-neutral-400 uppercase text-[9px] block">Baños</span>
+                      <span className="text-neutral-800 font-semibold">{property.baths || '—'}</span>
+                    </div>
+                    <div className="border-l border-neutral-100 pl-3 sm:pl-4">
+                      <span className="text-neutral-400 uppercase text-[9px] block">Sup.</span>
+                      <span className="text-neutral-800 font-semibold whitespace-nowrap">{property.area}</span>
+                    </div>
+                    {property.category !== 'locales' && (
+                      <div className="border-l border-neutral-100 pl-3 sm:pl-4 flex items-center justify-center h-full" title="Pet Friendly">
+                        <PawPrint size={14} className="text-neutral-800" />
+                      </div>
+                    )}
+                  </div>
                 </div>
+
+                {/* Underneath the SVGs - Button 'Ver requisitos' solo para alquiler */}
+                {property.transactionType === 'alquiler' && (
+                  <a
+                    href={getRequirementsUrl(property)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="w-full mt-3 py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
+                    title={`Ver requisitos de ${property.title}`}
+                  >
+                    <FileText size={12} />
+                    <span>Ver requisitos</span>
+                  </a>
+                )}
               </div>
             </div>
           ))}

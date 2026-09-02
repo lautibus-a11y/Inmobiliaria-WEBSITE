@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight, ArrowDown, ArrowUp, PawPrint } from 'lucide-react';
+import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight, ArrowDown, ArrowUp, PawPrint, FileText } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
 import { useOnScreen } from '../hooks/useOnScreen';
+import { getRequirementsUrl } from '../utils/requirements';
 
 interface AllPropertiesProps {
   onSelectProperty: (property: Property) => void;
@@ -234,7 +235,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
               <div
                 key={property.id}
                 ref={idx === firstBatch.length - 1 ? lastCardRef : undefined}
-                className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[420px] cursor-pointer"
+                className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[445px] sm:h-[455px] cursor-pointer"
                 onClick={() => onSelectProperty(property)}
               >
                 <div className="relative h-44 overflow-hidden bg-neutral-900">
@@ -278,22 +279,41 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       {property.description}
                     </p>
                   </div>
-                  <div className="border-t border-neutral-100 pt-4 flex items-center justify-between">
-                    <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
-                      {property.beds > 0 && (
-                        <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
-                      )}
-                      {property.baths > 0 && (
-                        <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} B</span></div>
-                      )}
-                      <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
-                      {property.category !== 'locales' && (
-                        <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
-                      )}
+                  
+                  <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
+                    {/* Row 1: SVGs */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
+                        {property.beds > 0 && (
+                          <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
+                        )}
+                        {property.baths > 0 && (
+                          <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
+                        )}
+                        <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                        {property.category !== 'locales' && (
+                          <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                        )}
+                      </div>
+                      <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
+                        <ArrowUpRight size={12} />
+                      </span>
                     </div>
-                    <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
-                      <ArrowUpRight size={12} />
-                    </span>
+
+                    {/* Row 2: Underneath SVGs - Button 'Ver requisitos' solo para alquiler */}
+                    {property.transactionType === 'alquiler' && (
+                      <a
+                        href={getRequirementsUrl(property)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="w-full py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
+                        title={`Ver requisitos de ${property.title}`}
+                      >
+                        <FileText size={12} />
+                        <span>Ver requisitos</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -313,7 +333,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                     initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
                     animate={isExpanded ? { opacity: 1, y: 0 } : { opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
                     transition={{ duration: 0.32, delay: i * 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[420px] cursor-pointer"
+                    className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[445px] sm:h-[455px] cursor-pointer"
                     onClick={() => onSelectProperty(property)}
                   >
                     <div className="relative h-44 overflow-hidden bg-neutral-900">
@@ -357,22 +377,41 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                           {property.description}
                         </p>
                       </div>
-                      <div className="border-t border-neutral-100 pt-4 flex items-center justify-between">
-                        <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
-                          {property.beds > 0 && (
-                            <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
-                          )}
-                          {property.baths > 0 && (
-                            <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} B</span></div>
-                          )}
-                          <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
-                          {property.category !== 'locales' && (
-                            <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
-                          )}
+                      
+                      <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
+                        {/* Row 1: SVGs */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
+                            {property.beds > 0 && (
+                              <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
+                            )}
+                            {property.baths > 0 && (
+                              <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
+                            )}
+                            <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                            {property.category !== 'locales' && (
+                              <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                            )}
+                          </div>
+                          <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
+                            <ArrowUpRight size={12} />
+                          </span>
                         </div>
-                        <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
-                          <ArrowUpRight size={12} />
-                        </span>
+
+                        {/* Row 2: Underneath SVGs - Button 'Ver requisitos' solo para alquiler */}
+                        {property.transactionType === 'alquiler' && (
+                          <a
+                            href={getRequirementsUrl(property)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="w-full py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
+                            title={`Ver requisitos de ${property.title}`}
+                          >
+                            <FileText size={12} />
+                            <span>Ver requisitos</span>
+                          </a>
+                        )}
                       </div>
                     </div>
                   </motion.div>
@@ -397,13 +436,13 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                 {firstBatch.map((property, idx) => (
                   <motion.div
                     layout="position"
-                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
+                    exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                     transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
                     key={property.id}
                     ref={idx === firstBatch.length - 1 ? lastCardRef : undefined}
-                    className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[450px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-neutral-300/60 hover:-translate-y-1 hover:transition-transform"
+                    className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[465px] md:h-[475px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-neutral-300/60 hover:-translate-y-1 hover:transition-transform"
                     onClick={() => onSelectProperty(property)}
                   >
                     <div className="relative h-48 overflow-hidden bg-neutral-900">
@@ -447,22 +486,41 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                           {property.description}
                         </p>
                       </div>
-                      <div className="border-t border-neutral-100 pt-4 flex items-center justify-between">
-                        <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
-                          {property.beds > 0 && (
-                            <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
-                          )}
-                          {property.baths > 0 && (
-                            <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} B</span></div>
-                          )}
-                          <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
-                          {property.category !== 'locales' && (
-                            <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
-                          )}
+                      
+                      <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
+                        {/* Row 1: SVGs */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
+                            {property.beds > 0 && (
+                              <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
+                            )}
+                            {property.baths > 0 && (
+                              <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
+                            )}
+                            <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                            {property.category !== 'locales' && (
+                              <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                            )}
+                          </div>
+                          <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                            <ArrowUpRight size={12} />
+                          </span>
                         </div>
-                        <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
-                          <ArrowUpRight size={12} />
-                        </span>
+
+                        {/* Row 2: Underneath SVGs - Button 'Ver requisitos' solo para alquiler */}
+                        {property.transactionType === 'alquiler' && (
+                          <a
+                            href={getRequirementsUrl(property)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="w-full py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
+                            title={`Ver requisitos de ${property.title}`}
+                          >
+                            <FileText size={12} />
+                            <span>Ver requisitos</span>
+                          </a>
+                        )}
                       </div>
                     </div>
                   </motion.div>
@@ -490,7 +548,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                       transition={{ duration: 0.35, delay: i * 0.04, ease: [0.25, 0.46, 0.45, 0.94] }}
                       key={property.id}
-                      className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[450px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-neutral-300/60 hover:-translate-y-1 hover:transition-transform"
+                      className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[465px] md:h-[475px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-neutral-300/60 hover:-translate-y-1 hover:transition-transform"
                       onClick={() => onSelectProperty(property)}
                     >
                       <div className="relative h-48 overflow-hidden bg-neutral-900">
@@ -534,22 +592,41 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                             {property.description}
                           </p>
                         </div>
-                        <div className="border-t border-neutral-100 pt-4 flex items-center justify-between">
-                          <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
-                            {property.beds > 0 && (
-                              <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
-                            )}
-                            {property.baths > 0 && (
-                              <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} B</span></div>
-                            )}
-                            <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
-                            {property.category !== 'locales' && (
-                              <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
-                            )}
+                        
+                        <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
+                          {/* Row 1: SVGs */}
+                          <div className="flex items-center justify-between">
+                            <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
+                              {property.beds > 0 && (
+                                <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
+                              )}
+                              {property.baths > 0 && (
+                                <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
+                              )}
+                              <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                              {property.category !== 'locales' && (
+                                <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                              )}
+                            </div>
+                            <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                              <ArrowUpRight size={12} />
+                            </span>
                           </div>
-                          <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
-                            <ArrowUpRight size={12} />
-                          </span>
+
+                          {/* Row 2: Underneath SVGs - Button 'Ver requisitos' solo para alquiler */}
+                          {property.transactionType === 'alquiler' && (
+                            <a
+                              href={getRequirementsUrl(property)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="w-full py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
+                              title={`Ver requisitos de ${property.title}`}
+                            >
+                              <FileText size={12} />
+                              <span>Ver requisitos</span>
+                            </a>
+                          )}
                         </div>
                       </div>
                     </motion.div>
