@@ -123,86 +123,80 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
         <section class="req-card">
           <div class="req-card-header">
             <div class="req-card-icon">🏡</div>
-            <h2 class="req-card-title">1. Propuesta de Alquiler – Destino Vivienda</h2>
+            <h2 class="req-card-title">Propuesta de Alquiler con Destino a Vivienda - 20 de Junio</h2>
           </div>
-          <p style="color: #e5e5e5; font-size: 14px; margin-bottom: 16px; line-height: 1.7;">
-            Propuesta de alquiler con destino a <strong>Vivienda Familiar</strong> en 20 de Junio, La Matanza.
-          </p>
-          <ul class="req-list">
+          <div style="color: #e5e5e5; font-size: 14px; margin-bottom: 16px; line-height: 1.7;">
+            <p style="margin-bottom: 12px;"><strong>DESCRIPCIÓN:</strong></p>
+            <p style="color: #d4d4d4; line-height: 1.7;">
+              CASA CON UN LIVING COMEDOR AMPLIO, COCINA CON BAJO MESADA Y ALACENA DE ALGARROBO, MESADA DE MÁRMOL GRANITO. DOS HABITACIONES, UN VESTIDOR AMPLIO, DOS BAÑOS, UN QUINCHO CON PARRILLA, PILETA DE 9X5 MTS APROX, Y 2,20 MTS DE PROFUNDIDAD, ARBOLEDA AÑOSA. MUY BIEN UBICADA. A DOS CUADRAS Y MEDIA DEL ASFALTO.
+            </p>
+          </div>
+          <ul class="req-list" style="margin-top: 16px;">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Ubicación:</strong> Casaffouths 725, 20 de Junio, La Matanza (a solo dos cuadras y media del asfalto).</div>
-            </li>
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>Distribución Interior:</strong> Casa con amplio living comedor muy luminoso. Cocina equipada con bajo mesada y alacena de algarrobo macizo, mesada de mármol granito. Dos habitaciones confortables y un vestidor amplio. Dos baños completos.</div>
-            </li>
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>Exteriores y Recreación:</strong> Quincho techado con parrilla, gran pileta de 9 x 5 metros aprox. (2,20 metros de profundidad) y parque con arboleda añosa.</div>
+              <div><strong>DIRECCIÓN:</strong> CASAFFOUTHS 725, 20 DE JUNIO, LA MATANZA.-</div>
             </li>
           </ul>
         </section>
 
-        <!-- SECCIÓN 2: REQUISITOS ECONÓMICOS DE INGRESO -->
+        <!-- SECCIÓN 2: REQUISITOS -->
         <section class="req-card">
           <div class="req-card-header">
             <div class="req-card-icon">💰</div>
-            <h2 class="req-card-title">2. Requisitos Económicos de Ingreso</h2>
+            <h2 class="req-card-title">Requisitos</h2>
           </div>
           <ul class="req-list">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Ingreso:</strong> $750.000 (correspondiente al primer mes de alquiler).</div>
+              <div><strong>MES DE INGRESO:</strong> $750.000</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Depósito de Garantía:</strong> $750.000 (en resguardo, reintegrable al finalizar la locación conforme al contrato).</div>
+              <div><strong>MES DE DEPÓSITO DE GARANTÍA:</strong> $750.000</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Honorarios Profesionales:</strong> $750.000 (por intervención del profesional matriculado).</div>
+              <div><strong>MES DE HONORARIOS POR INTERVENCIÓN DEL PROFESIONAL:</strong> $750.000</div>
             </li>
           </ul>
         </section>
 
-        <!-- SECCIÓN 3: GARANTÍAS ACEPTADAS -->
+        <!-- SECCIÓN 3: GARANTÍAS -->
         <section class="req-card">
           <div class="req-card-header">
             <div class="req-card-icon">🛡️</div>
-            <h2 class="req-card-title">3. Garantías Aceptadas</h2>
+            <h2 class="req-card-title">Garantías</h2>
           </div>
-          <p style="color: #a3a3a3; font-size: 13px; margin-bottom: 14px;">Presentar al menos una de las siguientes opciones de respaldo:</p>
           <ul class="req-list">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Garantía Propietaria (Escritura):</strong> Copia de escritura de inmueble. Pedido de informes de dominio e inhibición a cargo del inquilino.</div>
+              <div><strong>GARANTÍA PROPIETARIA (ESCRITURA):</strong> PEDIDO DE INFORMES A CARGO DEL INQUILINO</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Recibos de Sueldo:</strong> 3 recibos de sueldo que dupliquen el valor del alquiler.</div>
+              <div><strong>3 RECIBOS DE SUELDOS:</strong> QUE DUPLIQUEN EL VALOR DEL ALQUILER</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Seguro de Caución:</strong> Póliza de caución emitida por aseguradora reconocida.</div>
+              <div><strong>SEGURO DE CAUCIÓN</strong></div>
             </li>
           </ul>
         </section>
 
-        <!-- SECCIÓN 4: PLAZO CONTRACTUAL Y AJUSTE -->
+        <!-- SECCIÓN 4: CONTRATO Y AJUSTE -->
         <section class="req-card">
           <div class="req-card-header">
             <div class="req-card-icon">📄</div>
-            <h2 class="req-card-title">4. Plazo Contractual y Modalidad de Actualización</h2>
+            <h2 class="req-card-title">Condiciones del Contrato</h2>
           </div>
           <ul class="req-list">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Plazo del Contrato:</strong> Contrato por 2 (dos) años con destino a vivienda.</div>
+              <div><strong>PLAZO:</strong> CONTRATO POR (2) DOS AÑOS.</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Ajuste Semestral:</strong> Cada 6 meses con un 15% mínimo como base, regido por IPC (Índice de Precios al Consumidor).</div>
+              <div><strong>ACTUALIZACIÓN:</strong> AUMENTO CADA 4 MESES CON UN 12 % MÍNIMO REGIDO POR IPC.</div>
             </li>
           </ul>
         </section>
@@ -1056,7 +1050,7 @@ function generatePropertyRequirementsHTML(prop, pdfInfo) {
             <br>
             <p><strong>Contacto Directo:</strong></p>
             <p>011- 6809 1223 / 011- 4405 1974</p>
-            <p>info@molinaivana.com.ar</p>
+            <p>molinaivanabr@gmail.com</p>
             <br>
             <p><strong>Martillera Pública:</strong></p>
             <p>Mat. Nro 1048 CDMDLM</p>
