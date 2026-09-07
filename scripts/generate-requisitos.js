@@ -117,7 +117,7 @@ function getSlug(prop) {
 
 const CUSTOM_PROPERTY_REQUIREMENTS = {
   'prop-la-camella-alquiler': {
-    priceFormatted: '$ 900.000 / mes',
+    priceFormatted: '$ 750.000 / mes',
     renderBody: (prop) => `
         <!-- SECCIÓN 1: PROPUESTA Y DESCRIPCIÓN DEL INMUEBLE -->
         <section class="req-card">
@@ -153,15 +153,15 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
           <ul class="req-list">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Ingreso:</strong> $900.000 (correspondiente al primer mes de alquiler).</div>
+              <div><strong>Mes de Ingreso:</strong> $750.000 (correspondiente al primer mes de alquiler).</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Depósito de Garantía:</strong> $900.000 (en resguardo, reintegrable al finalizar la locación conforme al contrato).</div>
+              <div><strong>Mes de Depósito de Garantía:</strong> $750.000 (en resguardo, reintegrable al finalizar la locación conforme al contrato).</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Honorarios Profesionales:</strong> $900.000 (por intervención del profesional matriculado).</div>
+              <div><strong>Mes de Honorarios Profesionales:</strong> $750.000 (por intervención del profesional matriculado).</div>
             </li>
           </ul>
         </section>
@@ -202,7 +202,7 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Ajuste Cuatrimestral:</strong> Aumento cada 4 meses con un 12% mínimo regido por IPC (Índice de Precios al Consumidor).</div>
+              <div><strong>Ajuste Semestral:</strong> Cada 6 meses con un 15% mínimo como base, regido por IPC (Índice de Precios al Consumidor).</div>
             </li>
           </ul>
         </section>
