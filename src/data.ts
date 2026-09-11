@@ -11,13 +11,13 @@ export const properties: Property[] = [
     location: '20 de Junio, La Matanza',
     streets: 'Manuel Antonio Castro (entre Aroma y Copahue)',
     category: 'terrenos',
-    image: '/venta/terrenos/Cosme--Terreno-en-venta/Portada.webp',
+    image: '/venta/terrenos/Cosme--Terreno-en-venta/Cosme-Terreno_Portada.webp',
     images: [
-      '/venta/terrenos/Cosme--Terreno-en-venta/Portada.webp',
-      '/venta/terrenos/Cosme--Terreno-en-venta/2.webp',
-      '/venta/terrenos/Cosme--Terreno-en-venta/4.webp',
-      '/venta/terrenos/Cosme--Terreno-en-venta/5.webp',
-      '/venta/terrenos/Cosme--Terreno-en-venta/7.webp'
+      '/venta/terrenos/Cosme--Terreno-en-venta/Cosme-Terreno_Portada.webp',
+      '/venta/terrenos/Cosme--Terreno-en-venta/Cosme-Terreno_2.webp',
+      '/venta/terrenos/Cosme--Terreno-en-venta/Cosme-Terreno_4.webp',
+      '/venta/terrenos/Cosme--Terreno-en-venta/Cosme-Terreno_5.webp',
+      '/venta/terrenos/Cosme--Terreno-en-venta/Cosme-Terreno_7.webp'
     ],
     description: 'Excelente Lote de 1915 m² en Venta – Totalmente Parquizado y Alambrado – 20 de Junio, La Matanza\n\n¡Gran oportunidad de inversión en una de las zonas más tranquilas y verdes de 20 de Junio!\n\nUbicado sobre la calle Manuel Antonio Castro (entre Aroma y Copahue), este excepcional terreno destaca por su entorno natural consolidado, su amplitud y su excelente frente.\n\nDetalles del Lote:\nSuperficie Total: 1.915 m².\nMedidas: 37,50 m de frente por 51,08 m de fondo.\nEstado: Terreno baldío totalmente parquizado y nivelado.\nArboleda: Cuenta con vegetación y árboles añosos que aportan sombra, privacidad y un entorno paisajístico único.\nPerímetro: Completamente alambrado y delimitado.\nEntorno: Zona residencial de quintas, ideal para desarrollo de vivienda permanente, casa de fin de semana o proyecto recreativo.\n\nUna fracción de tierra con dimensiones difíciles de encontrar, lista para proyectar y construir de inmediato.\nConsulte para coordinar una visita y conocer la propiedad.',
     beds: 0,
