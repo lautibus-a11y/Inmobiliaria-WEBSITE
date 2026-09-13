@@ -203,7 +203,7 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
     `
   },
   'prop-rosalia-alquiler': {
-    priceFormatted: '$ 1.300.000 / mes',
+    priceFormatted: '$ 1.250.000 / mes',
     renderBody: (prop) => `
         <!-- SECCIÓN 1: PROPUESTA Y DESCRIPCIÓN DETALLADA -->
         <section class="req-card">
@@ -243,15 +243,15 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
           <ul class="req-list">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Ingreso:</strong> $1.300.000 (primer mes de canon locativo).</div>
+              <div><strong>Mes de Ingreso:</strong> $1.250.000 (primer mes de canon locativo).</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Depósito:</strong> $1.300.000 (en resguardo, reintegrable conforme al contrato).</div>
+              <div><strong>Mes de Depósito:</strong> $1.250.000 (en resguardo, reintegrable conforme al contrato).</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Honorarios:</strong> $1.300.000 (por gestión e intermediación profesional).</div>
+              <div><strong>Mes de Honorarios:</strong> $1.250.000 (por gestión e intermediación profesional).</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
@@ -259,7 +259,7 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
             </li>
             <li class="req-list-item" style="padding-top: 10px; border-top: 1px solid var(--card-border);">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Total de Ingreso:</strong> <strong style="color: var(--accent-gold); font-size: 15px;">$3.900.000</strong> (más gastos administrativos y pedidos de informes).</div>
+              <div><strong>Total de Ingreso:</strong> <strong style="color: var(--accent-gold); font-size: 15px;">$3.750.000</strong> (más gastos administrativos y pedidos de informes).</div>
             </li>
           </ul>
         </section>

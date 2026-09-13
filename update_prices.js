@@ -5,7 +5,7 @@ const updates = {
   'prop-14': { price: 'USD 185.000', num: 185000 },
   'prop-1': { price: 'USD 78.000', num: 78000 },
   'prop-19': { price: 'USD 35.000', num: 35000 },
-  'prop-20': { price: 'USD 45.000', num: 45000 },
+  'prop-20': { price: 'USD 38.000', num: 38000 },
   'prop-7': { price: 'USD 40.000', num: 40000 },
   'prop-18': { price: 'USD 69.000', num: 69000 },
   'prop-quinta-el-maestro': { price: 'USD 125.000', num: 125000 },
@@ -19,7 +19,7 @@ const updates = {
   'prop-4': { price: 'USD 145.000', num: 145000 },
   'prop-13': { price: 'USD 195.000', num: 195000 },
   'prop-ceretti-1300': { price: 'USD 230.000', num: 230000 },
-  'prop-rosalia-alquiler': { price: '$ 1.500.000', num: 1500000 },
+  'prop-rosalia-alquiler': { price: '$ 1.250.000', num: 1250000 },
   'prop-9': { price: '$ 850.000', num: 850000 },
   'prop-12': { price: 'USD 1.500', num: 1500 }
 };
