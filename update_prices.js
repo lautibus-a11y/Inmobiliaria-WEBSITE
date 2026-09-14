@@ -11,7 +11,7 @@ const updates = {
   'prop-quinta-el-maestro': { price: 'USD 125.000', num: 125000 },
   'prop-cassafousth-terreno': { price: 'USD 55.000', num: 55000 },
   'prop-5': { price: 'USD 250.000', num: 250000 },
-  'prop-21': { price: 'USD 160.000', num: 160000 },
+  'prop-21': { price: 'USD 149.000', num: 149000 },
   'prop-17': { price: 'USD 135.000', num: 135000 },
   'prop-2': { price: 'USD 155.000', num: 155000 },
   'prop-23': { price: 'USD 95.000', num: 95000 },
