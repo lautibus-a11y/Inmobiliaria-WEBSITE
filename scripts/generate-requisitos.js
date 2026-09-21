@@ -323,6 +323,198 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
           </ul>
         </section>
     `
+  },
+  'prop-castaneda-235': {
+    priceFormatted: '$ 770.000 / mes',
+    renderBody: (prop) => `
+        <!-- SECCIÓN 1: PROPUESTA Y DESCRIPCIÓN DEL INMUEBLE -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">🏡</div>
+            <h2 class="req-card-title">1. Propuesta de Alquiler – Vivienda Permanente</h2>
+          </div>
+          <div style="color: #e5e5e5; font-size: 14px; margin-bottom: 16px; line-height: 1.7;">
+            <p style="margin-bottom: 12px;"><strong>DESCRIPCIÓN:</strong></p>
+            <p style="color: #d4d4d4; line-height: 1.7;">
+              Excelente oportunidad de alquiler de cabaña con destino a vivienda permanente. Ubicada sobre un amplio terreno de 600 m² aproximadamente, combinando comodidad, funcionalidad y un entorno natural único.
+            </p>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Ubicación:</strong> Castañeda 235, entre Camilo Torres y Cosquín, 20 de Junio, Partido de La Matanza.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Planta Baja:</strong> Dos habitaciones, amplio living, cocina-comedor integrada y un baño completo.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Planta Alta:</strong> Una amplia habitación con balcón privado.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Exterior:</strong> Galería con parrilla y pileta de fibra de vidrio de aproximadamente 5 x 3 metros, ideal para el descanso al aire libre.</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 2: REQUISITOS ECONÓMICOS DE INGRESO -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">💰</div>
+            <h2 class="req-card-title">2. Requisitos Económicos Iniciales</h2>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Mes de Ingreso:</strong> $770.000</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Mes de Depósito:</strong> $770.000</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Honorarios Inmobiliarios:</strong> $770.000</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 3: GARANTÍAS Y REQUISITOS -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">🛡️</div>
+            <h2 class="req-card-title">3. Garantías Aceptadas</h2>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Garantía Propietaria</strong></div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Recibos de Sueldo</strong> con solvencia demostrable</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Seguro de Caución</strong> (Finaer, Premium, etc.)</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 4: CONSULTAS -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">📞</div>
+            <h2 class="req-card-title">4. Coordinar Visita y Condiciones</h2>
+          </div>
+          <p style="color: #d4d4d4; font-size: 14px; line-height: 1.7;">
+            Para coordinar una visita a la propiedad o recibir asesoramiento sobre la documentación, contactanos directamente por WhatsApp.
+          </p>
+        </section>
+    `
+  },
+  'prop-depto-rio-de-janeiro': {
+    priceFormatted: '$ 450.000 / mes',
+    renderBody: (prop) => `
+        <!-- SECCIÓN 1: PROPUESTA Y DESCRIPCIÓN DEL INMUEBLE -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">🏢</div>
+            <h2 class="req-card-title">1. Propuesta de Alquiler – Vivienda Permanente</h2>
+          </div>
+          <div style="color: #e5e5e5; font-size: 14px; margin-bottom: 16px; line-height: 1.7;">
+            <p style="color: #d4d4d4; line-height: 1.7;">
+              Funcional departamento de dos ambientes, ideal para quienes buscan comodidad y practicidad. Cuenta con una luminosa habitación, un amplio living, cocina-comedor integrada de diseño eficiente y un baño completo. Acceso por ripio y sector exterior compartido.
+            </p>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Dirección:</strong> Río de Janeiro 3450, Pontevedra, Partido de Merlo, Buenos Aires.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Distribución:</strong> 1 dormitorio, amplio living, cocina-comedor integrada, 1 baño completo.</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 2: REQUISITOS ECONÓMICOS DE INGRESO -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">💰</div>
+            <h2 class="req-card-title">2. Requisitos Económicos Iniciales</h2>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Mes de Ingreso:</strong> $450.000</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Mes de Depósito:</strong> $450.000</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Honorarios Inmobiliarios:</strong> $450.000</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Total Inicial Aproximado:</strong> $1.350.000 (más gastos administrativos y pedidos de informes).</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 3: GARANTÍAS ACEPTADAS -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">🛡️</div>
+            <h2 class="req-card-title">3. Garantías Aceptadas (A elección)</h2>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Garantía Propietaria</strong></div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Tres (3) Recibos de Sueldo:</strong> que dupliquen el valor del alquiler.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Seguro de Caución</strong></div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 4: CONDICIONES DE CONTRATACIÓN -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">📄</div>
+            <h2 class="req-card-title">4. Condiciones de Contratación</h2>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Plazo de Locación:</strong> Un (1) año con destino a vivienda permanente.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Actualización:</strong> Cuatrimestral según el Índice de Precios al Consumidor (IPC), con un ajuste mínimo del 10%.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Seguro Contra Incendios:</strong> Contratación obligatoria por el período locado.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Tasas y Servicios Generales:</strong> ABL y tasas municipales a cargo del inquilino.</div>
+            </li>
+          </ul>
+        </section>
+    `
   }
 };
 
