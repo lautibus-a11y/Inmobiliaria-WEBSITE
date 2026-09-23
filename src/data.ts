@@ -202,9 +202,9 @@ export const properties: Property[] = [
     streets: 'Río de Janeiro 3450',
     mercadoLibreLink: '',
     category: 'departamentos',
-    image: '/alquiler/departamentos/Departamento rio de janeiro/wm_Portada.webp',
+    image: '/alquiler/departamentos/Departamento rio de janeiro/PORTADA.jpeg',
     images: [
-      '/alquiler/departamentos/Departamento rio de janeiro/wm_Portada.webp',
+      '/alquiler/departamentos/Departamento rio de janeiro/PORTADA.jpeg',
       '/alquiler/departamentos/Departamento rio de janeiro/wm_1.webp',
       '/alquiler/departamentos/Departamento rio de janeiro/wm_2.webp',
       '/alquiler/departamentos/Departamento rio de janeiro/wm_3.webp',
