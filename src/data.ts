@@ -1209,8 +1209,9 @@ export const properties: Property[] = [
     streets: 'Urien',
     mercadoLibreLink: 'https://inmueble.mercadolibre.com.ar/MLA-2402489924-casa-quinta-en-venta-20-de-junio-terreno-1500-m2-_JM',
     category: 'casas-quinta',
-    image: '/venta/casas-quinta/Urien-casa-quinta-20-de-junio/1.webp',
+    image: '/venta/casas-quinta/Urien-casa-quinta-20-de-junio/Portada.webp',
     images: [
+      '/venta/casas-quinta/Urien-casa-quinta-20-de-junio/Portada.webp',
       '/venta/casas-quinta/Urien-casa-quinta-20-de-junio/1.webp',
       '/venta/casas-quinta/Urien-casa-quinta-20-de-junio/2.webp',
       '/venta/casas-quinta/Urien-casa-quinta-20-de-junio/3.webp',
