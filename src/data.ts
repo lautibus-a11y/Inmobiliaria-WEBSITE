@@ -1188,13 +1188,13 @@ export const properties: Property[] = [
     streets: 'Gibraltar',
     mercadoLibreLink: 'https://casa.mercadolibre.com.ar/MLA-1783949139-casa-en-venta-terreno-de-390m2-pontevedra-merlo-_JM',
     category: 'casas',
-    image: '/venta/casas-quinta/Gibraltar-2-pontevedra/1 PORTADA.webp',
+    image: '/venta/casas-quinta/Gibraltar-2-pontevedra/Gibraltar 201_1_PORTADA.webp',
     images: [
-      '/venta/casas-quinta/Gibraltar-2-pontevedra/1 PORTADA.webp',
-      '/venta/casas-quinta/Gibraltar-2-pontevedra/1.webp',
-      '/venta/casas-quinta/Gibraltar-2-pontevedra/2.webp',
-      '/venta/casas-quinta/Gibraltar-2-pontevedra/4.webp',
-      '/venta/casas-quinta/Gibraltar-2-pontevedra/5.webp'
+      '/venta/casas-quinta/Gibraltar-2-pontevedra/Gibraltar 201_1_PORTADA.webp',
+      '/venta/casas-quinta/Gibraltar-2-pontevedra/Gibraltar 202_1.webp',
+      '/venta/casas-quinta/Gibraltar-2-pontevedra/Gibraltar 203_2.webp',
+      '/venta/casas-quinta/Gibraltar-2-pontevedra/4.png',
+      '/venta/casas-quinta/Gibraltar-2-pontevedra/Gibraltar 204_5.webp'
     ],
     description: '🏡 CASA EN VENTA | OPORTUNIDAD PARA INVERTIR O AMPLIAR\n\nSi buscás una propiedad con gran potencial, esta casa es una excelente opción para reciclar, refaccionar o desarrollar un nuevo proyecto.\n\n📍 Ubicada a solo una cuadra y media del asfalto, con muy buen acceso, sobre un terreno de 390 m² que brinda amplias posibilidades de crecimiento.\n\n📐 La vivienda cuenta con 60 m² cubiertos, distribuidos en:\n- Amplio ambiente integrado de cocina, comedor y living.\n- 1 dormitorio.\n- 1 baño.\n- Galería techada.\n\n🌿 Un lote amplio y una distribución funcional que convierten a esta propiedad en una excelente oportunidad para quienes buscan invertir o proyectar una ampliación.\n\n💬 ¡El propietario escucha ofertas!',
     beds: 1,
