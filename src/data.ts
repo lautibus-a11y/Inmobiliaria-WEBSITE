@@ -1159,7 +1159,14 @@ export const properties: Property[] = [
       '/venta/casas-quinta/Gibraltar-1-pontevedra/2.webp',
       '/venta/casas-quinta/Gibraltar-1-pontevedra/3.webp',
       '/venta/casas-quinta/Gibraltar-1-pontevedra/4.webp',
-      '/venta/casas-quinta/Gibraltar-1-pontevedra/5.webp'
+      '/venta/casas-quinta/Gibraltar-1-pontevedra/5.webp',
+      '/venta/casas-quinta/Gibraltar-1-pontevedra/6.webp',
+      '/venta/casas-quinta/Gibraltar-1-pontevedra/7.webp',
+      '/venta/casas-quinta/Gibraltar-1-pontevedra/8.webp',
+      '/venta/casas-quinta/Gibraltar-1-pontevedra/9.webp',
+      '/venta/casas-quinta/Gibraltar-1-pontevedra/10.webp',
+      '/venta/casas-quinta/Gibraltar-1-pontevedra/11.webp',
+      '/venta/casas-quinta/Gibraltar-1-pontevedra/12.webp'
     ],
     description: '🏡 CASA EN VENTA | GRAN POTENCIAL PARA REFACCIONAR O AMPLIAR\n\n¡Una excelente oportunidad para invertir o crear el hogar que siempre imaginaste!\n\n📍 Ubicada a solo una cuadra y media del asfalto, con muy buen acceso, esta propiedad se desarrolla sobre un terreno de 390 m², ideal para futuras ampliaciones o proyectos.\n\n📐 La vivienda cuenta con 60 m² cubiertos, distribuidos en:\n- Amplio ambiente integrado de cocina, comedor y living.\n- 2 dormitorios.\n- 1 baño.\n- Galería techada.\n\n🌿 Su amplio lote y la distribución actual ofrecen una base ideal para reciclar, refaccionar o ampliar según tus necesidades.\n\n💬 ¡El propietario escucha ofertas!',
     beds: 2,
