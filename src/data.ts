@@ -270,7 +270,8 @@ export const properties: Property[] = [
       'Balcón privado en PA',
       'Terreno 600 m²',
       'Cocina-comedor integrada',
-      'Vivienda permanente'
+      'Vivienda permanente',
+      'No se permiten mascotas'
     ],
     coordinates: { x: 48, y: 52 },
     isFeatured: true,

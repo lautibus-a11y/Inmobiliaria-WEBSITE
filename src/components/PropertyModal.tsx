@@ -390,7 +390,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 </div>
                 <div className="text-center">
                   <span className="text-gray-400 text-[10px] font-mono block mb-1 uppercase">Mascotas</span>
-                  {property.category !== 'locales' ? (
+                  {property.category !== 'locales' && (!property.features || !property.features.some(f => f.toLowerCase().includes('no se permiten mascotas'))) ? (
                     <div className="flex items-center justify-center gap-1.5 text-white">
                       <PawPrint size={15} className="text-white/60" />
                       <span className="font-mono text-xs font-medium">Sí</span>
