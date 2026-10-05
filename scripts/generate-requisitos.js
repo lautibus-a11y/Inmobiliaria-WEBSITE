@@ -412,7 +412,7 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
     `
   },
   'prop-depto-rio-de-janeiro': {
-    priceFormatted: '$ 450.000 / mes',
+    priceFormatted: '$ 400.000 / mes',
     renderBody: (prop) => `
         <!-- SECCIÓN 1: PROPUESTA Y DESCRIPCIÓN DEL INMUEBLE -->
         <section class="req-card">
@@ -446,19 +446,19 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
           <ul class="req-list">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Ingreso:</strong> $450.000</div>
+              <div><strong>Mes de Ingreso:</strong> $400.000</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Mes de Depósito:</strong> $450.000</div>
+              <div><strong>Mes de Depósito:</strong> $400.000</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Honorarios Inmobiliarios:</strong> $450.000</div>
+              <div><strong>Honorarios Inmobiliarios:</strong> $400.000</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Total Inicial Aproximado:</strong> $1.350.000 (más gastos administrativos y pedidos de informes).</div>
+              <div><strong>Total Inicial Aproximado:</strong> $1.200.000 (más gastos administrativos y pedidos de informes).</div>
             </li>
           </ul>
         </section>
