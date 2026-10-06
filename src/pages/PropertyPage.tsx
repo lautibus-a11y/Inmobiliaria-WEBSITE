@@ -43,7 +43,7 @@ export default function PropertyPage() {
   useEffect(() => {
     if (!property) return;
 
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
     const originalTitle = document.title;
     const ogTitle = document.getElementById('og-title') as HTMLMetaElement;
@@ -239,7 +239,15 @@ export default function PropertyPage() {
         )}
       </AnimatePresence>
 
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 relative z-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 30, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ 
+          duration: 0.6, 
+          ease: [0.22, 1, 0.36, 1] // Apple-like custom ease curve
+        }}
+        className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 relative z-10"
+      >
         
         {/* Breadcrumb & Navigation */}
         <div className="mb-6 flex items-center justify-between">
@@ -477,7 +485,7 @@ export default function PropertyPage() {
           {renderDescription()}
         </div>
       </div>
-    </div>
+    </motion.div>
     </>
   );
 }
