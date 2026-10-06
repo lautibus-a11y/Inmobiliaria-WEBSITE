@@ -14,11 +14,22 @@ type CategoryType = 'todas' | 'casas' | 'departamentos' | 'terrenos' | 'casas-qu
 type TransactionType = 'todas' | 'venta' | 'alquiler';
 
 export default function AllProperties({ onSelectProperty }: AllPropertiesProps) {
-  const [activeTransaction, setActiveTransaction] = useState<TransactionType>('todas');
-  const [activeCategory, setActiveCategory] = useState<CategoryType>('todas');
-  const [priceSort, setPriceSort] = useState<'default' | 'asc' | 'desc'>('default');
-  const [visibleCount, setVisibleCount] = useState(8);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [activeTransaction, setActiveTransaction] = useState<TransactionType>(() => {
+    return (sessionStorage.getItem('inmobiliaria_transaction') as TransactionType) || 'todas';
+  });
+  const [activeCategory, setActiveCategory] = useState<CategoryType>(() => {
+    return (sessionStorage.getItem('inmobiliaria_category') as CategoryType) || 'todas';
+  });
+  const [priceSort, setPriceSort] = useState<'default' | 'asc' | 'desc'>(() => {
+    return (sessionStorage.getItem('inmobiliaria_sort') as 'default' | 'asc' | 'desc') || 'default';
+  });
+  const [visibleCount, setVisibleCount] = useState(() => {
+    const saved = sessionStorage.getItem('inmobiliaria_count');
+    return saved ? parseInt(saved, 10) : 8;
+  });
+  const [isExpanded, setIsExpanded] = useState(() => {
+    return sessionStorage.getItem('inmobiliaria_expanded') === 'true';
+  });
   // Initialize synchronously to avoid layout flash
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.innerWidth < 768 : false
@@ -30,6 +41,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
   const [gridRef, gridVisible] = useOnScreen('0px 0px -20px 0px');
 
   const lastCardRef = useRef<HTMLDivElement>(null);
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -37,13 +49,24 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  // Reset pagination when filters change — eslint rule suppressed intentionally
-  /* eslint-disable react-hooks/set-state-in-effect */
+  // Save state
   useEffect(() => {
+    sessionStorage.setItem('inmobiliaria_transaction', activeTransaction);
+    sessionStorage.setItem('inmobiliaria_category', activeCategory);
+    sessionStorage.setItem('inmobiliaria_sort', priceSort);
+    sessionStorage.setItem('inmobiliaria_count', visibleCount.toString());
+    sessionStorage.setItem('inmobiliaria_expanded', isExpanded.toString());
+  }, [activeTransaction, activeCategory, priceSort, visibleCount, isExpanded]);
+
+  // Reset pagination when filters change (skip on mount)
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     setVisibleCount(8);
     setIsExpanded(false);
   }, [activeTransaction, activeCategory, priceSort]);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
   const transactions: { label: string; value: TransactionType }[] = [
     { label: 'Todas', value: 'todas' },
