@@ -116,6 +116,83 @@ function getSlug(prop) {
 }
 
 const CUSTOM_PROPERTY_REQUIREMENTS = {
+  'prop-galpon-pontevedra': {
+    priceFormatted: '$ 2.500.000 / mes',
+    renderBody: (prop) => `
+        <!-- SECCIÓN 1: PROPUESTA Y DESCRIPCIÓN DEL INMUEBLE -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">🏭</div>
+            <h2 class="req-card-title">Propuesta de Alquiler Comercial – Pontevedra, Merlo</h2>
+          </div>
+          <div style="color: #e5e5e5; font-size: 14px; margin-bottom: 16px; line-height: 1.7;">
+            <p style="margin-bottom: 12px;"><strong>DESCRIPCIÓN:</strong></p>
+            <p style="color: #d4d4d4; line-height: 1.7;">
+              Excelente galpón comercial e industrial sobre esquina estratégica en Balladares 4388, esquina Valparaíso, Pontevedra, Merlo.
+              Cuenta con 242 m² cubiertos (11 x 22 m), 507 m² semicubiertos, 2 cortinas metálicas eléctricas, instalación eléctrica trifásica, sistema de desagüe, oficina administrativa, baño, escalera a cubierta y amplio fondo libre con portón vehicular independiente por calle Valparaíso.
+            </p>
+          </div>
+          <ul class="req-list" style="margin-top: 16px;">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>DIRECCIÓN:</strong> Balladares 4388, esquina Valparaíso, Pontevedra, Partido de Merlo.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>DESTINOS PERMITIDOS:</strong> Comercio minorista y mayorista, depósitos, talleres, logística y fabricaciones menores.</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 2: CONDICIONES DE CONTRATACIÓN -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">💰</div>
+            <h2 class="req-card-title">Condiciones de Locación Comercial</h2>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>VALOR LOCATIVO:</strong> $ 2.500.000 / mes.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>MES DE INGRESO:</strong> $ 2.500.000</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>MES DE DEPÓSITO DE GARANTÍA:</strong> $ 2.500.000</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>HONORARIOS PROFESIONALES:</strong> $ 2.500.000 (Conforme ley arancelaria provincial y Colegio de Martilleros Mat. 1048 CDMDLM).</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 3: GARANTÍAS ACEPTADAS -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">🛡️</div>
+            <h2 class="req-card-title">Garantías Aceptadas</h2>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>GARANTÍA PROPIETARIA (ESCRITURA):</strong> Con pedido de informes de dominio e inhibición a cargo del locatario.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>SEGURO DE CAUCIÓN COMERCIAL:</strong> Finaer, Garantía Ya, Premium Group u otra entidad habilitada.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>DEMOSTRACIÓN DE INGRESOS / BALANCES:</strong> Certificación de ingresos contables o balances de empresa.</div>
+            </li>
+          </ul>
+        </section>
+`
+  },
   'prop-la-camella-alquiler': {
     priceFormatted: '$ 750.000 / mes',
     renderBody: (prop) => `
