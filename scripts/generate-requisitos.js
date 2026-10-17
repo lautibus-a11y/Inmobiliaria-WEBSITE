@@ -119,75 +119,93 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
   'prop-galpon-pontevedra': {
     priceFormatted: '$ 2.500.000 / mes',
     renderBody: (prop) => `
-        <!-- SECCIÓN 1: PROPUESTA Y DESCRIPCIÓN DEL INMUEBLE -->
+        <!-- INTRODUCCIÓN / RESUMEN GENERAL -->
         <section class="req-card">
           <div class="req-card-header">
             <div class="req-card-icon">🏭</div>
-            <h2 class="req-card-title">Propuesta de Alquiler Comercial – Pontevedra, Merlo</h2>
+            <h2 class="req-card-title">Checklist de Requisitos y Documentación para Inquilino</h2>
           </div>
           <div style="color: #e5e5e5; font-size: 14px; margin-bottom: 16px; line-height: 1.7;">
-            <p style="margin-bottom: 12px;"><strong>DESCRIPCIÓN:</strong></p>
-            <p style="color: #d4d4d4; line-height: 1.7;">
-              Excelente galpón comercial e industrial sobre esquina estratégica en Balladares 4388, esquina Valparaíso, Pontevedra, Merlo.
-              Cuenta con 242 m² cubiertos (11 x 22 m), 507 m² semicubiertos, 2 cortinas metálicas eléctricas, instalación eléctrica trifásica, sistema de desagüe, oficina administrativa, baño, escalera a cubierta y amplio fondo libre con portón vehicular independiente por calle Valparaíso.
-            </p>
+            <p style="margin-bottom: 8px;"><strong>INMUEBLE:</strong> Depósito / Galpón Comercial</p>
+            <p style="margin-bottom: 8px;"><strong>UBICACIÓN:</strong> Balladares 4388, esquina Valparaíso, Pontevedra, Merlo.</p>
+            <p style="margin-bottom: 0;"><strong>PLAZO LOCATIVO:</strong> 24 meses (2 años)</p>
           </div>
-          <ul class="req-list" style="margin-top: 16px;">
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>DIRECCIÓN:</strong> Balladares 4388, esquina Valparaíso, Pontevedra, Partido de Merlo.</div>
-            </li>
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>DESTINOS PERMITIDOS:</strong> Comercio minorista y mayorista, depósitos, talleres, logística y fabricaciones menores.</div>
-            </li>
-          </ul>
         </section>
 
-        <!-- SECCIÓN 2: CONDICIONES DE CONTRATACIÓN -->
+        <!-- SECCIÓN 1: MONTOS DE INGRESO Y CONCEPTOS FINANCIEROS -->
         <section class="req-card">
           <div class="req-card-header">
             <div class="req-card-icon">💰</div>
-            <h2 class="req-card-title">Condiciones de Locación Comercial</h2>
+            <h2 class="req-card-title">1. Montos de Ingreso y Conceptos Financieros</h2>
           </div>
           <ul class="req-list">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>VALOR LOCATIVO:</strong> $ 2.500.000 / mes.</div>
+              <div><strong>Mes de alquiler por adelantado:</strong> $2.500.000 (pesos argentinos).</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>MES DE INGRESO:</strong> $ 2.500.000</div>
+              <div><strong>Mes de honorarios inmobiliarios:</strong> $2.500.000 (pesos argentinos).</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>MES DE DEPÓSITO DE GARANTÍA:</strong> $ 2.500.000</div>
+              <div><strong>Depósito en garantía:</strong> USD 2.000 (dólares estadounidenses, billete).</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>HONORARIOS PROFESIONALES:</strong> $ 2.500.000 (Conforme ley arancelaria provincial y Colegio de Martilleros Mat. 1048 CDMDLM).</div>
+              <div><strong>Gastos de certificación de firmas:</strong> A cargo del inquilino (cobrado según arancel vigente de la escribanía actuante).</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Sellado de Contrato (ARBA / Provincia de Bs. As.):</strong> A cargo del inquilino (consultar alícuota aplicable según la normativa fiscal local).</div>
             </li>
           </ul>
         </section>
 
-        <!-- SECCIÓN 3: GARANTÍAS ACEPTADAS -->
+        <!-- SECCIÓN 2: DOCUMENTACIÓN E IMPUESTOS DEL LOCATARIO -->
         <section class="req-card">
           <div class="req-card-header">
-            <div class="req-card-icon">🛡️</div>
-            <h2 class="req-card-title">Garantías Aceptadas</h2>
+            <div class="req-card-icon">📄</div>
+            <h2 class="req-card-title">2. Documentación e Impuestos del Locatario (Responsable Inscripto)</h2>
           </div>
           <ul class="req-list">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>GARANTÍA PROPIETARIA (ESCRITURA):</strong> Con pedido de informes de dominio e inhibición a cargo del locatario.</div>
+              <div><strong>Constancia de inscripción en ARCA (ex-AFIP):</strong> Estado activo como Responsable Inscripto.</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>SEGURO DE CAUCIÓN COMERCIAL:</strong> Finaer, Garantía Ya, Premium Group u otra entidad habilitada.</div>
+              <div><strong>Acreditación de ingresos:</strong> Últimas declaraciones juradas de IVA / Ganancias o Certificación de Ingresos emitida por Contador Público con firma certificada por el CPCECABA o CPCEPBA.</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>DEMOSTRACIÓN DE INGRESOS / BALANCES:</strong> Certificación de ingresos contables o balances de empresa.</div>
+              <div><strong>Documento de Identidad (DNI):</strong> Copia frente y dorso del titular / firmante.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Personería Jurídica (en caso de ser Sociedad / S.A. / S.R.L.):</strong> Estatuto social, acta de designación de autoridades vigentes y poderes de representación.</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 3: OBLIGACIONES Y GASTOS RECURRENTES -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">🛡️</div>
+            <h2 class="req-card-title">3. Obligaciones y Gastos Recurrentes a Cargo del Inquilino</h2>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Seguro contra incendio:</strong> Contratación obligatoria de póliza de incendio y responsabilidad civil a favor del locador durante todo el plazo de 24 meses.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Tasa Municipal / Tasas Locales:</strong> A cargo del locatario según liquidación emitida por el municipio correspondiente.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Servicios del galpón:</strong> Cambio de titularidad o alta de servicios de luz (fuerza motriz si corresponde) y agua.</div>
             </li>
           </ul>
         </section>
