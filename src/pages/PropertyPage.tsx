@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Bed, ShowerHead, Eye, PawPrint, FileText, MapPin, ExternalLink, X } from 'lucide-react';
 
 import { properties } from '../data';
-import { getRequirementsUrl } from '../utils/requirements';
+import { getRequirementsUrl, isPetFriendlyProperty } from '../utils/requirements';
 
 function getEmbedVideoUrl(url?: string): string | null {
   if (!url) return null;
@@ -432,7 +432,7 @@ export default function PropertyPage() {
                 <div className="flex items-center gap-2 text-white">
                   <PawPrint size={16} className="text-white/50" />
                   <span className="font-semibold text-sm">
-                    {property.category !== 'locales' && (!property.features || !property.features.some(f => f.toLowerCase().includes('no se permiten mascotas'))) ? 'Sí' : 'No'}
+                    {isPetFriendlyProperty(property) ? 'Sí' : 'No'}
                   </span>
                 </div>
               </div>

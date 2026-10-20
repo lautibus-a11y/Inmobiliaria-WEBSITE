@@ -56,6 +56,8 @@ function parsePropertiesFromData(code) {
       const areaMatch = blockStr.match(/area:\s*'([^']+)'/);
       const statusMatch = blockStr.match(/status:\s*'([^']+)'/);
 
+      const featuresMatch = blockStr.match(/features:\s*\[([\s\S]*?)\]/);
+
       if (idMatch) {
         props.push({
           id: idMatch[1],
@@ -71,6 +73,7 @@ function parsePropertiesFromData(code) {
           baths: bathsMatch ? parseInt(bathsMatch[1], 10) : 0,
           area: areaMatch ? areaMatch[1] : 'Superficie a consultar',
           status: statusMatch ? statusMatch[1] : '',
+          features: featuresMatch ? featuresMatch[1].split(',').map(s => s.replace(/['"\n\r]/g, '').trim()).filter(Boolean) : [],
         });
       }
       currentBlock = [];
@@ -305,30 +308,39 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
         <section class="req-card">
           <div class="req-card-header">
             <div class="req-card-icon">🏡</div>
-            <h2 class="req-card-title">1. Propuesta de Alquiler – Vivienda Permanente</h2>
+            <h2 class="req-card-title">Alquiler de Cabaña con Pileta – Vivienda Permanente</h2>
           </div>
           <div style="color: #e5e5e5; font-size: 14px; margin-bottom: 16px; line-height: 1.7;">
-            <p style="margin-bottom: 12px;"><strong>DESCRIPCIÓN:</strong></p>
+            <p style="margin-bottom: 12px;"><strong>DESCRIPCIÓN DETALLADA DE LA CASA:</strong></p>
+            <p style="color: #d4d4d4; line-height: 1.7; margin-bottom: 12px;">
+              Cabaña de 4 ambientes, desarrollada sobre un amplio terreno con espacios pensados para el descanso y la recreación.
+            </p>
+            <p style="color: #d4d4d4; line-height: 1.7; margin-bottom: 12px;">
+              La propiedad dispone en la <strong>planta baja</strong> de dos habitaciones, un amplio living, cocina-comedor integrada, y un baño completo. En la <strong>planta alta</strong> cuenta con una amplia habitación con balcón.
+            </p>
+            <p style="color: #d4d4d4; line-height: 1.7; margin-bottom: 12px;">
+              En el <strong>exterior</strong> cuenta con una galería con parrilla y una pileta de fibra de vidrio de aproximadamente 5x3 metros, brindando un entorno ideal para disfrutar al aire libre.
+            </p>
             <p style="color: #d4d4d4; line-height: 1.7;">
-              Excelente oportunidad de alquiler de cabaña con destino a vivienda permanente. Ubicada sobre un amplio terreno de 600 m² aproximadamente, combinando comodidad, funcionalidad y un entorno natural único.
+              La distribución de los ambientes ofrece comodidad y funcionalidad, combinando espacios interiores amplios con un sector exterior destinado al esparcimiento.
             </p>
           </div>
           <ul class="req-list">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Ubicación:</strong> Castañeda 235, entre Camilo Torres y Cosquín, 20 de Junio, Partido de La Matanza.</div>
+              <div><strong>Ubicación:</strong> Castañeda 235, entre Camilo Torres y Cosquín, 20 de Junio, Partido de La Matanza, Buenos Aires.</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Planta Baja:</strong> Dos habitaciones, amplio living, cocina-comedor integrada y un baño completo.</div>
+              <div><strong>Terreno:</strong> 600 m²</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Planta Alta:</strong> Una amplia habitación con balcón privado.</div>
+              <div><strong>Acceso:</strong> Ripio</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Exterior:</strong> Galería con parrilla y pileta de fibra de vidrio de aproximadamente 5 x 3 metros, ideal para el descanso al aire libre.</div>
+              <div><strong>Período:</strong> Un (1) año de locación.</div>
             </li>
           </ul>
         </section>
@@ -337,7 +349,7 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
         <section class="req-card">
           <div class="req-card-header">
             <div class="req-card-icon">💰</div>
-            <h2 class="req-card-title">2. Requisitos Económicos Iniciales</h2>
+            <h2 class="req-card-title">Requisitos Económicos de Ingreso</h2>
           </div>
           <ul class="req-list">
             <li class="req-list-item">
@@ -350,21 +362,28 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Honorarios Inmobiliarios:</strong> $770.000</div>
+              <div><strong>Mes de Honorarios:</strong> $770.000</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Gastos Adicionales:</strong> Más gastos administrativos y pedidos de informes.</div>
             </li>
           </ul>
+          <div style="margin-top: 18px; padding: 14px 18px; border-radius: 12px; background: rgba(230, 197, 135, 0.1); border: 1px solid rgba(230, 197, 135, 0.25); color: #e6c587; font-weight: 600; font-size: 15px;">
+            💵 TOTAL ESTIMADO: $2.310.000 más gastos administrativos y pedidos de informes.
+          </div>
         </section>
 
-        <!-- SECCIÓN 3: GARANTÍAS Y REQUISITOS -->
+        <!-- SECCIÓN 3: GARANTÍAS -->
         <section class="req-card">
           <div class="req-card-header">
             <div class="req-card-icon">🛡️</div>
-            <h2 class="req-card-title">3. Garantías Aceptadas</h2>
+            <h2 class="req-card-title">Garantías Aceptadas</h2>
           </div>
           <ul class="req-list">
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
-              <div><strong>Garantía Propietaria</strong></div>
+              <div><strong>Garantía Propietaria</strong> (escritura) ó</div>
             </li>
             <li class="req-list-item">
               <div class="req-list-item-bullet"></div>
@@ -373,14 +392,44 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
           </ul>
         </section>
 
-        <!-- SECCIÓN 4: CONSULTAS -->
+        <!-- SECCIÓN 4: ACTUALIZACIÓN Y CONDICIONES -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">📋</div>
+            <h2 class="req-card-title">Condiciones Contractuales a Tener en Cuenta</h2>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Actualización:</strong> Cuatrimestral según el Índice de Precios al Consumidor (IPC) con un mínimo del 10%.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Mascotas:</strong> <span style="color: #f87171; font-weight: 700; text-transform: uppercase;">NO SE ACEPTAN MASCOTAS</span>.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Eventos:</strong> No pueden realizarse eventos ni fiestas. Destino exclusivo a vivienda familiar permanente.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Seguro Contra Incendio:</strong> Contratación obligatoria por todo el período locado.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Impuestos y Tasas:</strong> El impuesto de Tasas Generales (municipales) queda a cargo del inquilino.</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 5: CONSULTAS -->
         <section class="req-card">
           <div class="req-card-header">
             <div class="req-card-icon">📞</div>
-            <h2 class="req-card-title">4. Coordinar Visita y Condiciones</h2>
+            <h2 class="req-card-title">Coordinar Visita y Consultas</h2>
           </div>
           <p style="color: #d4d4d4; font-size: 14px; line-height: 1.7;">
-            Para coordinar una visita a la propiedad o recibir asesoramiento sobre la documentación, contactanos directamente por WhatsApp.
+            Para coordinar una visita a la propiedad o recibir asesoramiento sobre la documentación a presentar, contactanos directamente por WhatsApp.
           </p>
         </section>
     `
@@ -493,7 +542,8 @@ function generatePropertyRequirementsHTML(prop, pdfInfo) {
   const isAlquiler = prop.transactionType === 'alquiler';
   const slug = getSlug(prop);
   const customReq = CUSTOM_PROPERTY_REQUIREMENTS[prop.id] || CUSTOM_PROPERTY_REQUIREMENTS[slug];
-  const isPetFriendly = prop.category !== 'locales';
+  const hasNoPetsFlag = Array.isArray(prop.features) && prop.features.some(f => f.toLowerCase().includes('no se permiten mascotas') || f.toLowerCase().includes('no se aceptan mascotas'));
+  const isPetFriendly = prop.category !== 'locales' && !hasNoPetsFlag;
   const categoryLabel = {
     'casas-quinta': 'Casa Quinta',
     'casas': 'Casa Residencial',

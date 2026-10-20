@@ -11,3 +11,11 @@ export function getRequirementsUrl(property: Property): string {
   const slug = property.id.replace(/^prop-/, '');
   return `/requisitos/${slug}.html`;
 }
+export function isPetFriendlyProperty(property: Property): boolean {
+  if (property.category === 'locales') return false;
+  if (!property.features || !Array.isArray(property.features)) return true;
+  return !property.features.some(f => {
+    const lower = f.toLowerCase();
+    return lower.includes('no se permiten mascotas') || lower.includes('no se aceptan mascotas');
+  });
+}

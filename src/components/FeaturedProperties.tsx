@@ -4,7 +4,7 @@ import { MapPin, Bed, ShowerHead, Grid, ArrowUpRight, PawPrint, FileText } from 
 import { Property } from '../types';
 import { properties } from '../data';
 import { useOnScreen } from '../hooks/useOnScreen';
-import { getRequirementsUrl } from '../utils/requirements';
+import { getRequirementsUrl, isPetFriendlyProperty } from '../utils/requirements';
 
 interface FeaturedPropertiesProps {
   onSelectProperty: (property: Property) => void;
@@ -87,7 +87,7 @@ function CardInner({ property }: { property: Property }) {
                 <Grid size={13} className="text-neutral-500" />
                 <span className="text-[11px] font-mono text-neutral-500 whitespace-nowrap">{property.area}</span>
               </div>
-              {property.category !== 'locales' && (
+              {isPetFriendlyProperty(property) && (
                 <div className="flex items-center gap-1" title="Pet Friendly">
                   <PawPrint size={14} className="text-neutral-500" />
                 </div>

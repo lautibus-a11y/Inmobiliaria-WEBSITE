@@ -4,7 +4,7 @@ import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight, ArrowDo
 import { Property } from '../types';
 import { properties } from '../data';
 import { useOnScreen } from '../hooks/useOnScreen';
-import { getRequirementsUrl } from '../utils/requirements';
+import { getRequirementsUrl, isPetFriendlyProperty } from '../utils/requirements';
 
 interface AllPropertiesProps {
   onSelectProperty: (property: Property) => void;
@@ -314,7 +314,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                           <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
                         )}
                         <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
-                        {property.category !== 'locales' && (
+                        {isPetFriendlyProperty(property) && (
                           <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
                         )}
                       </div>
@@ -412,7 +412,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                               <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
                             )}
                             <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
-                            {property.category !== 'locales' && (
+                            {isPetFriendlyProperty(property) && (
                               <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
                             )}
                           </div>
@@ -521,7 +521,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                               <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
                             )}
                             <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
-                            {property.category !== 'locales' && (
+                            {isPetFriendlyProperty(property) && (
                               <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
                             )}
                           </div>
@@ -627,7 +627,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                                 <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
                               )}
                               <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
-                              {property.category !== 'locales' && (
+                              {isPetFriendlyProperty(property) && (
                                 <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
                               )}
                             </div>

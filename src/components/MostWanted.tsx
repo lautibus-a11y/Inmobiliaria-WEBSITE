@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useMemo } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, PawPrint, FileText } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
-import { getRequirementsUrl } from '../utils/requirements';
+import { getRequirementsUrl, isPetFriendlyProperty } from '../utils/requirements';
 
 interface MostWantedProps {
   onSelectProperty: (property: Property) => void;
@@ -189,7 +189,7 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
                       <span className="text-neutral-400 uppercase text-[9px] block">Sup.</span>
                       <span className="text-neutral-800 font-semibold whitespace-nowrap">{property.area}</span>
                     </div>
-                    {property.category !== 'locales' && (
+                    {isPetFriendlyProperty(property) && (
                       <div className="border-l border-neutral-100 pl-3 sm:pl-4 flex items-center justify-center h-full" title="Pet Friendly">
                         <PawPrint size={14} className="text-neutral-800" />
                       </div>
