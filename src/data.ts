@@ -137,7 +137,7 @@ export const properties: Property[] = [
       'A 200 m del asfalto'
     ],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -170,7 +170,7 @@ export const properties: Property[] = [
       'Zona residencial / inversión'
     ],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -217,7 +217,7 @@ export const properties: Property[] = [
       'A 5 cuadras de la estación'
     ],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -250,7 +250,7 @@ export const properties: Property[] = [
       'Completamente alambrado'
     ],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -318,7 +318,7 @@ export const properties: Property[] = [
       'Vivienda permanente 1 año'
     ],
     coordinates: { x: 48, y: 52 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -357,7 +357,7 @@ export const properties: Property[] = [
       'Plazo 1 año'
     ],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -437,7 +437,7 @@ export const properties: Property[] = [
     area: '400 m²',
     features: ['Lote de 400 m²', 'Esquina estratégica', 'Frente a plazoleta comercial', 'Ex local gastronómico en PB', 'Departamento 2 amb en PA', 'Ideal inversión y reciclaje'],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -480,7 +480,7 @@ export const properties: Property[] = [
     area: '1.135 m²',
     features: ['Lote de 1.135 m² en esquina', 'Pileta 5 x 10 m', 'Doble ingreso (Leopardi y Sapaleri)', 'Baños a nuevo', 'Paredón perimetral 2,50 m', 'Quincho con parrilla'],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -525,7 +525,7 @@ export const properties: Property[] = [
     area: '2.600 m²',
     features: ['Lote parquizado de 2.600 m²', 'Pileta de fibra de vidrio', 'Galería semicubierta', 'Proyecto en planta alta', 'Salamandra a leña'],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
     videoUrl: 'https://www.youtube.com/shorts/LNKKXLFsS9Q',
   },
@@ -551,7 +551,7 @@ export const properties: Property[] = [
     area: '3,000 m²',
     features: ['Doble Acceso por Calles Diferentes', 'Parquizado y Alambrado', 'Ubicación Estratégica Céntrica', 'Lotes Subdividibles'],
     coordinates: { x: 58, y: 25 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
   },
   {
@@ -581,7 +581,7 @@ export const properties: Property[] = [
     area: '1.610 m²',
     features: ['Pileta de 9x4 m', 'Terreno de 1.610 m²', 'Arboleda Añosa', 'Excelente Ubicación en Esquina'],
     coordinates: { x: 45, y: 55 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
   },
 
@@ -656,7 +656,7 @@ export const properties: Property[] = [
     area: '546 m² c/u',
     features: ['Frente al campo', 'Lotes de 546 m²', 'A 250m del asfalto', 'Parquizado con arboleda'],
     coordinates: { x: 48, y: 58 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
   },
   {
@@ -683,7 +683,7 @@ export const properties: Property[] = [
     area: '900 m²',
     features: ['Arboleda añosa', 'Terreno de 900 m²', 'Subdivisión aprobada', 'Excelente entorno natural'],
     coordinates: { x: 50, y: 38 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
   },
   {
@@ -721,7 +721,7 @@ export const properties: Property[] = [
     area: '2.600 m²',
     features: ['Terreno de 2.600 m²', 'Proyecto de ampliación', 'Quincho y dos piletas', 'Amplio parque y arboleda'],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -765,7 +765,7 @@ export const properties: Property[] = [
     area: '290 m²',
     features: ['Pileta con bomba y filtrado', 'Calefacción central', 'Cochera para 2', 'Pisos de pinotea'],
     coordinates: { x: 55, y: 45 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -824,7 +824,7 @@ export const properties: Property[] = [
     area: '3.251 m²',
     features: ['Lote en Esquina 3.251 m²', 'Depto. Alquilado hasta Sep 2026', 'Doble Piscina de Fibra de Vidrio', 'Subdivisión en Trámite', 'Quincho con Parrilla', 'Servicios Independientes'],
     coordinates: { x: 38, y: 42 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
     videoUrl: 'https://www.youtube.com/shorts/ozFczNVKLYI',
     videoUrls: [
@@ -876,7 +876,7 @@ export const properties: Property[] = [
     area: '900 m²',
     features: ['Lote 900 m²', 'Entrada Independiente', 'Piscina de Fibra de Vidrio', 'Servicios Independientes'],
     coordinates: { x: 38, y: 42 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
     videoUrl: 'https://www.youtube.com/shorts/qh8MYMbKLE4',
     videoUrls: ['https://www.youtube.com/shorts/qh8MYMbKLE4'],
@@ -937,7 +937,7 @@ export const properties: Property[] = [
     area: '3.251 m²',
     features: ['Lote en Esquina 3.251 m²', 'Depto. Alquilado hasta Sep 2026', 'Doble Piscina de Fibra de Vidrio', 'Subdivisión en Trámite', 'Quincho con Parrilla', 'Servicios Independientes'],
     coordinates: { x: 38, y: 42 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
     videoUrl: 'https://www.youtube.com/shorts/ozFczNVKLYI',
     videoUrls: ['https://www.youtube.com/shorts/ozFczNVKLYI'],
@@ -976,7 +976,7 @@ export const properties: Property[] = [
     area: '1.495 m²',
     features: ['2 Casas con Ingresos Independientes', '2 Piscinas (una con venecitas)', '2 Quinchos con Parrilla', 'Terrenos de 720 m² c/u', '2 Cocheras', 'Ideal para Renta o Turismo'],
     coordinates: { x: 43, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
   },
   {
@@ -1109,7 +1109,7 @@ export const properties: Property[] = [
     area: '1.500 m²',
     features: ['Piscina', 'Quincho', 'Garage para 3 vehículos', 'Amueblada'],
     coordinates: { x: 48, y: 52 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
     videoUrl: 'https://www.youtube.com/shorts/ddJY6w9yAWU',
   },
@@ -1144,7 +1144,7 @@ export const properties: Property[] = [
     area: '155 m²',
     features: ['Terraza con parrilla', 'Entrada independiente', 'Frente a la plaza', 'Playroom'],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
   },
   {
@@ -1211,7 +1211,7 @@ export const properties: Property[] = [
       'Arboleda añosa',
     ],
     coordinates: { x: 52, y: 48 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
     videoUrl: 'https://www.youtube.com/shorts/ddJY6w9yAWU',
   },
@@ -1260,7 +1260,7 @@ export const properties: Property[] = [
       'Apto comercio, depósito o taller',
     ],
     coordinates: { x: 50, y: 50 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: false,
   },
   {
@@ -1363,7 +1363,7 @@ export const properties: Property[] = [
       'Pet Friendly',
     ],
     coordinates: { x: 59, y: 39 },
-    isFeatured: true,
+    isFeatured: false,
     isMostWanted: true,
   },
 ];

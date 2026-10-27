@@ -60,7 +60,7 @@ function CardInner({ property }: { property: Property }) {
             <MapPin size={12} className="text-neutral-500" />
             <span className="text-[11px] font-mono tracking-wide uppercase">{property.location}</span>
           </div>
-          <h3 className="text-xl font-display font-medium text-neutral-900 mb-2 leading-snug">
+          <h3 className="text-lg xl:text-xl font-display font-medium text-neutral-900 mb-2 leading-snug line-clamp-2">
             {property.title}
           </h3>
           <p className="text-neutral-600 text-xs leading-relaxed line-clamp-2 font-light">
@@ -119,6 +119,18 @@ function CardInner({ property }: { property: Property }) {
   );
 }
 
+// Propiedades destacadas seleccionadas explícitamente:
+// 1. Cosquín 1120 (USD 250.000)
+// 2. Moderna Casa Quinta de 1500 m² (USD 250.000)
+// 3. Terreno de 1.100 m² en Esquina (USD 63.000)
+// 4. Aguapey (USD 135.000)
+const FEATURED_IDS = [
+  'prop-5',
+  'prop-cassafouth-541',
+  'prop-terreno-camilo-torres-manuel-rico',
+  'prop-17',
+];
+
 export default function FeaturedProperties({ onSelectProperty }: FeaturedPropertiesProps) {
   // Initialize synchronously from window to avoid layout flash
   const [isMobile, setIsMobile] = useState(() =>
@@ -136,8 +148,11 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
   const [headerRef, headerVisible] = useOnScreen('0px 0px -30px 0px');
   const [cardsRef, cardsVisible] = useOnScreen('0px 0px -20px 0px');
 
-  // Show 3 properties on mobile, 6 on desktop
-  const displayList = useMemo(() => isMobile ? properties.slice(0, 3) : properties.slice(0, 6), [isMobile]);
+  const displayList = useMemo(() => {
+    return FEATURED_IDS.map((id) => properties.find((p) => p.id === id)).filter(
+      (p): p is Property => Boolean(p)
+    );
+  }, []);
 
   // ── Desktop animation variants (Framer Motion, powerful CPU available) ─────
   const containerVariants = {
@@ -221,7 +236,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
       {isMobile ? (
         <div
           ref={cardsRef}
-          className={`max-w-7xl mx-auto grid grid-cols-1 gap-6 m-reveal-cards${cardsVisible ? ' in-view' : ''}`}
+          className={`max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 m-reveal-cards${cardsVisible ? ' in-view' : ''}`}
         >
           {displayList.map((property) => (
             <div
@@ -240,7 +255,7 @@ export default function FeaturedProperties({ onSelectProperty }: FeaturedPropert
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {displayList.map((property) => (
             <motion.div
