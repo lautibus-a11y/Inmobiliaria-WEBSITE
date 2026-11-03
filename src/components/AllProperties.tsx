@@ -305,20 +305,20 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                   
                   <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
                     {/* Row 1: SVGs */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex gap-2.5 sm:gap-3 items-center text-[10px] font-mono text-neutral-500 min-w-0 flex-nowrap">
                         {property.beds > 0 && (
-                          <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
+                          <div className="flex items-center gap-1 shrink-0"><Bed size={12} className="text-neutral-500 shrink-0" /><span>{property.beds} Dorm</span></div>
                         )}
                         {property.baths > 0 && (
-                          <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
+                          <div className="flex items-center gap-1 shrink-0"><ShowerHead size={12} className="text-neutral-500 shrink-0" /><span>{property.baths} Baños</span></div>
                         )}
-                        <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                        <div className="flex items-center gap-1 shrink-0"><Grid size={11} className="text-neutral-500 shrink-0" /><span className="whitespace-nowrap">{property.area}</span></div>
                         {isPetFriendlyProperty(property) && (
-                          <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                          <div className="flex items-center gap-1 shrink-0" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500 shrink-0" /></div>
                         )}
                       </div>
-                      <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
+                      <span className="w-6 h-6 shrink-0 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
                         <ArrowUpRight size={12} />
                       </span>
                     </div>
@@ -403,20 +403,20 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       
                       <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
                         {/* Row 1: SVGs */}
-                        <div className="flex items-center justify-between">
-                          <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex gap-2.5 sm:gap-3 items-center text-[10px] font-mono text-neutral-500 min-w-0 flex-nowrap">
                             {property.beds > 0 && (
-                              <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
+                              <div className="flex items-center gap-1 shrink-0"><Bed size={12} className="text-neutral-500 shrink-0" /><span>{property.beds} Dorm</span></div>
                             )}
                             {property.baths > 0 && (
-                              <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
+                              <div className="flex items-center gap-1 shrink-0"><ShowerHead size={12} className="text-neutral-500 shrink-0" /><span>{property.baths} Baños</span></div>
                             )}
-                            <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                            <div className="flex items-center gap-1 shrink-0"><Grid size={11} className="text-neutral-500 shrink-0" /><span className="whitespace-nowrap">{property.area}</span></div>
                             {isPetFriendlyProperty(property) && (
-                              <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                              <div className="flex items-center gap-1 shrink-0" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500 shrink-0" /></div>
                             )}
                           </div>
-                          <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
+                          <span className="w-6 h-6 shrink-0 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
                             <ArrowUpRight size={12} />
                           </span>
                         </div>
@@ -512,20 +512,20 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       
                       <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
                         {/* Row 1: SVGs */}
-                        <div className="flex items-center justify-between">
-                          <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex gap-2.5 sm:gap-3 items-center text-[10px] font-mono text-neutral-500 min-w-0 flex-nowrap">
                             {property.beds > 0 && (
-                              <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
+                              <div className="flex items-center gap-1 shrink-0"><Bed size={12} className="text-neutral-500 shrink-0" /><span>{property.beds} Dorm</span></div>
                             )}
                             {property.baths > 0 && (
-                              <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
+                              <div className="flex items-center gap-1 shrink-0"><ShowerHead size={12} className="text-neutral-500 shrink-0" /><span>{property.baths} Baños</span></div>
                             )}
-                            <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                            <div className="flex items-center gap-1 shrink-0"><Grid size={11} className="text-neutral-500 shrink-0" /><span className="whitespace-nowrap">{property.area}</span></div>
                             {isPetFriendlyProperty(property) && (
-                              <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                              <div className="flex items-center gap-1 shrink-0" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500 shrink-0" /></div>
                             )}
                           </div>
-                          <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                          <span className="shrink-0 w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
                             <ArrowUpRight size={12} />
                           </span>
                         </div>
@@ -618,20 +618,20 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                         
                         <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
                           {/* Row 1: SVGs */}
-                          <div className="flex items-center justify-between">
-                            <div className="flex gap-3 items-center text-[10px] font-mono text-neutral-500">
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex gap-2.5 sm:gap-3 items-center text-[10px] font-mono text-neutral-500 min-w-0 flex-nowrap">
                               {property.beds > 0 && (
-                                <div className="flex items-center gap-1"><Bed size={12} className="text-neutral-500" /><span>{property.beds} Dorm</span></div>
+                                <div className="flex items-center gap-1 shrink-0"><Bed size={12} className="text-neutral-500 shrink-0" /><span>{property.beds} Dorm</span></div>
                               )}
                               {property.baths > 0 && (
-                                <div className="flex items-center gap-1"><ShowerHead size={12} className="text-neutral-500" /><span>{property.baths} Baños</span></div>
+                                <div className="flex items-center gap-1 shrink-0"><ShowerHead size={12} className="text-neutral-500 shrink-0" /><span>{property.baths} Baños</span></div>
                               )}
-                              <div className="flex items-center gap-1"><Grid size={11} className="text-neutral-500" /><span>{property.area}</span></div>
+                              <div className="flex items-center gap-1 shrink-0"><Grid size={11} className="text-neutral-500 shrink-0" /><span className="whitespace-nowrap">{property.area}</span></div>
                               {isPetFriendlyProperty(property) && (
-                                <div className="flex items-center gap-1" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500" /></div>
+                                <div className="flex items-center gap-1 shrink-0" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500 shrink-0" /></div>
                               )}
                             </div>
-                            <span className="w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                            <span className="shrink-0 w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
                               <ArrowUpRight size={12} />
                             </span>
                           </div>
