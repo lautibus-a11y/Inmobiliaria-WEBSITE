@@ -534,6 +534,97 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
           </ul>
         </section>
     `
+  },
+  'prop-marcos-paz-durero-290': {
+    priceFormatted: '$ 900.000 / mes',
+    renderBody: (prop) => `
+        <!-- SECCIÓN 1: CONDICIONES DEL CONTRATO -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">📋</div>
+            <h2 class="req-card-title">Condiciones del Contrato de Alquiler</h2>
+          </div>
+          <div style="color: #e5e5e5; font-size: 14px; margin-bottom: 16px; line-height: 1.7;">
+            <p style="margin-bottom: 8px;"><strong>INMUEBLE:</strong> Casa Quinta en Alquiler con Parque y Piscina</p>
+            <p style="margin-bottom: 8px;"><strong>UBICACIÓN:</strong> Rubén Durero 290 (entre Berni y Toulouse), Ruta 3 Km 48, Marcos Paz (límite Cañuelas).</p>
+            <p style="margin-bottom: 0;"><strong>VALOR DE ALQUILER:</strong> $900.000.- mensuales</p>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Plazo de contrato:</strong> 2 años (24 meses).</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Actualización:</strong> Cuatrimestral (cada 4 meses).</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Índice de ajuste:</strong> Según IPC (Índice de Precios al Consumidor), con un ajuste mínimo del 10% cuatrimestral.</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 2: GARANTÍAS ACEPTADAS -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">🛡️</div>
+            <h2 class="req-card-title">Garantías Aceptadas</h2>
+          </div>
+          <p style="color: #d4d4d4; font-size: 14px; margin-bottom: 16px; line-height: 1.6;">
+            Se debe presentar <strong>una</strong> de las siguientes opciones:
+          </p>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div>
+                <strong>Opción 1 – Recibos de Sueldo:</strong><br>
+                3 recibos de sueldo que dupliquen, como mínimo, el valor del alquiler mensual.
+              </div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div>
+                <strong>Opción 2 – Garantía Propietaria:</strong><br>
+                Escritura de inmueble a satisfacción del locador.
+              </div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div>
+                <strong>Opción 3 – Seguro de Caución:</strong><br>
+                Póliza emitida por compañía de seguros de primera línea.
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 3: CONDICIONES ECONÓMICAS DE INGRESO -->
+        <section class="req-card">
+          <div class="req-card-header">
+            <div class="req-card-icon">💰</div>
+            <h2 class="req-card-title">Condiciones Económicas de Ingreso</h2>
+          </div>
+          <ul class="req-list">
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Mes de Adelanto:</strong> $900.000 correspondiente al primer mes de locación.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Mes de Depósito en Garantía:</strong> En resguardo del inmueble y sus instalaciones, reintegrable al finalizar el contrato.</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Honorarios Profesionales:</strong> Conforme aranceles del Colegio de Martilleros de La Matanza (Mat. 1048 CDMDLM).</div>
+            </li>
+            <li class="req-list-item">
+              <div class="req-list-item-bullet"></div>
+              <div><strong>Gastos Administrativos y de Certificación:</strong> Certificación de firmas e informes a cargo del locatario.</div>
+            </li>
+          </ul>
+        </section>
+    `
   }
 };
 
