@@ -1,10 +1,9 @@
-import { useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { MapPin, Bed, ShowerHead, Grid, ArrowUpRight, PawPrint, FileText } from 'lucide-react';
 import { Property } from '../types';
 import { properties } from '../data';
 import { useOnScreen } from '../hooks/useOnScreen';
-import { useIsMobile } from '../hooks/useIsMobile';
 import { getRequirementsUrl, isPetFriendlyProperty } from '../utils/requirements';
 
 interface FeaturedPropertiesProps {
@@ -19,7 +18,7 @@ function CardInner({ property }: { property: Property }) {
       <div className="relative h-64 overflow-hidden">
         <img
           src={property.image}
-          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
+          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} em ${property.location}`}
           referrerPolicy="no-referrer"
           loading="lazy"
           className="w-full h-full object-cover"
@@ -133,8 +132,17 @@ const FEATURED_IDS = [
 ];
 
 export default function FeaturedProperties({ onSelectProperty }: FeaturedPropertiesProps) {
-  const isMobile = useIsMobile();
+  // Initialize synchronously from window to avoid layout flash
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
   const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   // CSS animation hooks (used on mobile only — compositor thread, zero JS cost)
   const [headerRef, headerVisible] = useOnScreen('0px 0px -30px 0px');

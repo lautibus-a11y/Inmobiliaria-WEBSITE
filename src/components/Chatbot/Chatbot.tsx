@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Send, Bot, ExternalLink, Phone } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { processChatbotMessage, ChatbotResponse } from '../../utils/chatbotLogic';
 import { Property } from '../../types';
 
@@ -57,13 +56,6 @@ export default function Chatbot() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const replyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (replyTimerRef.current) clearTimeout(replyTimerRef.current);
-    };
-  }, []);
 
   // Controlled state for the fallback contact form
   const [fallbackName, setFallbackName] = useState('');
@@ -87,10 +79,8 @@ export default function Chatbot() {
     setInputValue('');
     setIsTyping(true);
 
-    if (replyTimerRef.current) clearTimeout(replyTimerRef.current);
-
     // Simulate network/thinking delay for better UX
-    replyTimerRef.current = setTimeout(() => {
+    setTimeout(() => {
       const response: ChatbotResponse = processChatbotMessage(text);
       const isFallback = response.text.includes("En este momento no encontré información específica");
       
@@ -199,17 +189,13 @@ export default function Chatbot() {
                         <div className="flex flex-col gap-2 mt-1 w-full max-w-[280px]">
                           {msg.properties.map(prop => (
                             <div key={prop.id} className="bg-neutral-900 border border-white/10 rounded-xl overflow-hidden flex flex-col hover:border-white/30 transition-colors">
-                              <img src={prop.image} alt={prop.title} loading="lazy" className="w-full h-24 object-cover filter brightness-[0.85]" />
+                              <img src={prop.image} alt={prop.title} className="w-full h-24 object-cover filter brightness-[0.85]" />
                               <div className="p-3">
                                 <h4 className="text-xs font-semibold text-white truncate">{prop.title}</h4>
                                 <p className="text-[10px] text-neutral-400 truncate mb-2">{prop.location}</p>
-                                <Link
-                                  to={`/propiedades/${prop.id}`}
-                                  onClick={() => setIsOpen(false)}
-                                  className="text-[10px] font-mono tracking-widest text-neutral-300 hover:text-white uppercase flex items-center gap-1"
-                                >
+                                <a href={`#todas-propiedades`} className="text-[10px] font-mono tracking-widest text-neutral-300 hover:text-white uppercase flex items-center gap-1">
                                   Ver detalles <ExternalLink size={10} />
-                                </Link>
+                                </a>
                               </div>
                             </div>
                           ))}
@@ -251,25 +237,10 @@ export default function Chatbot() {
                               className="bg-neutral-950 border border-white/10 rounded-lg p-2 text-[16px] sm:text-xs text-white"
                             />
                             <button
-                              type="button"
-                              className="bg-white text-neutral-900 text-xs py-2 rounded-lg font-semibold mt-1 hover:bg-neutral-200 cursor-pointer"
+                              className="bg-white text-neutral-900 text-xs py-2 rounded-lg font-semibold mt-1 hover:bg-neutral-200"
                               onClick={() => {
-                                const cleanName = fallbackName.trim();
-                                if (!cleanName) return;
-                                const leadText = [
-                                  'Hola Ivana Molina Bienes Raíces. Dejo mis datos desde el asistente virtual:',
-                                  `• Nombre: ${cleanName}`,
-                                  fallbackPhone.trim() ? `• Teléfono: ${fallbackPhone.trim()}` : null,
-                                  fallbackEmail.trim() ? `• Email: ${fallbackEmail.trim()}` : null,
-                                ]
-                                  .filter(Boolean)
-                                  .join('\n');
-                                window.open(
-                                  `https://wa.me/5491168091223?text=${encodeURIComponent(leadText)}`,
-                                  '_blank',
-                                  'noopener,noreferrer'
-                                );
-                                setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'bot', text: `¡Gracias ${cleanName}! Abrimos WhatsApp con tus datos para que un asesor te responda a la brevedad.` }]);
+                                if (!fallbackName.trim()) return;
+                                setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'bot', text: `¡Gracias ${fallbackName}! Recibimos tus datos. Un asesor se contactará con vos a la brevedad.` }]);
                                 setFallbackName('');
                                 setFallbackPhone('');
                                 setFallbackEmail('');

@@ -4,7 +4,6 @@ import { MapPin, Bed, ShowerHead, Grid, SlidersHorizontal, ArrowUpRight, ArrowDo
 import { Property } from '../types';
 import { properties } from '../data';
 import { useOnScreen } from '../hooks/useOnScreen';
-import { useIsMobile } from '../hooks/useIsMobile';
 import { getRequirementsUrl, isPetFriendlyProperty } from '../utils/requirements';
 
 interface AllPropertiesProps {
@@ -13,96 +12,6 @@ interface AllPropertiesProps {
 
 type CategoryType = 'todas' | 'casas' | 'departamentos' | 'terrenos' | 'casas-quinta' | 'locales';
 type TransactionType = 'todas' | 'venta' | 'alquiler';
-
-const STATUS_BADGE_CLASSES: Record<NonNullable<Property['status']>, string> = {
-  alquilada: 'bg-red-500/90 text-white border border-red-600/50',
-  reservada: 'bg-orange-500/90 text-white border border-orange-600/50',
-  vendida: 'bg-white/90 text-neutral-900 border border-neutral-200/80',
-};
-
-function CatalogCardInner({ property, isDesktop }: { property: Property; isDesktop: boolean }) {
-  return (
-    <>
-      <div className={`relative ${isDesktop ? 'h-48' : 'h-44'} overflow-hidden bg-neutral-900`}>
-        <img
-          src={property.image}
-          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
-          referrerPolicy="no-referrer"
-          loading="lazy"
-          decoding="async"
-          className={`w-full h-full object-cover${isDesktop ? ' transition-transform duration-750 group-hover:scale-105' : ''}`}
-        />
-        <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-neutral-600 font-semibold shadow-xs">
-          {property.category}
-        </span>
-        {property.status && (
-          <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${STATUS_BADGE_CLASSES[property.status]}`}>
-            {property.status}
-          </span>
-        )}
-        {property.videoUrl && (
-          <span className="absolute bottom-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-black/80 backdrop-blur-md border border-white/20 px-2 py-1 rounded text-white font-semibold shadow-xs flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Video Tour
-          </span>
-        )}
-        <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
-          {property.price}
-        </span>
-      </div>
-      <div className="p-5 flex-1 flex flex-col justify-between bg-transparent">
-        <div>
-          <div className="flex items-center gap-1 text-neutral-500 text-[10px] mb-1 font-mono uppercase tracking-wide">
-            <MapPin size={10} className="text-neutral-500" />
-            <span>{property.location.split(',')[0]}</span>
-          </div>
-          <h3 className={`text-base font-display font-semibold text-neutral-900 tracking-tight leading-snug mb-2${isDesktop ? ' group-hover:text-neutral-600 transition-colors' : ''}`}>
-            {property.title}
-          </h3>
-          <p className="text-neutral-600 text-xs font-sans leading-relaxed line-clamp-2 font-light">
-            {property.description}
-          </p>
-        </div>
-
-        <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
-          {/* Row 1: SVGs */}
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex gap-2.5 sm:gap-3 items-center text-[10px] font-mono text-neutral-500 min-w-0 flex-nowrap">
-              {property.beds > 0 && (
-                <div className="flex items-center gap-1 shrink-0"><Bed size={12} className="text-neutral-500 shrink-0" /><span>{property.beds} Dorm</span></div>
-              )}
-              {property.baths > 0 && (
-                <div className="flex items-center gap-1 shrink-0"><ShowerHead size={12} className="text-neutral-500 shrink-0" /><span>{property.baths} Baños</span></div>
-              )}
-              <div className="flex items-center gap-1 shrink-0"><Grid size={11} className="text-neutral-500 shrink-0" /><span className="whitespace-nowrap">{property.area}</span></div>
-              {isPetFriendlyProperty(property) && (
-                <div className="flex items-center gap-1 shrink-0" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500 shrink-0" /></div>
-              )}
-            </div>
-            <span className={`shrink-0 w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500${isDesktop ? ' group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300' : ''}`}>
-              <ArrowUpRight size={12} />
-            </span>
-          </div>
-
-          {/* Row 2: Underneath SVGs - Button 'Ver requisitos' solo para alquiler */}
-          {property.transactionType === 'alquiler' && (
-            <a
-              href={getRequirementsUrl(property)}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="w-full py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
-              title={`Ver requisitos de ${property.title}`}
-            >
-              <FileText size={12} />
-              <span>Ver requisitos</span>
-            </a>
-          )}
-        </div>
-      </div>
-    </>
-  );
-}
 
 export default function AllProperties({ onSelectProperty }: AllPropertiesProps) {
   const [activeTransaction, setActiveTransaction] = useState<TransactionType>(() => {
@@ -121,7 +30,10 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
   const [isExpanded, setIsExpanded] = useState(() => {
     return sessionStorage.getItem('inmobiliaria_expanded') === 'true';
   });
-  const isMobile = useIsMobile();
+  // Initialize synchronously to avoid layout flash
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
   const shouldReduceMotion = useReducedMotion();
 
   // CSS animation hooks for mobile (compositor thread)
@@ -130,12 +42,11 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
 
   const lastCardRef = useRef<HTMLDivElement>(null);
   const isInitialMount = useRef(true);
-  const collapseTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
-    return () => {
-      collapseTimersRef.current.forEach(clearTimeout);
-    };
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
   // Save state
@@ -350,7 +261,84 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                 className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[445px] sm:h-[455px] cursor-pointer"
                 onClick={() => onSelectProperty(property)}
               >
-                <CatalogCardInner property={property} isDesktop={false} />
+                <div className="relative h-44 overflow-hidden bg-neutral-900">
+                  <img
+                    src={property.image}
+                    alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                  <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-neutral-600 font-semibold shadow-xs">
+                    {property.category}
+                  </span>
+                  {property.status && (
+                    <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
+                      property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border border-orange-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                    }`}>
+                      {property.status}
+                    </span>
+                  )}
+                  {property.videoUrl && (
+                    <span className="absolute bottom-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-black/80 backdrop-blur-md border border-white/20 px-2 py-1 rounded text-white font-semibold shadow-xs flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Video Tour
+                    </span>
+                  )}
+                  <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
+                    {property.price}
+                  </span>
+                </div>
+                <div className="p-5 flex-1 flex flex-col justify-between bg-transparent">
+                  <div>
+                    <div className="flex items-center gap-1 text-neutral-500 text-[10px] mb-1 font-mono uppercase tracking-wide">
+                      <MapPin size={10} className="text-neutral-500" />
+                      <span>{property.location.split(',')[0]}</span>
+                    </div>
+                    <h3 className="text-base font-display font-semibold text-neutral-900 tracking-tight leading-snug mb-2">
+                      {property.title}
+                    </h3>
+                    <p className="text-neutral-600 text-xs font-sans leading-relaxed line-clamp-2 font-light">
+                      {property.description}
+                    </p>
+                  </div>
+                  
+                  <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
+                    {/* Row 1: SVGs */}
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex gap-2.5 sm:gap-3 items-center text-[10px] font-mono text-neutral-500 min-w-0 flex-nowrap">
+                        {property.beds > 0 && (
+                          <div className="flex items-center gap-1 shrink-0"><Bed size={12} className="text-neutral-500 shrink-0" /><span>{property.beds} Dorm</span></div>
+                        )}
+                        {property.baths > 0 && (
+                          <div className="flex items-center gap-1 shrink-0"><ShowerHead size={12} className="text-neutral-500 shrink-0" /><span>{property.baths} Baños</span></div>
+                        )}
+                        <div className="flex items-center gap-1 shrink-0"><Grid size={11} className="text-neutral-500 shrink-0" /><span className="whitespace-nowrap">{property.area}</span></div>
+                        {isPetFriendlyProperty(property) && (
+                          <div className="flex items-center gap-1 shrink-0" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500 shrink-0" /></div>
+                        )}
+                      </div>
+                      <span className="w-6 h-6 shrink-0 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
+                        <ArrowUpRight size={12} />
+                      </span>
+                    </div>
+
+                    {/* Row 2: Underneath SVGs - Button 'Ver requisitos' solo para alquiler */}
+                    {property.transactionType === 'alquiler' && (
+                      <a
+                        href={getRequirementsUrl(property)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="w-full py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
+                        title={`Ver requisitos de ${property.title}`}
+                      >
+                        <FileText size={12} />
+                        <span>Ver requisitos</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
             ))}
 
@@ -371,7 +359,84 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                     className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[445px] sm:h-[455px] cursor-pointer"
                     onClick={() => onSelectProperty(property)}
                   >
-                    <CatalogCardInner property={property} isDesktop={false} />
+                    <div className="relative h-44 overflow-hidden bg-neutral-900">
+                      <img
+                        src={property.image}
+                        alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
+                        referrerPolicy="no-referrer"
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                      />
+                      <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-neutral-600 font-semibold shadow-xs">
+                        {property.category}
+                      </span>
+                      {property.status && (
+                        <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
+                          property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border border-orange-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                        }`}>
+                          {property.status}
+                        </span>
+                      )}
+                      {property.videoUrl && (
+                        <span className="absolute bottom-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-black/80 backdrop-blur-md border border-white/20 px-2 py-1 rounded text-white font-semibold shadow-xs flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          Video Tour
+                        </span>
+                      )}
+                      <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
+                        {property.price}
+                      </span>
+                    </div>
+                    <div className="p-5 flex-1 flex flex-col justify-between bg-transparent">
+                      <div>
+                        <div className="flex items-center gap-1 text-neutral-500 text-[10px] mb-1 font-mono uppercase tracking-wide">
+                          <MapPin size={10} className="text-neutral-500" />
+                          <span>{property.location.split(',')[0]}</span>
+                        </div>
+                        <h3 className="text-base font-display font-semibold text-neutral-900 tracking-tight leading-snug mb-2">
+                          {property.title}
+                        </h3>
+                        <p className="text-neutral-600 text-xs font-sans leading-relaxed line-clamp-2 font-light">
+                          {property.description}
+                        </p>
+                      </div>
+                      
+                      <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
+                        {/* Row 1: SVGs */}
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex gap-2.5 sm:gap-3 items-center text-[10px] font-mono text-neutral-500 min-w-0 flex-nowrap">
+                            {property.beds > 0 && (
+                              <div className="flex items-center gap-1 shrink-0"><Bed size={12} className="text-neutral-500 shrink-0" /><span>{property.beds} Dorm</span></div>
+                            )}
+                            {property.baths > 0 && (
+                              <div className="flex items-center gap-1 shrink-0"><ShowerHead size={12} className="text-neutral-500 shrink-0" /><span>{property.baths} Baños</span></div>
+                            )}
+                            <div className="flex items-center gap-1 shrink-0"><Grid size={11} className="text-neutral-500 shrink-0" /><span className="whitespace-nowrap">{property.area}</span></div>
+                            {isPetFriendlyProperty(property) && (
+                              <div className="flex items-center gap-1 shrink-0" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500 shrink-0" /></div>
+                            )}
+                          </div>
+                          <span className="w-6 h-6 shrink-0 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500">
+                            <ArrowUpRight size={12} />
+                          </span>
+                        </div>
+
+                        {/* Row 2: Underneath SVGs - Button 'Ver requisitos' solo para alquiler */}
+                        {property.transactionType === 'alquiler' && (
+                          <a
+                            href={getRequirementsUrl(property)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="w-full py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
+                            title={`Ver requisitos de ${property.title}`}
+                          >
+                            <FileText size={12} />
+                            <span>Ver requisitos</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -403,7 +468,84 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                     className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[465px] md:h-[475px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-neutral-300/60 hover:-translate-y-1 hover:transition-transform"
                     onClick={() => onSelectProperty(property)}
                   >
-                    <CatalogCardInner property={property} isDesktop />
+                    <div className="relative h-48 overflow-hidden bg-neutral-900">
+                      <img
+                        src={property.image}
+                        alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
+                        referrerPolicy="no-referrer"
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
+                      />
+                      <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-neutral-600 font-semibold shadow-xs">
+                        {property.category}
+                      </span>
+                      {property.status && (
+                        <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
+                          property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border border-orange-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                        }`}>
+                          {property.status}
+                        </span>
+                      )}
+                      {property.videoUrl && (
+                        <span className="absolute bottom-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-black/80 backdrop-blur-md border border-white/20 px-2 py-1 rounded text-white font-semibold shadow-xs flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          Video Tour
+                        </span>
+                      )}
+                      <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
+                        {property.price}
+                      </span>
+                    </div>
+                    <div className="p-5 flex-1 flex flex-col justify-between bg-transparent">
+                      <div>
+                        <div className="flex items-center gap-1 text-neutral-500 text-[10px] mb-1 font-mono uppercase tracking-wide">
+                          <MapPin size={10} className="text-neutral-500" />
+                          <span>{property.location.split(',')[0]}</span>
+                        </div>
+                        <h3 className="text-base font-display font-semibold text-neutral-900 tracking-tight leading-snug group-hover:text-neutral-600 transition-colors mb-2">
+                          {property.title}
+                        </h3>
+                        <p className="text-neutral-600 text-xs font-sans leading-relaxed line-clamp-2 font-light">
+                          {property.description}
+                        </p>
+                      </div>
+                      
+                      <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
+                        {/* Row 1: SVGs */}
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex gap-2.5 sm:gap-3 items-center text-[10px] font-mono text-neutral-500 min-w-0 flex-nowrap">
+                            {property.beds > 0 && (
+                              <div className="flex items-center gap-1 shrink-0"><Bed size={12} className="text-neutral-500 shrink-0" /><span>{property.beds} Dorm</span></div>
+                            )}
+                            {property.baths > 0 && (
+                              <div className="flex items-center gap-1 shrink-0"><ShowerHead size={12} className="text-neutral-500 shrink-0" /><span>{property.baths} Baños</span></div>
+                            )}
+                            <div className="flex items-center gap-1 shrink-0"><Grid size={11} className="text-neutral-500 shrink-0" /><span className="whitespace-nowrap">{property.area}</span></div>
+                            {isPetFriendlyProperty(property) && (
+                              <div className="flex items-center gap-1 shrink-0" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500 shrink-0" /></div>
+                            )}
+                          </div>
+                          <span className="shrink-0 w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                            <ArrowUpRight size={12} />
+                          </span>
+                        </div>
+
+                        {/* Row 2: Underneath SVGs - Button 'Ver requisitos' solo para alquiler */}
+                        {property.transactionType === 'alquiler' && (
+                          <a
+                            href={getRequirementsUrl(property)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="w-full py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
+                            title={`Ver requisitos de ${property.title}`}
+                          >
+                            <FileText size={12} />
+                            <span>Ver requisitos</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </motion.div>
                 ))}
               </AnimatePresence>
@@ -432,7 +574,84 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
                       className="group rounded-2xl overflow-hidden bg-white/80 border border-neutral-200/60 premium-card-shadow flex flex-col justify-between h-[465px] md:h-[475px] cursor-pointer transition-[box-shadow,border-color] duration-300 hover:border-neutral-300/60 hover:-translate-y-1 hover:transition-transform"
                       onClick={() => onSelectProperty(property)}
                     >
-                      <CatalogCardInner property={property} isDesktop />
+                      <div className="relative h-48 overflow-hidden bg-neutral-900">
+                        <img
+                          src={property.image}
+                          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
+                          referrerPolicy="no-referrer"
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
+                        />
+                        <span className="absolute top-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-white/90 border border-neutral-200/80 px-2 py-1 rounded text-neutral-600 font-semibold shadow-xs">
+                          {property.category}
+                        </span>
+                        {property.status && (
+                          <span className={`absolute top-3 right-3 text-[9px] font-mono tracking-widest uppercase px-2 py-1 rounded font-semibold shadow-xs ${
+                            property.status === 'alquilada' ? 'bg-red-500/90 text-white border border-red-600/50' : property.status === 'reservada' ? 'bg-orange-500/90 text-white border border-orange-600/50' : 'bg-white/90 text-neutral-900 border border-neutral-200/80'
+                          }`}>
+                            {property.status}
+                          </span>
+                        )}
+                        {property.videoUrl && (
+                          <span className="absolute bottom-3 left-3 text-[9px] font-mono tracking-widest uppercase bg-black/80 backdrop-blur-md border border-white/20 px-2 py-1 rounded text-white font-semibold shadow-xs flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            Video Tour
+                          </span>
+                        )}
+                        <span className="absolute bottom-3 right-3 text-xs font-mono px-2.5 py-1.5 bg-white border border-neutral-200/80 rounded text-neutral-900 font-semibold shadow-sm">
+                          {property.price}
+                        </span>
+                      </div>
+                      <div className="p-5 flex-1 flex flex-col justify-between bg-transparent">
+                        <div>
+                          <div className="flex items-center gap-1 text-neutral-500 text-[10px] mb-1 font-mono uppercase tracking-wide">
+                            <MapPin size={10} className="text-neutral-500" />
+                            <span>{property.location.split(',')[0]}</span>
+                          </div>
+                          <h3 className="text-base font-display font-semibold text-neutral-900 tracking-tight leading-snug group-hover:text-neutral-600 transition-colors mb-2">
+                            {property.title}
+                          </h3>
+                          <p className="text-neutral-600 text-xs font-sans leading-relaxed line-clamp-2 font-light">
+                            {property.description}
+                          </p>
+                        </div>
+                        
+                        <div className="border-t border-neutral-100 pt-3 mt-3 flex flex-col gap-2.5">
+                          {/* Row 1: SVGs */}
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex gap-2.5 sm:gap-3 items-center text-[10px] font-mono text-neutral-500 min-w-0 flex-nowrap">
+                              {property.beds > 0 && (
+                                <div className="flex items-center gap-1 shrink-0"><Bed size={12} className="text-neutral-500 shrink-0" /><span>{property.beds} Dorm</span></div>
+                              )}
+                              {property.baths > 0 && (
+                                <div className="flex items-center gap-1 shrink-0"><ShowerHead size={12} className="text-neutral-500 shrink-0" /><span>{property.baths} Baños</span></div>
+                              )}
+                              <div className="flex items-center gap-1 shrink-0"><Grid size={11} className="text-neutral-500 shrink-0" /><span className="whitespace-nowrap">{property.area}</span></div>
+                              {isPetFriendlyProperty(property) && (
+                                <div className="flex items-center gap-1 shrink-0" title="Pet Friendly"><PawPrint size={12} className="text-neutral-500 shrink-0" /></div>
+                              )}
+                            </div>
+                            <span className="shrink-0 w-6 h-6 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 group-hover:bg-neutral-950 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                              <ArrowUpRight size={12} />
+                            </span>
+                          </div>
+
+                          {/* Row 2: Underneath SVGs - Button 'Ver requisitos' solo para alquiler */}
+                          {property.transactionType === 'alquiler' && (
+                            <a
+                              href={getRequirementsUrl(property)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="w-full py-2 px-3 rounded-xl bg-neutral-100/90 hover:bg-neutral-950 hover:text-white border border-neutral-200/90 text-neutral-800 text-[10px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-xs cursor-pointer"
+                              title={`Ver requisitos de ${property.title}`}
+                            >
+                              <FileText size={12} />
+                              <span>Ver requisitos</span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
                     </motion.div>
                   ))}
                 </AnimatePresence>
@@ -468,17 +687,15 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
             <button
               onClick={() => {
                 setIsExpanded(false);
-                collapseTimersRef.current.forEach(clearTimeout);
                 // After a short delay (accordion starts closing), scroll the last
                 // visible card into view — works like a true accordion collapse.
-                const t1 = setTimeout(() => {
+                setTimeout(() => {
                   lastCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
                 }, 80);
                 // Delay pruning the DOM until the 500ms collapse animation finishes
-                const t2 = setTimeout(() => {
+                setTimeout(() => {
                   setVisibleCount(8);
                 }, 520);
-                collapseTimersRef.current = [t1, t2];
               }}
               className="group flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-neutral-900 border border-neutral-900 text-white font-medium text-sm transition-all hover:bg-neutral-800 hover:shadow-sm"
             >

@@ -1,12 +1,11 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, Shield } from 'lucide-react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 
 import Footer from './Footer';
+import Chatbot from './Chatbot/Chatbot';
 import CinematicReveal from './CinematicReveal';
-
-const Chatbot = lazy(() => import('./Chatbot/Chatbot'));
 
 const navLinks = [
   { label: 'Destacadas', href: '/#propiedades-destacadas' },
@@ -26,19 +25,15 @@ export default function Layout() {
   useEffect(() => {
     // Check if we have a hash in the URL and scroll to it if we are on home page
     if (location.pathname === '/' && location.hash) {
-      const id = location.hash.replace('#', '');
-      const timer = setTimeout(() => {
+      setTimeout(() => {
+        const id = location.hash.replace('#', '');
         const element = document.getElementById(id);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
       }, 100);
-      return () => clearTimeout(timer);
-    }
-    if (location.pathname === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      window.scrollTo(0, 0);
+    } else if (location.pathname !== '/') {
+       window.scrollTo(0,0);
     }
   }, [location]);
 
@@ -106,16 +101,7 @@ export default function Layout() {
         }`}
       >
         <div className="w-full px-6 md:px-8 flex items-center justify-between">
-          <Link
-            to="/"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              if (location.pathname === '/') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-            }}
-            className="flex items-center gap-3 z-50 select-none group"
-          >
+          <Link to="/" className="flex items-center gap-3 z-50 select-none group">
             <img
               src="/iavana-molina-favion-cabecera.webp"
               alt="IVANA MOLINA & ASOC. BIENES RAICES"
@@ -225,13 +211,11 @@ export default function Layout() {
       </AnimatePresence>
 
       <main className="flex-1 flex flex-col w-full">
-        <Outlet />
+        <Outlet context={{ isAppLoaded }} />
       </main>
 
       <Footer />
-      <Suspense fallback={null}>
-        <Chatbot />
-      </Suspense>
+      <Chatbot />
       
       <AnimatePresence>
         {isAppLoaded && (

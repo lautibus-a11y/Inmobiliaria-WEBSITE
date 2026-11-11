@@ -1,74 +1,52 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { Mail, Phone, Landmark, Send, CheckCircle, ShieldAlert, Instagram, Facebook, MapPin, ExternalLink } from 'lucide-react';
-import { useIsMobile } from '../hooks/useIsMobile';
-
-const WHATSAPP_NUMBER = '5491168091223';
 
 export default function Contact() {
   const shouldReduceMotion = useReducedMotion();
-  const isMobile = useIsMobile();
   const [formData, setFormData] = useState({
     fullName: '',
     vipEmail: '',
     telephone: '',
-    investmentRange: '60k-150k',
+    investmentRange: '1-5m',
     message: '',
   });
+
+  // Initialize synchronously to avoid layout flash on mobile
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [submittedWhatsappUrl, setSubmittedWhatsappUrl] = useState('');
-  const submitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (submitTimerRef.current) clearTimeout(submitTimerRef.current);
-    };
-  }, []);
 
   const ranges = [
-    { label: 'Hasta USD 60.000', value: 'hasta-60k' },
-    { label: 'USD 60.000 - USD 150.000', value: '60k-150k' },
-    { label: 'USD 150.000 - USD 300.000', value: '150k-300k' },
-    { label: 'Alquiler Permanente / Temporario', value: 'alquiler' },
+    { label: '$1,000,000 - $5,000,000 USD', value: '1-5m' },
+    { label: '$5,000,000 - $10,000,000 USD', value: '5-10m' },
+    { label: '$10,000,000 - $25,000,000 USD', value: '10-25m' },
+    { label: 'Colecciones Privadas ($25M+ USD)', value: '25m+' },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
 
-    const cleanName = formData.fullName.trim();
-    const cleanEmail = formData.vipEmail.trim();
-    const cleanMsg = formData.message.trim();
-
-    if (!cleanName || !cleanEmail || !cleanMsg) {
+    if (!formData.fullName.trim() || !formData.vipEmail.trim() || !formData.message.trim()) {
       setErrorMessage('Por favor, completá todos los campos obligatorios.');
       return;
     }
 
-    const selectedRange = ranges.find((r) => r.value === formData.investmentRange)?.label || formData.investmentRange;
-    const whatsappText = [
-      `Hola Ivana Molina Bienes Raíces. Envío una consulta desde el formulario web:`,
-      `• Nombre: ${cleanName}`,
-      `• Email: ${cleanEmail}`,
-      formData.telephone.trim() ? `• Teléfono: ${formData.telephone.trim()}` : null,
-      `• Presupuesto / Interés: ${selectedRange}`,
-      `• Mensaje: ${cleanMsg}`,
-    ]
-      .filter(Boolean)
-      .join('\n');
-
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappText)}`;
-    setSubmittedWhatsappUrl(whatsappUrl);
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-
     setIsSubmitting(true);
-    submitTimerRef.current = setTimeout(() => {
+    setTimeout(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
-    }, 600);
+    }, 1500);
   };
 
   return (
@@ -199,7 +177,7 @@ export default function Contact() {
               <span className="text-[10px] font-mono tracking-widest text-neutral-500 block mb-3 uppercase">Enlaces de Interés</span>
               <div className="flex flex-col gap-2">
                 <a
-                  href="https://arquiler.com/"
+                  href="https://arquiler.com/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcASud39leHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAacey9UnfLnROGV0jUgrMTJbf3EByNTLbyA8_6id2ksXTJUU6OeZKyK64v1x5A_aem__neI0hM5uaAm0BOafFfc-g"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-xs font-sans font-medium text-neutral-700 hover:text-neutral-900 transition-colors p-3 rounded-xl bg-neutral-100/50 border border-neutral-200/50 hover:bg-neutral-100"
@@ -208,7 +186,7 @@ export default function Contact() {
                   Calculadora de Alquileres
                 </a>
                 <a
-                  href="https://www.boletinoficial.gob.ar/detalleAviso/primera/231429/20200630"
+                  href="https://www.boletinoficial.gob.ar/detalleAviso/primera/231429/20200630?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcASud0xleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAacey9UnfLnROGV0jUgrMTJbf3EByNTLbyA8_6id2ksXTJUU6OeZKyK64v1x5A_aem__neI0hM5uaAm0BOafFfc-g"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-xs font-sans font-medium text-neutral-700 hover:text-neutral-900 transition-colors p-3 rounded-xl bg-neutral-100/50 border border-neutral-200/50 hover:bg-neutral-100"
@@ -236,41 +214,13 @@ export default function Contact() {
                   <motion.div
                     initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="p-6 rounded-2xl bg-neutral-100 border border-neutral-200 text-center py-12"
+                    className="p-6 rounded-2xl bg-neutral-100 border border-neutral-200 text-center py-16"
                   >
                     <CheckCircle className="text-neutral-700 w-12 h-12 mx-auto mb-4 animate-bounce" />
-                    <h3 className="text-lg font-display font-semibold text-neutral-900 mb-2">Consulta Preparada para Enviar</h3>
-                    <p className="text-neutral-600 text-xs leading-relaxed font-light mb-5">
-                      Se abrió WhatsApp con los detalles de tu consulta para conectarte directamente con uno de nuestros asesores.
+                    <h3 className="text-lg font-display font-semibold text-neutral-900 mb-2">Consulta Enviada con Éxito</h3>
+                    <p className="text-neutral-600 text-xs leading-relaxed font-light">
+                      Recibimos tu mensaje de manera segura. Uno de nuestros asesores especializados se comunicará con vos a la brevedad para brindarte una atención personalizada.
                     </p>
-                    {submittedWhatsappUrl && (
-                      <a
-                        href={submittedWhatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-neutral-900 text-white text-xs font-mono tracking-wider uppercase hover:bg-neutral-800 transition-colors mb-3"
-                      >
-                        Abrir WhatsApp nuevamente
-                      </a>
-                    )}
-                    <div>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setIsSuccess(false);
-                          setFormData({
-                            fullName: '',
-                            vipEmail: '',
-                            telephone: '',
-                            investmentRange: '60k-150k',
-                            message: '',
-                          });
-                        }}
-                        className="text-[11px] font-mono text-neutral-500 hover:text-neutral-900 underline cursor-pointer"
-                      >
-                        Enviar otra consulta
-                      </button>
-                    </div>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -282,7 +232,7 @@ export default function Contact() {
                       <input
                         type="text"
                         required
-                        placeholder="ej. Juan Pérez"
+                        placeholder="ej. Alessandra Moretti"
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                         className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-neutral-400 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans shadow-xs"
@@ -297,7 +247,7 @@ export default function Contact() {
                       <input
                         type="email"
                         required
-                        placeholder="ej. juan@correo.com"
+                        placeholder="ej. moretti@ivanamolinapropiedades.com.ar"
                         value={formData.vipEmail}
                         onChange={(e) => setFormData({ ...formData, vipEmail: e.target.value })}
                         className="w-full bg-white border border-neutral-200 rounded-xl py-3 px-4 text-xs focus:border-neutral-400 focus:bg-white focus:outline-none transition-all placeholder-neutral-400 text-neutral-900 font-sans shadow-xs"

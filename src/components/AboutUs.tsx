@@ -1,9 +1,8 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 
 import { ArrowRight, Calculator, Key, Building2, Briefcase } from 'lucide-react';
 import { useOnScreen } from '../hooks/useOnScreen';
-import { useIsMobile } from '../hooks/useIsMobile';
 
 
 
@@ -19,7 +18,15 @@ export default function AboutUs() {
     offset: ["start end", "end start"]
   });
 
-  const isMobile = useIsMobile();
+  // Initialize synchronously to avoid layout flash on mobile
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   // CSS animation hooks for mobile sections (compositor thread)
   const [mobileTitleRef, mobileTitleVisible] = useOnScreen('0px 0px -30px 0px');
