@@ -325,6 +325,8 @@ export default function PropertyPage() {
                       key={currentImgIndex}
                       src={imagesList[currentImgIndex]}
                       alt={`${property.title} - Foto ${currentImgIndex + 1}`}
+                      decoding="async"
+                      fetchPriority="high"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -371,7 +373,7 @@ export default function PropertyPage() {
                       mediaType === 'photos' && currentImgIndex === idx ? 'border-white' : 'border-transparent opacity-60 hover:opacity-100'
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img src={img} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   </button>
                 ))}
                 {hasVideo && videoSources.map((_, idx) => (

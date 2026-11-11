@@ -5,6 +5,7 @@ import { Property } from '../types';
 import { properties } from '../data';
 import { useOnScreen } from '../hooks/useOnScreen';
 import { getRequirementsUrl, isPetFriendlyProperty } from '../utils/requirements';
+import { getCardImage } from '../utils/thumbnails';
 
 interface FeaturedPropertiesProps {
   onSelectProperty: (property: Property) => void;
@@ -17,10 +18,11 @@ function CardInner({ property }: { property: Property }) {
       {/* Image */}
       <div className="relative h-64 overflow-hidden">
         <img
-          src={property.image}
-          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} em ${property.location}`}
+          src={getCardImage(property)}
+          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
           referrerPolicy="no-referrer"
           loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/15 to-transparent" />

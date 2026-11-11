@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, PawPrint, FileText } from 'lucide-
 import { Property } from '../types';
 import { properties } from '../data';
 import { getRequirementsUrl, isPetFriendlyProperty } from '../utils/requirements';
+import { getCardImage } from '../utils/thumbnails';
 
 interface MostWantedProps {
   onSelectProperty: (property: Property) => void;
@@ -124,10 +125,11 @@ export default function MostWanted({ onSelectProperty }: MostWantedProps) {
               {/* Background Image */}
               <div className="absolute inset-0">
                 <img
-                  src={property.image}
-          alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
+                  src={getCardImage(property)}
+                  alt={`${property.title} - ${property.category === 'casas-quinta' ? 'Casa Quinta' : property.category} en ${property.location}`}
                   referrerPolicy="no-referrer"
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/45 via-transparent to-transparent z-10" />

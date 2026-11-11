@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, Send, Bot, ExternalLink, Phone } from 'lucide-react';
 import { processChatbotMessage, ChatbotResponse } from '../../utils/chatbotLogic';
 import { Property } from '../../types';
+import { getCardImage } from '../../utils/thumbnails';
 
 interface Message {
   id: string;
@@ -189,7 +190,7 @@ export default function Chatbot() {
                         <div className="flex flex-col gap-2 mt-1 w-full max-w-[280px]">
                           {msg.properties.map(prop => (
                             <div key={prop.id} className="bg-neutral-900 border border-white/10 rounded-xl overflow-hidden flex flex-col hover:border-white/30 transition-colors">
-                              <img src={prop.image} alt={prop.title} className="w-full h-24 object-cover filter brightness-[0.85]" />
+                              <img src={getCardImage(prop)} alt={prop.title} loading="lazy" decoding="async" className="w-full h-24 object-cover filter brightness-[0.85]" />
                               <div className="p-3">
                                 <h4 className="text-xs font-semibold text-white truncate">{prop.title}</h4>
                                 <p className="text-[10px] text-neutral-400 truncate mb-2">{prop.location}</p>
