@@ -1,11 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, Shield } from 'lucide-react';
-import { Outlet, useLocation, Link } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, Link } from 'react-router-dom';
 
 import Footer from './Footer';
 import Chatbot from './Chatbot/Chatbot';
 import CinematicReveal from './CinematicReveal';
+import Home from '../pages/Home';
+import {
+  consumeHomeScrollPosition,
+  clearHomeScrollPosition,
+  scrollInstantTo,
+} from '../utils/scrollRestoration';
 
 const navLinks = [
   { label: 'Destacadas', href: '/#propiedades-destacadas' },
@@ -21,21 +27,74 @@ export default function Layout() {
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [isAppLoaded, setIsAppLoaded] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === '/';
+  const [hasVisitedHome, setHasVisitedHome] = useState(isHome);
+  const homeContainerRef = useRef<HTMLDivElement>(null);
+
+  if (isHome && !hasVisitedHome) {
+    setHasVisitedHome(true);
+  }
 
   useEffect(() => {
-    // Check if we have a hash in the URL and scroll to it if we are on home page
-    if (location.pathname === '/' && location.hash) {
-      setTimeout(() => {
-        const id = location.hash.replace('#', '');
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    if (location.pathname !== '/') return;
+
+    if (location.hash) {
+      clearHomeScrollPosition();
+      const id = location.hash.replace('#', '');
+      const timer = setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
       }, 100);
-    } else if (location.pathname !== '/') {
-       window.scrollTo(0,0);
+      return () => clearTimeout(timer);
+    }
+
+    const navState = location.state as { scrollToTop?: boolean } | null;
+    if (navState?.scrollToTop) {
+      clearHomeScrollPosition();
+      scrollInstantTo(0);
+      return;
+    }
+
+    const savedY = consumeHomeScrollPosition();
+    if (savedY !== null) {
+      scrollInstantTo(savedY);
     }
   }, [location]);
+
+  useEffect(() => {
+    const container = homeContainerRef.current;
+    if (!container) return;
+    const videos = container.querySelectorAll('video');
+    videos.forEach((video) => {
+      if (isHome) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, [isHome]);
+
+  const handleScrollToTop = () => {
+    setMobileMenuOpen(false);
+    clearHomeScrollPosition();
+    if (location.pathname === '/') {
+      if (location.hash) {
+        navigate('/', { replace: true, state: { scrollToTop: true } });
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/', { state: { scrollToTop: true } });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,7 +151,12 @@ export default function Layout() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-4 left-1/2 -translate-x-1/2 w-[92%] sm:w-[88%] max-w-6xl z-45 rounded-2xl transition-all duration-500 border ${
+        onClick={(e) => {
+          const target = e.target as HTMLElement;
+          if (target.closest('nav, #mobile-menu-toggle, a[href="/#contacto"]')) return;
+          handleScrollToTop();
+        }}
+        className={`fixed top-4 left-1/2 -translate-x-1/2 w-[92%] sm:w-[88%] max-w-6xl z-45 rounded-2xl transition-all duration-500 border cursor-pointer ${
           isScrolled 
             ? isOverLightSection
               ? 'py-3.5 bg-white/70 backdrop-blur-xl border-neutral-200/80 shadow-2xl shadow-black/5'
@@ -101,7 +165,15 @@ export default function Layout() {
         }`}
       >
         <div className="w-full px-6 md:px-8 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 z-50 select-none group">
+          <Link
+            to="/"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleScrollToTop();
+            }}
+            className="flex items-center gap-3 z-50 select-none group"
+          >
             <img
               src="/iavana-molina-favion-cabecera.webp"
               alt="IVANA MOLINA & ASOC. BIENES RAICES"
@@ -211,7 +283,12 @@ export default function Layout() {
       </AnimatePresence>
 
       <main className="flex-1 flex flex-col w-full">
-        <Outlet context={{ isAppLoaded }} />
+        {hasVisitedHome && (
+          <div ref={homeContainerRef} className={isHome ? 'block' : 'hidden'} aria-hidden={!isHome}>
+            <Home />
+          </div>
+        )}
+        {!isHome && <Outlet />}
       </main>
 
       <Footer />

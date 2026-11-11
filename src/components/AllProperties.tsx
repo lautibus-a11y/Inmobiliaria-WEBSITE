@@ -13,6 +13,21 @@ interface AllPropertiesProps {
 type CategoryType = 'todas' | 'casas' | 'departamentos' | 'terrenos' | 'casas-quinta' | 'locales';
 type TransactionType = 'todas' | 'venta' | 'alquiler';
 
+const TRANSACTIONS: { label: string; value: TransactionType }[] = [
+  { label: 'Todas', value: 'todas' },
+  { label: 'Venta', value: 'venta' },
+  { label: 'Alquiler', value: 'alquiler' },
+];
+
+const CATEGORIES: { label: string; value: CategoryType }[] = [
+  { label: 'Todas', value: 'todas' },
+  { label: 'Casas', value: 'casas' },
+  { label: 'Departamentos', value: 'departamentos' },
+  { label: 'Terrenos', value: 'terrenos' },
+  { label: 'Casas Quinta', value: 'casas-quinta' },
+  { label: 'Locales', value: 'locales' },
+];
+
 export default function AllProperties({ onSelectProperty }: AllPropertiesProps) {
   const [activeTransaction, setActiveTransaction] = useState<TransactionType>(() => {
     return (sessionStorage.getItem('inmobiliaria_transaction') as TransactionType) || 'todas';
@@ -42,12 +57,60 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
 
   const lastCardRef = useRef<HTMLDivElement>(null);
   const isInitialMount = useRef(true);
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
+  const categoryTabRefs = useRef<Partial<Record<CategoryType, HTMLButtonElement | null>>>({});
+  const isFirstCategoryAlign = useRef(true);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
+
+  // Center active category tab horizontally while keeping the next tab peeking on the right
+  useEffect(() => {
+    const container = categoryScrollRef.current;
+    const tabEl = categoryTabRefs.current[activeCategory];
+    if (!container || !tabEl) return;
+
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    if (maxScroll <= 0) {
+      isFirstCategoryAlign.current = false;
+      return;
+    }
+
+    const containerRect = container.getBoundingClientRect();
+    const tabRect = tabEl.getBoundingClientRect();
+    const tabLeft = tabRect.left - containerRect.left + container.scrollLeft;
+
+    let targetLeft = tabLeft - (container.clientWidth - tabRect.width) / 2;
+
+    const currentIdx = CATEGORIES.findIndex((c) => c.value === activeCategory);
+    const nextCat = currentIdx >= 0 && currentIdx < CATEGORIES.length - 1 ? CATEGORIES[currentIdx + 1] : null;
+    const nextEl = nextCat ? categoryTabRefs.current[nextCat.value] : null;
+
+    if (nextEl) {
+      const nextRect = nextEl.getBoundingClientRect();
+      const nextLeft = nextRect.left - containerRect.left + container.scrollLeft;
+      const minPeekPx = Math.min(48, nextRect.width * 0.6);
+      const minScrollForPeek = nextLeft + minPeekPx - container.clientWidth;
+
+      if (targetLeft < minScrollForPeek) {
+        const maxWithoutClippingActive = Math.max(0, tabLeft - 16);
+        targetLeft = Math.min(minScrollForPeek, maxWithoutClippingActive);
+      }
+    }
+
+    targetLeft = Math.max(0, Math.min(maxScroll, targetLeft));
+
+    const smooth = !isFirstCategoryAlign.current;
+    isFirstCategoryAlign.current = false;
+
+    container.scrollTo({
+      left: targetLeft,
+      behavior: smooth ? 'smooth' : 'auto',
+    });
+  }, [activeCategory, isMobile]);
 
   // Save state
   useEffect(() => {
@@ -67,21 +130,6 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
     setVisibleCount(8);
     setIsExpanded(false);
   }, [activeTransaction, activeCategory, priceSort]);
-
-  const transactions: { label: string; value: TransactionType }[] = [
-    { label: 'Todas', value: 'todas' },
-    { label: 'Venta', value: 'venta' },
-    { label: 'Alquiler', value: 'alquiler' },
-  ];
-
-  const categories: { label: string; value: CategoryType }[] = [
-    { label: 'Todas', value: 'todas' },
-    { label: 'Casas', value: 'casas' },
-    { label: 'Departamentos', value: 'departamentos' },
-    { label: 'Terrenos', value: 'terrenos' },
-    { label: 'Casas Quinta', value: 'casas-quinta' },
-    { label: 'Locales', value: 'locales' },
-  ];
 
   // Filtering based on standard selections
   const filteredList = useMemo(() => properties.filter((p) => {
@@ -172,7 +220,7 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
           {/* Main Transaction Types (Todas / Venta / Alquiler) */}
           <div className="flex w-full md:w-auto p-1.5 rounded-2xl bg-neutral-100 border border-neutral-200/80 backdrop-blur-md">
             <div className="flex gap-1.5 w-full md:w-max">
-              {transactions.map((trans) => {
+              {TRANSACTIONS.map((trans) => {
                 const isActive = activeTransaction === trans.value;
                 return (
                   <button
@@ -217,15 +265,21 @@ export default function AllProperties({ onSelectProperty }: AllPropertiesProps) 
         </div>
 
         {/* Secondary Category Types (Casas / Departamentos / etc) */}
-        <div className="flex overflow-x-auto w-full p-1.5 rounded-2xl bg-neutral-100/50 border border-neutral-200/40 backdrop-blur-md no-scrollbar">
+        <div
+          ref={categoryScrollRef}
+          className="flex overflow-x-auto w-full p-1.5 rounded-2xl bg-neutral-100/50 border border-neutral-200/40 backdrop-blur-md no-scrollbar"
+        >
           <div className="flex gap-1.5 w-max">
-            {categories.map((cat) => {
+            {CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat.value;
               return (
                 <button
                   key={cat.value}
+                  ref={(el) => {
+                    categoryTabRefs.current[cat.value] = el;
+                  }}
                   onClick={() => setActiveCategory(cat.value)}
-                  className={`text-[11px] px-5 py-2.5 rounded-xl font-medium tracking-wide transition-all uppercase cursor-pointer select-none relative ${
+                  className={`shrink-0 whitespace-nowrap text-[11px] px-5 py-2.5 rounded-xl font-medium tracking-wide transition-all uppercase cursor-pointer select-none relative ${
                     isActive
                       ? 'text-neutral-900 font-semibold'
                       : 'text-neutral-500 hover:text-neutral-950 hover:bg-neutral-200/80'

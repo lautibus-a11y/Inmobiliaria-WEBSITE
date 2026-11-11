@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Bed, ShowerHead, Eye, PawPrint, FileText, MapPin, ExternalLink, X } from 'lucide-react';
 
 import { properties } from '../data';
 import { getRequirementsUrl, isPetFriendlyProperty } from '../utils/requirements';
+import { scrollInstantTo } from '../utils/scrollRestoration';
 
 function getEmbedVideoUrl(url?: string): string | null {
   if (!url) return null;
@@ -39,11 +40,14 @@ export default function PropertyPage() {
 
   const property = properties.find(p => p.id === slug);
 
+  // Start property view instantaneously at top without visible scroll
+  useLayoutEffect(() => {
+    scrollInstantTo(0);
+  }, [slug]);
+
   // Dynamic SEO metadata when a property is viewed
   useEffect(() => {
     if (!property) return;
-
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
     const originalTitle = document.title;
     const ogTitle = document.getElementById('og-title') as HTMLMetaElement;
@@ -253,7 +257,7 @@ export default function PropertyPage() {
         <div className="mb-6 flex items-center justify-between">
           <button 
             onClick={() => {
-              if (window.history.length > 2) navigate(-1);
+              if (window.history.state?.idx > 0) navigate(-1);
               else navigate('/');
             }} 
             className="inline-flex items-center gap-2 text-sm font-mono text-neutral-400 hover:text-white transition-colors group cursor-pointer bg-transparent border-none p-0"

@@ -1,7 +1,8 @@
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Hero from '../components/Hero';
 import { Property } from '../types';
+import { saveHomeScrollPosition } from '../utils/scrollRestoration';
 
 import FeaturedProperties from '../components/FeaturedProperties';
 import AboutUs from '../components/AboutUs';
@@ -12,15 +13,15 @@ import Contact from '../components/Contact';
 
 export default function Home() {
   const navigate = useNavigate();
-  const { isAppLoaded } = useOutletContext<{ isAppLoaded: boolean }>();
 
   const handleOpenProperty = (property: Property) => {
+    saveHomeScrollPosition(window.scrollY);
     navigate(`/propiedades/${property.id}`);
   };
 
   return (
     <>
-      <Hero isAppLoaded={isAppLoaded} />
+      <Hero />
       <FeaturedProperties onSelectProperty={handleOpenProperty} />
       <AboutUs />
       <MostWanted onSelectProperty={handleOpenProperty} />
