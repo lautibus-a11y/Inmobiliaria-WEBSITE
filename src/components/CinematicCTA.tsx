@@ -8,6 +8,8 @@ export default function CinematicCTA() {
     <section className="relative w-full h-[65vh] sm:h-[80vh] overflow-hidden flex items-center justify-center bg-black">
       {/* Background Video */}
       <video
+        poster="/video-ctl/ctl-poster.jpg"
+        preload="none"
         autoPlay
         muted
         loop

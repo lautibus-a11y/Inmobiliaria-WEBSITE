@@ -111,9 +111,10 @@ export default function AboutUs() {
           >
             <div className="absolute inset-0 bg-black/10 z-10" />
             <img
-              src="/sobre-nosotros/seccion-sobre-nosotros.webp"
+              src="/sobre-nosotros/seccion-sobre-nosotros.jpg"
               alt="Sobre nosotros - Ivana Molina Bienes Raíces"
               loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover filter brightness-[0.7] saturate-[0.85]"
             />
           </motion.div>

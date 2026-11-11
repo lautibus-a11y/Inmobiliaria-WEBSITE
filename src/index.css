@@ -1,20 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  
 
-  
-  --color-glass-bg: rgba(10, 10, 10, 0.45);
-  --color-glass-border: rgba(255, 255, 255, 0.08);
-  --color-glass-bg-hover: rgba(255, 255, 255, 0.1);
-  
-
-
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-aurora: aurora 20s linear infinite;
 }
 
@@ -238,14 +228,15 @@ body {
 
 
 
-/* Dynamic Dark Gradient Background for Cinematic Reveal */
-.dynamic-lilac-gradient {
-  background: linear-gradient(-45deg, #030303, #0d0d0d, #1a1a1a, #0d0d0d, #030303);
-}
-
 /* Dynamic Light Neutral Gradient Background for Light sections */
 .dynamic-light-lilac-gradient {
   background: linear-gradient(-45deg, #ffffff, #fafafa, #f5f5f5, #fafafa, #ffffff);
+}
+
+/* Skip offscreen layout & paint until sections approach viewport */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 750px;
 }
 
 /* Interactive hover micro-animation for CTA buttons and interactive elements */
@@ -265,8 +256,7 @@ body {
   .aurora-glow-1,
   .aurora-glow-2,
   .aurora-glow-3,
-  .animate-aurora,
-  .animate-pulse-slow {
+  .animate-aurora {
     animation: none !important;
   }
   

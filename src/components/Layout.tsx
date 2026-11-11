@@ -1,10 +1,9 @@
-import { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, Shield } from 'lucide-react';
 import { Outlet, useLocation, useNavigate, Link } from 'react-router-dom';
 
 import Footer from './Footer';
-import Chatbot from './Chatbot/Chatbot';
 import CinematicReveal from './CinematicReveal';
 import Home from '../pages/Home';
 import {
@@ -12,6 +11,8 @@ import {
   clearHomeScrollPosition,
   scrollInstantTo,
 } from '../utils/scrollRestoration';
+
+const Chatbot = lazy(() => import('./Chatbot/Chatbot'));
 
 const navLinks = [
   { label: 'Destacadas', href: '/#propiedades-destacadas' },
@@ -292,7 +293,9 @@ export default function Layout() {
       </main>
 
       <Footer />
-      <Chatbot />
+      <Suspense fallback={null}>
+        <Chatbot />
+      </Suspense>
       
       <AnimatePresence>
         {isAppLoaded && (

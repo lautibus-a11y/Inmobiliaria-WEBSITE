@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Bed, ShowerHead, Eye, PawPrint, FileText, MapPin, ExternalLink, X } from 'lucide-react';
@@ -39,6 +39,35 @@ export default function PropertyPage() {
   };
 
   const property = properties.find(p => p.id === slug);
+
+  const imagesList = useMemo(() => {
+    if (!property) return [];
+    return property.images && property.images.length > 0
+      ? [property.image, ...property.images.filter(img => img !== property.image)]
+      : [property.image];
+  }, [property]);
+
+  const [prevSlug, setPrevSlug] = useState(slug);
+  if (prevSlug !== slug) {
+    setPrevSlug(slug);
+    setCurrentImgIndex(0);
+    setMediaType('photos');
+    setCurrentVideoIndex(0);
+    setIsFullscreen(false);
+  }
+
+  // Predictive preload of next & previous slide for instant 0ms photo swiping
+  useEffect(() => {
+    if (mediaType !== 'photos' || imagesList.length <= 1) return;
+    const nextIdx = (currentImgIndex + 1) % imagesList.length;
+    const prevIdx = (currentImgIndex - 1 + imagesList.length) % imagesList.length;
+    [imagesList[nextIdx], imagesList[prevIdx]].forEach((src) => {
+      if (!src) return;
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = src;
+    });
+  }, [currentImgIndex, mediaType, imagesList]);
 
   // Start property view instantaneously at top without visible scroll
   useLayoutEffect(() => {
@@ -98,10 +127,6 @@ export default function PropertyPage() {
       </div>
     );
   }
-
-  const imagesList = property.images && property.images.length > 0 
-    ? [property.image, ...property.images.filter(img => img !== property.image)] 
-    : [property.image];
 
   const rawVideoUrls: string[] = property.videoUrls && property.videoUrls.length > 0
     ? property.videoUrls

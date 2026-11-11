@@ -79,6 +79,7 @@ export default function Hero() {
         >
           <video
             src={videoSrc}
+            poster="/videos-hero/hero-poster.jpg"
             autoPlay
             loop
             muted
