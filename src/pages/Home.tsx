@@ -1,4 +1,4 @@
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Hero from '../components/Hero';
 import { Property } from '../types';
@@ -12,7 +12,6 @@ import Contact from '../components/Contact';
 
 export default function Home() {
   const navigate = useNavigate();
-  const { isAppLoaded } = useOutletContext<{ isAppLoaded: boolean }>();
 
   const handleOpenProperty = (property: Property) => {
     navigate(`/propiedades/${property.id}`);
@@ -20,7 +19,7 @@ export default function Home() {
 
   return (
     <>
-      <Hero isAppLoaded={isAppLoaded} />
+      <Hero />
       <FeaturedProperties onSelectProperty={handleOpenProperty} />
       <AboutUs />
       <MostWanted onSelectProperty={handleOpenProperty} />

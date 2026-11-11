@@ -1,22 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'motion/react';
 import { Home } from 'lucide-react';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const shouldReduceMotion = useReducedMotion();
 
   const videoSrc = "/videos-hero/Video-Hero-Nuevo.mp4";
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   // Parallax ratios triggered by standard document scrolls
   const { scrollY } = useScroll();

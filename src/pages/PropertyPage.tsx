@@ -26,11 +26,20 @@ function getEmbedVideoUrl(url?: string): string | null {
 export default function PropertyPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const [prevSlug, setPrevSlug] = useState(slug);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [mediaType, setMediaType] = useState<'photos' | 'video'>('photos');
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
+  if (prevSlug !== slug) {
+    setPrevSlug(slug);
+    setCurrentImgIndex(0);
+    setMediaType('photos');
+    setCurrentVideoIndex(0);
+    setIsFullscreen(false);
+  }
 
   const handleTouchStart = (e: React.TouchEvent) => {
     if (mediaType !== 'photos') return;
@@ -38,6 +47,34 @@ export default function PropertyPage() {
   };
 
   const property = properties.find(p => p.id === slug);
+
+  const imagesList = property
+    ? (property.images && property.images.length > 0
+        ? [property.image, ...property.images.filter(img => img !== property.image)]
+        : [property.image])
+    : [];
+
+  // Keyboard navigation (Escape to close fullscreen, Left/Right arrows to browse photos)
+  useEffect(() => {
+    if (mediaType !== 'photos' || imagesList.length <= 1) {
+      if (!isFullscreen) return;
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isFullscreen) {
+        setIsFullscreen(false);
+      } else if (mediaType === 'photos' && imagesList.length > 1) {
+        if (e.key === 'ArrowLeft') {
+          setCurrentImgIndex((prev) => (prev === 0 ? imagesList.length - 1 : prev - 1));
+        } else if (e.key === 'ArrowRight') {
+          setCurrentImgIndex((prev) => (prev === imagesList.length - 1 ? 0 : prev + 1));
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isFullscreen, mediaType, imagesList.length]);
 
   // Dynamic SEO metadata when a property is viewed
   useEffect(() => {
@@ -94,10 +131,6 @@ export default function PropertyPage() {
       </div>
     );
   }
-
-  const imagesList = property.images && property.images.length > 0 
-    ? [property.image, ...property.images.filter(img => img !== property.image)] 
-    : [property.image];
 
   const rawVideoUrls: string[] = property.videoUrls && property.videoUrls.length > 0
     ? property.videoUrls
@@ -188,8 +221,10 @@ export default function PropertyPage() {
                     <iframe
                       key={currentVideoSrc}
                       src={currentVideoSrc}
+                      title={`Video Tour Fullscreen - ${property.title}`}
                       className="w-full h-full border-0 rounded-xl"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
                       allowFullScreen
                     />
                   ) : (
@@ -303,6 +338,7 @@ export default function PropertyPage() {
                       title={`Video Tour - ${property.title}`}
                       className="w-full h-full border-0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
                       allowFullScreen
                     />
                   ) : (
@@ -367,7 +403,7 @@ export default function PropertyPage() {
                       mediaType === 'photos' && currentImgIndex === idx ? 'border-white' : 'border-transparent opacity-60 hover:opacity-100'
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img src={img} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   </button>
                 ))}
                 {hasVideo && videoSources.map((_, idx) => (

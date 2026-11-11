@@ -214,92 +214,6 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
         </section>
 `
   },
-  'prop-la-camella-alquiler': {
-    priceFormatted: '$ 750.000 / mes',
-    renderBody: (prop) => `
-        <!-- SECCIÓN 1: PROPUESTA Y DESCRIPCIÓN DEL INMUEBLE -->
-        <section class="req-card">
-          <div class="req-card-header">
-            <div class="req-card-icon">🏡</div>
-            <h2 class="req-card-title">Propuesta de Alquiler con Destino a Vivienda - 20 de Junio</h2>
-          </div>
-          <div style="color: #e5e5e5; font-size: 14px; margin-bottom: 16px; line-height: 1.7;">
-            <p style="margin-bottom: 12px;"><strong>DESCRIPCIÓN:</strong></p>
-            <p style="color: #d4d4d4; line-height: 1.7;">
-              CASA CON UN LIVING COMEDOR AMPLIO, COCINA CON BAJO MESADA Y ALACENA DE ALGARROBO, MESADA DE MÁRMOL GRANITO. DOS HABITACIONES, UN VESTIDOR AMPLIO, DOS BAÑOS, UN QUINCHO CON PARRILLA, PILETA DE 9X5 MTS APROX, Y 2,20 MTS DE PROFUNDIDAD, ARBOLEDA AÑOSA. MUY BIEN UBICADA. A DOS CUADRAS Y MEDIA DEL ASFALTO.
-            </p>
-          </div>
-          <ul class="req-list" style="margin-top: 16px;">
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>DIRECCIÓN:</strong> CASAFFOUTHS 725, 20 DE JUNIO, LA MATANZA.-</div>
-            </li>
-          </ul>
-        </section>
-
-        <!-- SECCIÓN 2: REQUISITOS -->
-        <section class="req-card">
-          <div class="req-card-header">
-            <div class="req-card-icon">💰</div>
-            <h2 class="req-card-title">Requisitos</h2>
-          </div>
-          <ul class="req-list">
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>MES DE INGRESO:</strong> $750.000</div>
-            </li>
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>MES DE DEPÓSITO DE GARANTÍA:</strong> $750.000</div>
-            </li>
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>MES DE HONORARIOS POR INTERVENCIÓN DEL PROFESIONAL:</strong> $750.000</div>
-            </li>
-          </ul>
-        </section>
-
-        <!-- SECCIÓN 3: GARANTÍAS -->
-        <section class="req-card">
-          <div class="req-card-header">
-            <div class="req-card-icon">🛡️</div>
-            <h2 class="req-card-title">Garantías</h2>
-          </div>
-          <ul class="req-list">
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>GARANTÍA PROPIETARIA (ESCRITURA):</strong> PEDIDO DE INFORMES A CARGO DEL INQUILINO</div>
-            </li>
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>3 RECIBOS DE SUELDOS:</strong> QUE DUPLIQUEN EL VALOR DEL ALQUILER</div>
-            </li>
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>SEGURO DE CAUCIÓN</strong></div>
-            </li>
-          </ul>
-        </section>
-
-        <!-- SECCIÓN 4: CONTRATO Y AJUSTE -->
-        <section class="req-card">
-          <div class="req-card-header">
-            <div class="req-card-icon">📄</div>
-            <h2 class="req-card-title">Condiciones del Contrato</h2>
-          </div>
-          <ul class="req-list">
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>PLAZO:</strong> CONTRATO POR (2) DOS AÑOS.</div>
-            </li>
-            <li class="req-list-item">
-              <div class="req-list-item-bullet"></div>
-              <div><strong>ACTUALIZACIÓN:</strong> AUMENTO CADA 4 MESES CON UN 12 % MÍNIMO REGIDO POR IPC.</div>
-            </li>
-          </ul>
-        </section>
-    `
-  },
 
   'prop-castaneda-235': {
     priceFormatted: '$ 770.000 / mes',
@@ -628,6 +542,15 @@ const CUSTOM_PROPERTY_REQUIREMENTS = {
   }
 };
 
+function escapeHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // Generate the HTML template
 function generatePropertyRequirementsHTML(prop, pdfInfo) {
   const isAlquiler = prop.transactionType === 'alquiler';
@@ -644,6 +567,8 @@ function generatePropertyRequirementsHTML(prop, pdfInfo) {
   }[prop.category] || prop.category;
 
   const displayPrice = customReq && customReq.priceFormatted ? customReq.priceFormatted : prop.price;
+  const safeTitle = escapeHtml(prop.title);
+  const safeLocation = escapeHtml(prop.location);
 
   const whatsappMsg = encodeURIComponent(
     `Hola Ivana Molina Bienes Raíces. Leí los requisitos de la propiedad "${prop.title}" (${prop.location}) y quisiera recibir más información o coordinar una visita.`
@@ -654,8 +579,8 @@ function generatePropertyRequirementsHTML(prop, pdfInfo) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Requisitos de ${isAlquiler ? 'Alquiler' : 'Compra'} – ${prop.title} | Ivana Molina Bienes Raíces</title>
-  <meta name="description" content="Conocé los requisitos y la documentación necesaria para ${isAlquiler ? 'alquilar' : 'comprar'} ${prop.title} en ${prop.location}. Ivana Molina & Asoc. Bienes Raíces (Mat. 1048 CDMDLM).">
+  <title>Requisitos de ${isAlquiler ? 'Alquiler' : 'Compra'} – ${safeTitle} | Ivana Molina Bienes Raíces</title>
+  <meta name="description" content="Conocé los requisitos y la documentación necesaria para ${isAlquiler ? 'alquilar' : 'comprar'} ${safeTitle} en ${safeLocation}. Ivana Molina & Asoc. Bienes Raíces (Mat. 1048 CDMDLM).">
   
   <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1342,7 +1267,7 @@ function generatePropertyRequirementsHTML(prop, pdfInfo) {
             Consultar por WhatsApp
           </a>
 
-          <a href="/?prop=${prop.id}" class="btn-secondary">
+          <a href="/propiedades/${prop.id}" class="btn-secondary">
             Ver Ficha Completa
           </a>
 
@@ -1378,6 +1303,7 @@ function generatePropertyRequirementsHTML(prop, pdfInfo) {
 // Generate all files
 let count = 0;
 let pdfCount = 0;
+const generatedFiles = new Set();
 
 for (const prop of properties) {
   const pdfInfo = findPropertyPDF(prop);
@@ -1390,14 +1316,28 @@ for (const prop of properties) {
   const slug = getSlug(prop);
 
   // Write by slug e.g. /requisitos/cosquin-1120.html
-  const slugPath = path.join(outputDir, `${slug}.html`);
-  fs.writeFileSync(slugPath, html, 'utf-8');
+  const slugFilename = `${slug}.html`;
+  fs.writeFileSync(path.join(outputDir, slugFilename), html, 'utf-8');
+  generatedFiles.add(slugFilename);
 
   // Also write by ID e.g. /requisitos/prop-cosquin-1120.html to guarantee 100% compatibility
-  const idPath = path.join(outputDir, `${prop.id}.html`);
-  fs.writeFileSync(idPath, html, 'utf-8');
+  const idFilename = `${prop.id}.html`;
+  fs.writeFileSync(path.join(outputDir, idFilename), html, 'utf-8');
+  generatedFiles.add(idFilename);
 
   count++;
+}
+
+// Remove stale .html files from properties that were deleted
+let removedCount = 0;
+for (const file of fs.readdirSync(outputDir)) {
+  if (file.endsWith('.html') && !generatedFiles.has(file)) {
+    fs.unlinkSync(path.join(outputDir, file));
+    removedCount++;
+  }
+}
+if (removedCount > 0) {
+  console.log(`🧹 ${removedCount} fichas HTML obsoletas eliminadas automáticamente.`);
 }
 
 console.log(`\n======================================================`);

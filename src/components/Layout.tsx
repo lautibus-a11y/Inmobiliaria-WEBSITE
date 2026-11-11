@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, Shield } from 'lucide-react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 
 import Footer from './Footer';
-import Chatbot from './Chatbot/Chatbot';
 import CinematicReveal from './CinematicReveal';
+
+const Chatbot = lazy(() => import('./Chatbot/Chatbot'));
 
 const navLinks = [
   { label: 'Destacadas', href: '/#propiedades-destacadas' },
@@ -211,11 +212,13 @@ export default function Layout() {
       </AnimatePresence>
 
       <main className="flex-1 flex flex-col w-full">
-        <Outlet context={{ isAppLoaded }} />
+        <Outlet />
       </main>
 
       <Footer />
-      <Chatbot />
+      <Suspense fallback={null}>
+        <Chatbot />
+      </Suspense>
       
       <AnimatePresence>
         {isAppLoaded && (

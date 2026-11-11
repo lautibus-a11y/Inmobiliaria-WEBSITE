@@ -1,7 +1,9 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
-import PropertyPage from './pages/PropertyPage';
+
+const PropertyPage = lazy(() => import('./pages/PropertyPage'));
 
 export default function App() {
   return (
@@ -9,7 +11,20 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="propiedades/:slug" element={<PropertyPage />} />
+          <Route
+            path="propiedades/:slug"
+            element={
+              <Suspense
+                fallback={
+                  <div className="min-h-screen flex items-center justify-center bg-[#030303] text-white/60 text-xs font-mono tracking-widest uppercase">
+                    Cargando propiedad...
+                  </div>
+                }
+              >
+                <PropertyPage />
+              </Suspense>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

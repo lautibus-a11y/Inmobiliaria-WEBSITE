@@ -18,10 +18,11 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
     // On mobile: shorter total duration
     const duration = isMobileRef ? 2000 : 3000;
     const exitDuration = isMobileRef ? 700 : 1100;
+    let exitTimer: ReturnType<typeof setTimeout> | undefined;
 
     const timer = setTimeout(() => {
       setIsExiting(true);
-      setTimeout(() => {
+      exitTimer = setTimeout(() => {
         document.body.style.overflow = '';
         onComplete();
       }, exitDuration);
@@ -29,6 +30,7 @@ export default function CinematicReveal({ onComplete }: CinematicRevealProps) {
 
     return () => {
       clearTimeout(timer);
+      if (exitTimer) clearTimeout(exitTimer);
       document.body.style.overflow = '';
     };
   // isMobileRef is a sync primitive computed at render time, not a reactive value
