@@ -32,12 +32,9 @@ export default function AboutUs() {
   const [mobileTitleRef, mobileTitleVisible] = useOnScreen('0px 0px -30px 0px');
   const [serviciosRef, serviciosVisible] = useOnScreen('0px 0px -20px 0px');
 
-  // Parallax effects for the double-stacked images
-  const imgY1 = useTransform(scrollYProgress, [0, 1], [0, -40]);
-  const imgY2 = useTransform(scrollYProgress, [0, 1], [0, 50]);
-
-  const imgY1Value = isMobile || shouldReduceMotion ? 0 : imgY1;
-  const imgY2Value = isMobile || shouldReduceMotion ? 0 : imgY2;
+  // Parallax effect for the image
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const imgYValue = isMobile || shouldReduceMotion ? 0 : imgY;
 
   // Let's create an Animated Title: "SOBRE NOSOTROS"
   const titleText = "SOBRE NOSOTROS";
@@ -96,47 +93,23 @@ export default function AboutUs() {
       {/* 2. DOUBLE-STACKED IMAGES SCROLL REVEAL & DESCRIPTIVE TEXT */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-24">
         
-        {/* Left Side: Layout with Two stacked images */}
-        <div className="lg:col-span-6 relative h-[320px] sm:h-[450px] md:h-[550px] flex items-center justify-center">
-          
-          <motion.div
-            style={{ y: imgY1Value }}
-            className="absolute left-4 top-4 w-[75%] h-[85%] rounded-3xl bg-white/5 border-t-2 border-l-2 border-white/15 backdrop-blur-md -translate-x-3 -translate-y-3 pointer-events-none z-0"
-          />
+        {/* Left Side: Single framed image */}
+        <div className="lg:col-span-6 relative h-[320px] sm:h-[420px] md:h-[480px] flex items-center justify-center">
+          {/* Subtle glass accent backdrop */}
+          <div className="absolute inset-0 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md -translate-x-2 -translate-y-2 pointer-events-none z-0" />
 
-          {/* Back main overlapping image with glass borders */}
+          {/* Main single image */}
           <motion.div
-            style={{ y: imgY1Value }}
-            className="absolute left-4 top-4 w-[75%] h-[85%] rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-neutral-900 z-10"
+            style={{ y: imgYValue }}
+            className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-neutral-900 z-10"
           >
-            <div className="absolute inset-0 bg-black/10 z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 z-10 pointer-events-none" />
             <img
-              src="/sobre-nosotros/seccion-sobre-nosotros.jpg"
+              src="/sobre-nosotros/sobre-nosotros.jpeg"
               alt="Sobre nosotros - Ivana Molina Bienes Raíces"
               loading="lazy"
               decoding="async"
-              className="w-full h-full object-cover filter brightness-[0.7] saturate-[0.85]"
-            />
-          </motion.div>
-
-          {/* Glassmorphic neutral semi-frame for Front image */}
-          <motion.div
-            style={{ y: imgY2Value }}
-            className="absolute right-4 bottom-4 w-[55%] h-[60%] rounded-3xl bg-white/5 border-b-2 border-r-2 border-white/15 backdrop-blur-md translate-x-3 translate-y-3 pointer-events-none z-20"
-          />
-
-          {/* Front overlapping secondary image with larger glass borders and shadow */}
-          <motion.div
-            style={{ y: imgY2Value }}
-            className="absolute right-4 bottom-4 w-[55%] h-[60%] rounded-3xl overflow-hidden bg-neutral-900/60 border border-white/10 shadow-2xl z-30 backdrop-blur-md"
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent z-10" />
-            <img
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80"
-              alt="Mansion Design Architecture Close-up"
-              referrerPolicy="no-referrer-when-downgrade"
-              loading="lazy"
-              className="w-full h-full object-cover filter brightness-[0.85]"
+              className="w-full h-full object-cover filter brightness-[0.9] contrast-[1.02]"
             />
           </motion.div>
         </div>
