@@ -668,31 +668,7 @@ export const properties: Property[] = [
     isFeatured: true,
     isMostWanted: true,
   },
-  {
-    id: 'prop-6',
-    transactionType: 'venta',
-    title: 'Juan Casacuberta',
-    subtitle: 'Terrenos en Venta (Lotes 18 y 19) – 546 m² c/u',
-    price: 'USD 29.000',
-    priceNumeric: 29000,
-    location: '20 de Junio, La Matanza',
-    streets: 'Juan Casacuberta, entre Cóndor y Corona',
-    mercadoLibreLink: 'https://terreno.mercadolibre.com.ar/MLA-2704874184-terrenos-en-venta-546-metros-20-de-junio--_JM',
-    category: 'terrenos',
-    image: '/venta/terrenos/Terreno_Venta_JuanCasacuberta_20DeJunio_LaMatanza/PORTADA-1.webp',
-    images: [
-      '/venta/terrenos/Terreno_Venta_JuanCasacuberta_20DeJunio_LaMatanza/PORTADA-1.webp',
-      '/venta/terrenos/Terreno_Venta_JuanCasacuberta_20DeJunio_LaMatanza/foto-2.webp'
-    ],
-    description: 'Terrenos en Venta – Juan Casacuberta, 20 de Junio\nUbicación: Calle Juan Casacuberta, entre Cóndor y Corona, localidad de 20 de Junio, La Matanza.\n\nExcelente oportunidad de adquisición de lotes individuales o en conjunto. Se trata de dos terrenos contiguos (Lotes 18 y 19) parquizados, con una hermosa arboleda natural y listos para construir.\n\nCaracterísticas y dimensiones (cada lote):\n• Frente: 13 metros\n• Fondo: 42 metros\n• Superficie total: 546 m² por lote\n\nUbicación y entorno:\n• A solo 2 cuadras y media del asfalto.\n• Ubicados frente al campo, en una zona sumamente tranquila y rodeada de naturaleza.\n• Excelente entorno con gran potencial de desarrollo y crecimiento.\n\nInformación comercial:\n• Los lotes se venden por separado.\n• El valor publicado es individual (por cada uno).\n• Se escuchan ofertas por la compra de ambos lotes juntos.\n\nIVANA MOLINA & ASOC. BIENES RAÍCES\nMAT 1048 – CDMDLM',
-    beds: 0,
-    baths: 0,
-    area: '546 m² c/u',
-    features: ['Frente al campo', 'Lotes de 546 m²', 'A 250m del asfalto', 'Parquizado con arboleda'],
-    coordinates: { x: 48, y: 58 },
-    isFeatured: false,
-    isMostWanted: true,
-  },
+
   {
     id: 'prop-7',
     transactionType: 'venta',
